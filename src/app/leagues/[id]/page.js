@@ -222,19 +222,13 @@ export default function LeaguePage() {
 
                     <div className={styles.leagueContent}>
 
-                        {/* Navegação de Abas */}
+                        {/* Navegação de Abas - REMOVIDO CALENDÁRIO */}
                         <div className={styles.tabs}>
                             <button
                                 className={`${styles.tab} ${activeTab === 'overview' ? styles.active : ''}`}
                                 onClick={() => setActiveTab('overview')}
                             >
                                 <FaListAlt /> Visão Geral
-                            </button>
-                            <button
-                                className={`${styles.tab} ${activeTab === 'calendar' ? styles.active : ''}`}
-                                onClick={() => setActiveTab('calendar')}
-                            >
-                                <FaCalendarAlt /> Calendário
                             </button>
                         </div>
 
@@ -258,43 +252,7 @@ export default function LeaguePage() {
                                                 <div className={styles.emptyState}>Nenhum jogo nas próximas 48h.</div>
                                             )}
                                         </div>
-
-                                        <button className={styles.viewMoreBtn} onClick={() => setActiveTab('calendar')}>
-                                            Ver Calendário Completo
-                                        </button>
                                     </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* ABA: CALENDÁRIO (Date Picker + Lista de Jogos) */}
-                        {activeTab === 'calendar' && (
-                            <div className={styles.calendarWrapper}>
-                                <DatePicker selectedDate={selectedDate} onSelectDate={setSelectedDate} />
-
-                                <div className={styles.calendarResults}>
-                                    {loadingCalendar ? (
-                                        <div className={styles.miniLoader}>
-                                            <FaSpinner className={styles.spinner} />
-                                            <span>Buscando jogos...</span>
-                                        </div>
-                                    ) : (
-                                        <>
-                                            <h3 className={styles.dateTitle}>
-                                                Jogos de {new Date(selectedDate).toLocaleDateString('pt-BR', { dateStyle: 'long' })}
-                                            </h3>
-
-                                            {calendarMatches.length > 0 ? (
-                                                <div className={styles.matchesGrid}>
-                                                    {calendarMatches.map(m => <MatchRow key={m.id} match={m} />)}
-                                                </div>
-                                            ) : (
-                                                <div className={styles.emptyCalendar}>
-                                                    Nenhum jogo encontrado para esta data nesta liga.
-                                                </div>
-                                            )}
-                                        </>
-                                    )}
                                 </div>
                             </div>
                         )}

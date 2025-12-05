@@ -48,8 +48,15 @@
   transition: all 0.2s;
   border-bottom: 3px solid transparent;
 }
-.tab:hover { color: #fff; }
-.tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+
+.tab:hover {
+  color: #fff;
+}
+
+.tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
 
 /* LAYOUT GRID (VISÃO GERAL) */
 .grid {
@@ -58,7 +65,12 @@
   gap: 2rem;
   align-items: start;
 }
-@media (max-width: 1024px) { .grid { grid-template-columns: 1fr; } }
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* SIDEBAR 48H */
 .upcomingContainer {
@@ -67,6 +79,7 @@
   border-radius: 12px;
   padding: 1.5rem;
 }
+
 .sectionTitle {
   font-family: 'Rajdhani', sans-serif;
   font-size: 1.2rem;
@@ -79,111 +92,158 @@
   align-items: center;
   gap: 8px;
 }
-.fixturesList { display: flex; flex-direction: column; gap: 0.8rem; }
-.emptyState { color: var(--color-text-secondary); font-style: italic; font-size: 0.9rem; padding: 1rem 0; }
-.viewMoreBtn {
-    width: 100%;
-    margin-top: 1rem;
-    padding: 0.8rem;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.2s;
+
+.fixturesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
-.viewMoreBtn:hover { background: var(--color-primary-dim); color: #fff; border-color: var(--color-primary); }
+
+.emptyState {
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}
+
+.viewMoreBtn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.viewMoreBtn:hover {
+  background: var(--color-primary-dim);
+  color: #fff;
+  border-color: var(--color-primary);
+}
 
 /* CALENDAR TAB STYLES */
 .calendarWrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .datePickerWrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-    background: var(--color-bg-secondary);
-    padding: 1rem;
-    border-radius: 12px;
-    border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  background: var(--color-bg-secondary);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
 }
 
 .dateSlider {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 5px;
-    flex: 1;
-    scrollbar-width: none;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+  flex: 1;
+  scrollbar-width: none;
 }
-.dateSlider::-webkit-scrollbar { display: none; }
+
+.dateSlider::-webkit-scrollbar {
+  display: none;
+}
 
 .dateCard {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    min-width: 75px;
-    padding: 10px 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  min-width: 75px;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--color-text-secondary);
 }
-.dateCard:hover { background: rgba(255,255,255,0.1); }
+
+.dateCard:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .dateCardActive {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: #000 !important;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #000 !important;
 }
-.dateCardToday { border-color: var(--color-primary); }
-.dateWeekday { font-size: 0.7rem; text-transform: uppercase; }
-.dateNumber { font-weight: 700; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; white-space: nowrap; }
+
+.dateCardToday {
+  border-color: var(--color-primary);
+}
+
+.dateWeekday {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.dateNumber {
+  font-weight: 700;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
 
 .scrollBtn {
-    background: none;
-    border: 1px solid var(--color-border);
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: none;
+  border: 1px solid var(--color-border);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.scrollBtn:hover { background: var(--color-primary); color: #000; }
+
+.scrollBtn:hover {
+  background: var(--color-primary);
+  color: #000;
+}
 
 .calendarResults {
-    min-height: 200px;
+  min-height: 200px;
 }
+
 .dateTitle {
-    font-size: 1.1rem;
-    color: #fff;
-    margin-bottom: 1rem;
-    text-transform: capitalize;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
 }
+
 .matchesGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
 }
+
 .emptyCalendar {
-    padding: 2rem;
-    text-align: center;
-    color: var(--color-text-secondary);
-    background: rgba(255,255,255,0.02);
-    border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
 }
 
 /* MATCH ROW */
-.matchLink { text-decoration: none; }
+.matchLink {
+  text-decoration: none;
+}
+
 .matchRow {
   background-color: var(--color-bg-tertiary);
   border: 1px solid var(--color-border);
@@ -194,30 +254,118 @@
   gap: 1rem;
   transition: all 0.2s ease;
 }
+
 .matchRow:hover {
   transform: translateY(-2px);
   border-color: var(--color-primary-dim);
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
+
 .matchTimeBox {
-    min-width: 50px;
-    text-align: center;
-    border-right: 1px solid rgba(255,255,255,0.05);
-    padding-right: 10px;
+  min-width: 50px;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding-right: 10px;
 }
-.timeText { font-size: 0.9rem; color: #fff; font-weight: 700; font-family: 'Rajdhani', sans-serif; }
-.scoreboard { display: flex; align-items: center; justify-content: space-between; flex: 1; gap: 5px; }
-.teamBox { display: flex; align-items: center; gap: 8px; width: 40%; }
-.teamHome { justify-content: flex-end; text-align: right; }
-.teamAway { justify-content: flex-start; text-align: left; }
-.teamName { font-size: 0.85rem; color: #fff; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.teamLogo { width: 24px; height: 24px; object-fit: contain; }
-.logoPlaceholder { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.1); }
-.vsBox { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; }
-.vsText { font-size: 0.7rem; color: var(--color-text-muted); font-weight: 700; white-space: nowrap; }
+
+.timeText {
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  gap: 5px;
+}
+
+.teamBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 40%;
+}
+
+.teamHome {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.teamAway {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.teamName {
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.teamLogo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.logoPlaceholder {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.vsBox {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.vsText {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
 
 /* LOADING */
-.loadingWrapper { height: 100vh; display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); gap: 1rem; }
-.miniLoader { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 2rem; color: var(--color-text-secondary); }
-.spinner { font-size: 2rem; color: var(--color-primary); animation: spin 1s linear infinite; }
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@media (max-width: 768px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .leagueContent {
+    padding: 1rem;
+    padding-bottom: 100px;
+    /* Space for BottomNav */
+  }
+
+  .tabs {
+    overflow-x: auto;
+    padding-bottom: 5px;
+    margin-bottom: 1.5rem;
+  }
+
+  .tab {
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+
+  .mainCol,
+  .sideCol {
+    width: 100%;
+  }
+
+  .upcomingContainer {
+    padding: 1rem;
+  }
+}
