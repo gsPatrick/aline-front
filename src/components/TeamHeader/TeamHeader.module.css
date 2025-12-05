@@ -92,7 +92,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
   }
 
   .content {
@@ -100,7 +100,14 @@
     gap: 1rem;
   }
 
+  .logoWrapper {
+    width: 80px;
+    height: 80px;
+  }
+
   .name {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    word-break: break-word;
+    /* Prevent overflow for long names */
   }
 }

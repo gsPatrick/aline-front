@@ -21,6 +21,7 @@
     "/team/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
+      "static/css/app/team/[id]/page.css",
       "static/chunks/app/team/[id]/page.js"
     ],
     "/match/[id]/page": [

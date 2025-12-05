@@ -41,8 +41,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* TABS */
@@ -70,7 +75,9 @@
   border-bottom: 3px solid transparent;
 }
 
-.tab:hover { color: #fff; }
+.tab:hover {
+  color: #fff;
+}
 
 .tab.active {
   color: var(--color-primary);
@@ -86,7 +93,9 @@
 }
 
 @media (max-width: 1024px) {
-  .matchesGrid { grid-template-columns: 1fr; }
+  .matchesGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .listBox {
@@ -143,11 +152,15 @@
 }
 
 /* MATCH ROW STYLES (Updated for Grouping) */
-.matchLink { text-decoration: none; display: block; }
+.matchLink {
+  text-decoration: none;
+  display: block;
+}
 
 .matchRow {
   display: grid;
-  grid-template-columns: 60px 1fr; /* Date | Teams+Score */
+  grid-template-columns: 60px 1fr;
+  /* Date | Teams+Score */
   align-items: center;
   padding: 0.8rem 1rem;
   transition: all 0.2s;
@@ -164,17 +177,28 @@
 }
 
 /* Status Indicators */
-.resultWin { border-left-color: #00ff6a; }
-.resultDraw { border-left-color: #fbff00; }
-.resultLoss { border-left-color: #ff004c; }
-.resultNeutral { border-left-color: var(--color-border); }
+.resultWin {
+  border-left-color: #00ff6a;
+}
+
+.resultDraw {
+  border-left-color: #fbff00;
+}
+
+.resultLoss {
+  border-left-color: #ff004c;
+}
+
+.resultNeutral {
+  border-left-color: var(--color-border);
+}
 
 .matchMeta {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid rgba(255,255,255,0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
   padding-right: 0.8rem;
   margin-right: 0.8rem;
 }
@@ -205,8 +229,15 @@
   width: 40%;
 }
 
-.teamHome { justify-content: flex-end; text-align: right; }
-.teamAway { justify-content: flex-start; text-align: left; }
+.teamHome {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.teamAway {
+  justify-content: flex-start;
+  text-align: left;
+}
 
 .teamName {
   font-size: 0.9rem;
@@ -225,10 +256,10 @@
 }
 
 .logoPlaceholder {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .scoreBox {
@@ -236,7 +267,7 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   padding: 4px 8px;
   border-radius: 6px;
   min-width: 55px;
@@ -249,11 +280,14 @@
   color: #fff;
 }
 
-.vs { color: var(--color-text-muted); font-size: 0.8rem; }
+.vs {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
 
 /* League Info (Hidden inside row because it's now in the header) */
 .leagueInfo {
-  display: none; 
+  display: none;
 }
 
 /* PAGINATION */
@@ -299,16 +333,54 @@
 }
 
 .emptyText {
-    color: var(--color-text-secondary);
-    font-style: italic;
+  color: var(--color-text-secondary);
+  font-style: italic;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .contentContainer {
+    padding: 1rem;
+    padding-bottom: 100px;
+    /* Space for BottomNav */
+  }
+
+  .matchesGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Mobile Tabs (Horizontal Scroll) */
+  .tabs {
+    overflow-x: auto;
+    padding-bottom: 5px;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Hide scrollbar for cleaner look, or use thin if preferred */
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    white-space: nowrap;
+    font-size: 0.9rem;
+    padding: 0.8rem 0;
+    flex-shrink: 0;
+  }
+
+  /* Mobile Match Row */
   .matchRow {
     grid-template-columns: 1fr;
-    gap: 8px;
+    /* Stack vertically */
+    gap: 10px;
+    padding: 1rem;
     text-align: center;
   }
+
   .matchMeta {
     border: none;
     padding: 0;
@@ -317,7 +389,52 @@
     gap: 10px;
     justify-content: center;
     margin-bottom: 5px;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
   }
-  .scoreboard { width: 100%; justify-content: space-between; }
-  .teamName { display: none; } /* Mobile: Show only logos and score */
+
+  .scoreboard {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .teamBox {
+    width: 35%;
+    /* Ensure space for teams */
+    flex-direction: column;
+    /* Stack logo and name */
+    gap: 5px;
+    text-align: center;
+  }
+
+  .teamHome {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .teamAway {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .teamName {
+    display: block;
+    /* Show name on mobile */
+    font-size: 0.7rem;
+    max-width: 100%;
+    white-space: normal;
+    /* Allow wrapping if needed */
+    line-height: 1.1;
+  }
+
+  .teamLogo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .scoreBox {
+    min-width: 50px;
+  }
 }
