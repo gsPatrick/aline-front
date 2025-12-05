@@ -1,0 +1,47 @@
+/* components/RecentMeetings/RecentMeetings.module.css */
+.container {
+  background-color: rgb(var(--card-background-rgb));
+  border: 1px solid rgb(var(--border-color-rgb));
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.meetingList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.meetingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: rgb(var(--background-rgb));
+}
+
+.date {
+  font-weight: 500;
+  color: rgb(var(--text-secondary-rgb));
+  flex-basis: 120px;
+}
+
+.teams {
+  flex-grow: 1;
+  text-align: center;
+  font-weight: 500;
+}
+
+.score {
+  font-weight: 700;
+  font-size: 1.125rem;
+  flex-basis: 80px;
+  text-align: right;
+}

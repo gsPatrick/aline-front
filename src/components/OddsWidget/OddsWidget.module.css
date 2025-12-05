@@ -1,0 +1,68 @@
+.container {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.containerLocked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  opacity: 0.3;
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+}
+
+.oddBox {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 6px 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 45px;
+  overflow: hidden;
+}
+
+.oddBox:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-primary-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+.value {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-primary);
+  z-index: 2;
+}
+
+/* Barra de probabilidade sutil ao fundo */
+.probBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 255, 106, 0.1), transparent);
+  z-index: 1;
+  opacity: 0.5;
+}

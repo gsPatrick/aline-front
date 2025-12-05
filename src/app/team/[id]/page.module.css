@@ -1,0 +1,323 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg-main);
+}
+
+.layout {
+  display: flex;
+  flex: 1;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.contentContainer {
+  padding: 2rem;
+}
+
+.loading {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-main);
+}
+
+.spinner {
+  font-size: 3rem;
+  color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 1rem 0;
+  color: var(--color-text-secondary);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+}
+
+.tab:hover { color: #fff; }
+
+.tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* MATCHES GRID */
+.matchesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .matchesGrid { grid-template-columns: 1fr; }
+}
+
+.listBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.colTitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  color: var(--color-text-main);
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-primary-dim);
+}
+
+/* GROUPING BY LEAGUE */
+.leagueGroup {
+  margin-bottom: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.leagueHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.8rem 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.groupLeagueIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.groupLeagueName {
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.groupMatches {
+  display: flex;
+  flex-direction: column;
+}
+
+/* MATCH ROW STYLES (Updated for Grouping) */
+.matchLink { text-decoration: none; display: block; }
+
+.matchRow {
+  display: grid;
+  grid-template-columns: 60px 1fr; /* Date | Teams+Score */
+  align-items: center;
+  padding: 0.8rem 1rem;
+  transition: all 0.2s;
+  border-bottom: 1px solid var(--color-border);
+  border-left: 4px solid transparent;
+}
+
+.groupMatches .matchLink:last-child .matchRow {
+  border-bottom: none;
+}
+
+.matchRow:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Status Indicators */
+.resultWin { border-left-color: #00ff6a; }
+.resultDraw { border-left-color: #fbff00; }
+.resultLoss { border-left-color: #ff004c; }
+.resultNeutral { border-left-color: var(--color-border); }
+
+.matchMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  padding-right: 0.8rem;
+  margin-right: 0.8rem;
+}
+
+.date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.time {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+/* Scoreboard Center */
+.scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.teamBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 40%;
+}
+
+.teamHome { justify-content: flex-end; text-align: right; }
+.teamAway { justify-content: flex-start; text-align: left; }
+
+.teamName {
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.teamLogo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.logoPlaceholder {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+}
+
+.scoreBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: rgba(0,0,0,0.3);
+  padding: 4px 8px;
+  border-radius: 6px;
+  min-width: 55px;
+}
+
+.scoreValue {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.vs { color: var(--color-text-muted); font-size: 0.8rem; }
+
+/* League Info (Hidden inside row because it's now in the header) */
+.leagueInfo {
+  display: none; 
+}
+
+/* PAGINATION */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.pageBtn {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: #000;
+  border-color: var(--color-primary);
+}
+
+.pageBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.emptyText {
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .matchRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: center;
+  }
+  .matchMeta {
+    border: none;
+    padding: 0;
+    margin: 0;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+  .scoreboard { width: 100%; justify-content: space-between; }
+  .teamName { display: none; } /* Mobile: Show only logos and score */
+}

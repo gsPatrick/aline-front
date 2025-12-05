@@ -1,0 +1,10 @@
+/* app/jogos/page.module.css */
+.pageLayout {
+display: grid;
+grid-template-columns: 280px 1fr; /* Coluna fixa para sidebar, resto flexível */
+max-width: 1600px;
+margin: 0 auto;
+}
+.mainContent {
+width: 100%;
+}

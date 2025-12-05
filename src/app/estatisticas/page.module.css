@@ -1,0 +1,38 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.contentLayout {
+  display: flex;
+  flex: 1;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  overflow-x: hidden;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 300px 1fr; /* Largura fixa para filtros */
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: 1fr; /* Empilha em telas menores */
+  }
+  
+  .leftColumn {
+    position: relative; /* Remove sticky no mobile/tablet */
+    top: 0;
+  }
+}

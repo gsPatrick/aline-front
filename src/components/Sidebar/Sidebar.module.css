@@ -1,0 +1,311 @@
+.sidebar {
+  width: 280px;
+  height: calc(100vh - 70px);
+  /* Altura menos header */
+  position: sticky;
+  top: 70px;
+  background: rgba(11, 14, 20, 0.6);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+}
+
+.scrollContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem 1rem;
+}
+
+/* Custom Scrollbar */
+.scrollContainer::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem 0.8rem 0.5rem;
+  cursor: pointer;
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+
+.sectionHeader:hover {
+  color: #ffffff;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.fireIcon {
+  color: #ff9100;
+  filter: drop-shadow(0 0 5px rgba(255, 145, 0, 0.6));
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  background-color: #ff3333;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ff3333;
+  animation: pulseRed 1.5s infinite;
+}
+
+.toggleIcon {
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+.leagueList {
+  list-style: none;
+  overflow: hidden;
+}
+
+.leagueItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 2px;
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.leagueItem:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+}
+
+.leagueItem.active {
+  background: rgba(0, 255, 106, 0.05);
+  color: #00ff6a;
+  font-weight: 600;
+}
+
+.leagueItem.active .flagPlaceholder {
+  border-color: #00ff6a;
+  box-shadow: 0 0 5px rgba(0, 255, 106, 0.4);
+}
+
+.leagueInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.flagPlaceholder {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 106, 0.1), transparent);
+  transition: border-color 0.3s;
+}
+
+.matchCount {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.activeGlow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #00ff6a;
+  box-shadow: 2px 0 10px rgba(0, 255, 106, 0.4);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Pro Card */
+.proCard {
+  margin-top: 2rem;
+  position: relative;
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1219 100%);
+  border: 1px solid rgba(0, 255, 106, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.proContent {
+  position: relative;
+  z-index: 2;
+}
+
+.proContent h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  color: #fff;
+}
+
+.textGreen {
+  color: #00ff6a;
+}
+
+.proContent p {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.proContent button {
+  width: 100%;
+  background: rgba(0, 255, 106, 0.1);
+  border: 1px solid #00ff6a;
+  color: #00ff6a;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.proContent button:hover {
+  background: #00ff6a;
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 255, 106, 0.4);
+}
+
+.proBg {
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 100px;
+  height: 100px;
+  background: #00ff6a;
+  filter: blur(50px);
+  opacity: 0.15;
+  z-index: 1;
+}
+
+@keyframes pulseRed {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 4px rgba(255, 51, 51, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 51, 51, 0);
+  }
+}
+
+.flagIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.footerLogo {
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.loadingItem {
+  padding: 1rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.loadMoreContainer {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.loadMoreBtn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.loadMoreBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(28, 57, 249, 0.1);
+}
+
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pageBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: var(--color-text-secondary);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.pageBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-family: 'Rajdhani', sans-serif;
+}

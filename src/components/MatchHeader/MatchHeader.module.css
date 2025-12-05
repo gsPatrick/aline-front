@@ -1,0 +1,196 @@
+.headerContainer {
+  position: relative;
+  width: 100%;
+  padding: 2.5rem 2rem;
+  background: linear-gradient(180deg, rgba(19,23,32,1) 0%, rgba(11,14,20,0) 100%);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bgGlow {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 255, 106, 0.08) 0%, transparent 70%);
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.metaInfo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 10px;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+
+.separator {
+  color: var(--color-primary);
+}
+
+.scoreboard {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  width: 100%;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 200px;
+}
+
+.logoPlaceholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #2d3748, #1a202c);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.teamName {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.scoreCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scoreDisplay {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  line-height: 1;
+}
+
+.goals {
+  min-width: 50px;
+  text-align: center;
+}
+
+.colon {
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+.timerBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 255, 106, 0.1);
+  border: 1px solid rgba(0, 255, 106, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-success);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--color-success);
+  animation: pulse 1.5s infinite;
+}
+
+.time {
+  color: var(--color-success);
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .scoreboard {
+    gap: 1rem;
+  }
+  .team {
+    width: auto;
+  }
+  .teamName {
+    display: none;
+  }
+  .scoreDisplay {
+    font-size: 2.5rem;
+  }
+  .logoPlaceholder {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.teamLogo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+}
+.logoText {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.team {
+  /* ... estilos anteriores ... */
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.team:hover {
+  transform: scale(1.05);
+}
+
+.team:hover .teamName {
+  color: var(--color-primary);
+}
+
+.leagueLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.leagueLink:hover {
+  text-decoration: underline;
+  color: var(--color-primary);
+}

@@ -1,0 +1,46 @@
+.tabsContainer {
+  background-color: rgba(19, 23, 32, 0.5);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 2rem;
+  backdrop-filter: blur(5px);
+}
+
+.tabsList {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.tabButton {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 1rem 0.5rem;
+  color: var(--color-text-secondary);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.tabButton:hover {
+  color: var(--color-text-main);
+}
+
+.active {
+  color: var(--color-primary);
+  text-shadow: 0 0 10px rgba(0, 255, 106, 0.3);
+}
+
+.underline {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  box-shadow: 0 -2px 8px var(--color-primary);
+}

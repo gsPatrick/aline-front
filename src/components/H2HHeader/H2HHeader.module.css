@@ -1,0 +1,34 @@
+/* components/H2HHeader/H2HHeader.module.css */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: rgb(var(--card-background-rgb));
+  border-bottom: 1px solid rgb(var(--border-color-rgb));
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logoPlaceholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgb(var(--border-color-rgb));
+}
+
+.teamName {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.separator {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgb(var(--text-secondary-rgb));
+}

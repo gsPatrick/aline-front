@@ -1,0 +1,510 @@
+/* src/components/GamesList/GamesList.module.css */
+
+/* --- CONTAINER PRINCIPAL --- */
+.gamesContainer {
+    padding: 2rem;
+    width: 100%;
+    max-width: 1400px;
+    /* Um pouco mais largo para acomodar as odds */
+    margin: 0 auto;
+}
+
+/* --- GRUPO DE LIGAS (CARD) --- */
+.leagueGroup {
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.3s ease;
+}
+
+.leagueGroup:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- CABEÇALHO DA LIGA --- */
+.leagueHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    /* Fundo Preto com Gradiente Azul Sutil */
+    background: linear-gradient(90deg, #000000 0%, rgba(28, 57, 249, 0.15) 100%);
+    border-bottom: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+}
+
+.leagueHeader:hover {
+    background: linear-gradient(90deg, #000000 0%, rgba(28, 57, 249, 0.25) 100%);
+    border-left: 4px solid var(--color-primary);
+}
+
+.leagueInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.leagueFlagImg {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 2px;
+}
+
+.leaguePlaceholderIcon {
+    font-size: 1.5rem;
+}
+
+.leagueTexts {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.leagueName {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    /* Texto Branco */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.countryName {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.chevron {
+    color: var(--color-text-secondary);
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.open {
+    transform: rotate(180deg);
+}
+
+/* --- LISTA DE JOGOS (Área Expansível) --- */
+.gameList {
+    background-color: var(--color-bg-secondary);
+    overflow: hidden;
+}
+
+/* --- LINHA DO JOGO (GRID) --- */
+.gameRow {
+    display: grid;
+    /* Colunas: Tempo | Times | Stats (Pressão) | Odds | Botão */
+    grid-template-columns: 80px 3fr 1.5fr 2fr 60px;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: background 0.2s ease;
+    gap: 1rem;
+}
+
+.gameRow:last-child {
+    border-bottom: none;
+}
+
+.gameRow:hover {
+    background-color: rgba(28, 57, 249, 0.05);
+    /* Hover Azulado bem leve */
+}
+
+/* 1. Coluna Tempo */
+.timeCol {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.scheduledTime {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    font-weight: 600;
+}
+
+.livePill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-success);
+    /* Verde para Live */
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    background: rgba(0, 255, 106, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 106, 0.2);
+    text-shadow: 0 0 8px rgba(0, 255, 106, 0.4);
+}
+
+.liveDot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-success);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-success);
+    animation: pulseGreen 1.5s infinite;
+}
+
+/* 2. Coluna Partida (Times e Placar) */
+.matchCol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.teamRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 1rem;
+}
+
+.teamLink {
+    text-decoration: none;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.teamInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.2s;
+}
+
+.teamLink:hover .teamInfo {
+    opacity: 0.8;
+}
+
+.teamLogoSmall {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.logoPlaceholderSmall {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    font-weight: 700;
+}
+
+.teamName {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    /* Texto Branco */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.scoreValue {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    width: 30px;
+    text-align: right;
+}
+
+.scoreLive {
+    color: var(--color-success);
+    /* Placar Verde se ao vivo */
+    text-shadow: 0 0 10px rgba(0, 255, 106, 0.3);
+}
+
+/* 3. Coluna Estatísticas (Barra de Pressão) */
+.statsCol {
+    padding: 0 1rem;
+}
+
+.pressureWidget {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pressureLabel {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.pressureBarBg {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.pressureFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-success), #00bfff);
+    box-shadow: 0 0 10px rgba(0, 255, 106, 0.3);
+    border-radius: 3px;
+    transition: width 0.5s ease-out;
+}
+
+/* 4. Coluna Odds (Container para o Widget) */
+.oddsCol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* 5. Coluna Ações */
+.actionsCol {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.actionBtn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.actionBtn:hover {
+    color: #ffffff;
+    border-color: var(--color-primary);
+    background-color: rgba(28, 57, 249, 0.1);
+    box-shadow: 0 0 10px rgba(28, 57, 249, 0.1);
+}
+
+/* --- ANIMAÇÕES --- */
+@keyframes pulseBlue {
+    0% {
+        box-shadow: 0 0 0 0 rgba(28, 57, 249, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 4px rgba(28, 57, 249, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(28, 57, 249, 0);
+    }
+}
+
+@keyframes pulseGreen {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 106, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 4px rgba(0, 255, 106, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 106, 0);
+    }
+}
+
+/* --- ESTADOS DE CARREGAMENTO / VAZIO --- */
+.loadingContainer,
+.emptyContainer,
+.errorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem;
+    color: var(--color-text-secondary);
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    min-height: 400px;
+    /* Garante altura para centralizar */
+}
+
+/* Loader com Logo */
+.logoLoader {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.logoImg {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    z-index: 2;
+    animation: logoPulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(28, 57, 249, 0.5));
+}
+
+.loaderRing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: var(--color-primary);
+    border-bottom-color: var(--color-primary-dim);
+    animation: spinRing 1.5s linear infinite;
+    box-shadow: 0 0 20px rgba(28, 57, 249, 0.2);
+}
+
+.loaderRing::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-left-color: var(--color-success);
+    border-right-color: var(--color-success);
+    animation: spinRingReverse 2s linear infinite;
+}
+
+@keyframes spinRing {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinRingReverse {
+    0% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes logoPulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.8;
+        filter: drop-shadow(0 0 5px rgba(28, 57, 249, 0.3));
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+        filter: drop-shadow(0 0 15px rgba(28, 57, 249, 0.8));
+    }
+
+    100% {
+        transform: scale(0.9);
+        opacity: 0.8;
+        filter: drop-shadow(0 0 5px rgba(28, 57, 249, 0.3));
+    }
+}
+
+/* --- RESPONSIVIDADE (MOBILE) --- */
+@media (max-width: 900px) {
+    .gamesContainer {
+        padding: 1rem;
+    }
+
+    .gameRow {
+        grid-template-columns: 60px 1fr 60px;
+        /* Time | Match | Action */
+        /* Oculta stats e odds inicialmente ou rearranja */
+        grid-template-areas:
+            "time match action"
+            "odds odds odds";
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+
+    .timeCol {
+        grid-area: time;
+        font-size: 0.8rem;
+    }
+
+    .matchCol {
+        grid-area: match;
+    }
+
+    .actionsCol {
+        grid-area: action;
+    }
+
+    /* Stats somem no mobile para economizar espaço */
+    .statsCol {
+        display: none;
+    }
+
+    /* Odds ocupam a linha de baixo inteira */
+    .oddsCol {
+        grid-area: odds;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 0.8rem;
+        margin-top: 0.2rem;
+    }
+
+    .teamName {
+        font-size: 0.9rem;
+        max-width: 150px;
+    }
+
+    .scoreValue {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .leagueHeader {
+        padding: 0.8rem 1rem;
+    }
+
+    .leagueName {
+        font-size: 1rem;
+    }
+
+    .gameRow {
+        padding: 0.8rem;
+    }
+}
