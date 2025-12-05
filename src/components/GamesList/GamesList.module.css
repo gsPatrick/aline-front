@@ -443,55 +443,93 @@
 }
 
 /* --- RESPONSIVIDADE (MOBILE) --- */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     .gamesContainer {
-        padding: 1rem;
+        padding: 1rem 0.5rem;
+        padding-bottom: 90px;
+        /* Space for BottomNav */
     }
 
     .gameRow {
-        grid-template-columns: 60px 1fr 60px;
-        /* Time | Match | Action */
-        /* Oculta stats e odds inicialmente ou rearranja */
-        grid-template-areas:
-            "time match action"
-            "odds odds odds";
-        gap: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--color-bg-tertiary);
+        margin: 0.5rem;
+        border-radius: 12px;
         padding: 1rem;
+        border: 1px solid var(--color-border);
+        gap: 0.8rem;
     }
 
     .timeCol {
-        grid-area: time;
-        font-size: 0.8rem;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 0.5rem;
     }
 
     .matchCol {
-        grid-area: match;
+        width: 100%;
     }
 
-    .actionsCol {
-        grid-area: action;
+    .teamRow {
+        padding-right: 0;
+        margin-bottom: 0.5rem;
     }
 
-    /* Stats somem no mobile para economizar espaço */
     .statsCol {
         display: none;
     }
 
-    /* Odds ocupam a linha de baixo inteira */
     .oddsCol {
-        grid-area: odds;
+        width: 100%;
+        justify-content: space-between;
+        padding-top: 0.5rem;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
-        padding-top: 0.8rem;
-        margin-top: 0.2rem;
+    }
+
+    .actionsCol {
+        display: none;
+        /* Ocultar botão de stats no card mobile se clicar no card já leva pro jogo */
+    }
+
+    /* Se o card inteiro for clicável, não precisamos da actionsCol. 
+       Mas o GameRow tem um Link no botão. O ideal seria o card todo ser link, 
+       mas o GameRow tem links internos para times.
+       Vamos manter actionsCol mas posicionada diferente se necessário, 
+       ou ocultar se o usuário disse "Oculte colunas menos importantes".
+       O prompt diz: "Aumente o tamanho dos botões e áreas de clique".
+       Vou manter actionsCol mas talvez como um botão grande no fundo?
+       Ou melhor, deixar o card limpo e o clique no time levar ao time.
+       Vou esconder actionsCol para limpar o card, assumindo que o usuário clica no card (que tem hover).
+       Mas espere, o GameRow não é um Link inteiro.
+       Vou deixar actionsCol visível mas integrado.
+    */
+    .actionsCol {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
+    .actionBtn {
+        width: 100%;
+        height: 44px;
+        /* Min-height 44px requested */
+        background: rgba(28, 57, 249, 0.1);
+        border-color: var(--color-primary);
+        color: var(--color-primary);
     }
 
     .teamName {
-        font-size: 0.9rem;
-        max-width: 150px;
+        font-size: 1rem;
+        max-width: none;
     }
 
     .scoreValue {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 }
 

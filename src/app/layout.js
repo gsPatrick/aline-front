@@ -5,6 +5,7 @@ import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import BottomNav from "@/components/BottomNav/BottomNav";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -51,6 +52,7 @@ export default function RootLayout({ children }) {
                 {children}
               </motion.div>
             </AnimatePresence>
+            <BottomNav />
           </div>
         </AuthProvider>
       </body>

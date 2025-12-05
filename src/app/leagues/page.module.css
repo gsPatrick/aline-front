@@ -1,0 +1,302 @@
+/* src/app/leagues/page.module.css */
+
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-bg-main);
+    padding-bottom: 80px;
+    /* Space for BottomNav on mobile */
+}
+
+.contentContainer {
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem;
+    flex: 1;
+}
+
+.header {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.titleIcon {
+    color: var(--color-primary);
+    filter: drop-shadow(0 0 8px var(--color-primary-glow));
+}
+
+.searchContainer {
+    position: relative;
+    width: 300px;
+}
+
+.searchInput {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border);
+    padding: 10px 15px;
+    padding-left: 40px;
+    border-radius: 8px;
+    color: #fff;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 10px var(--color-primary-glow);
+    background: rgba(28, 57, 249, 0.05);
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-secondary);
+}
+
+/* --- GRID DE LIGAS --- */
+.leaguesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.leagueCard {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.leagueCard:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: 0 10px 30px -10px rgba(28, 57, 249, 0.3);
+}
+
+.cardHeader {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.leagueLogo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.placeholderLogo {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    font-size: 1.5rem;
+}
+
+.cardInfo {
+    flex: 1;
+}
+
+.leagueName {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
+
+.leagueCountry {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cardFooter {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.seasonBadge {
+    font-size: 0.75rem;
+    background: rgba(28, 57, 249, 0.1);
+    color: var(--color-primary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(28, 57, 249, 0.2);
+    font-weight: 600;
+}
+
+.arrowIcon {
+    color: var(--color-text-muted);
+    transition: transform 0.2s;
+}
+
+.leagueCard:hover .arrowIcon {
+    color: #fff;
+    transform: translateX(5px);
+}
+
+/* --- PAGINATION --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.pageBtn {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pageBtn:hover:not(:disabled) {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.pageBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pageIndicator {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+/* --- LOADING / EMPTY --- */
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    color: var(--color-text-secondary);
+    gap: 1rem;
+}
+
+.spinner {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .contentContainer {
+        padding: 1rem;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .searchContainer {
+        width: 100%;
+    }
+
+    .leaguesGrid {
+        grid-template-columns: 1fr;
+        /* Stack vertically */
+        gap: 1rem;
+    }
+
+    .leagueCard {
+        flex-direction: row;
+        /* Horizontal layout for list item feel */
+        align-items: center;
+        padding: 0.5rem;
+    }
+
+    .cardHeader {
+        background: none;
+        border-bottom: none;
+        padding: 0.5rem;
+        width: auto;
+    }
+
+    .leagueLogo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .cardFooter {
+        display: none;
+        /* Hide footer on mobile list view for cleaner look */
+    }
+
+    .cardInfo {
+        padding-right: 1rem;
+    }
+
+    /* Add arrow manually since footer is hidden */
+    .leagueCard::after {
+        content: '›';
+        font-size: 1.5rem;
+        color: var(--color-text-muted);
+        margin-right: 1rem;
+        margin-left: auto;
+    }
+}

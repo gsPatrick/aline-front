@@ -203,3 +203,29 @@
   transform: scale(1.05);
   filter: drop-shadow(0 0 12px rgba(28, 57, 249, 0.8));
 }
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .controls {
+    gap: 0.5rem;
+  }
+
+  .planBadge {
+    display: none;
+  }
+
+  .userName {
+    display: none;
+  }
+
+  .logoText {
+    font-size: 1.4rem;
+  }
+}

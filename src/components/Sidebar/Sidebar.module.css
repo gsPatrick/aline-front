@@ -102,14 +102,14 @@
 }
 
 .leagueItem.active {
-  background: rgba(0, 255, 106, 0.05);
-  color: #00ff6a;
+  background: rgba(28, 57, 249, 0.1);
+  color: var(--color-primary);
   font-weight: 600;
 }
 
 .leagueItem.active .flagPlaceholder {
-  border-color: #00ff6a;
-  box-shadow: 0 0 5px rgba(0, 255, 106, 0.4);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 5px var(--color-primary-glow);
 }
 
 .leagueInfo {
@@ -123,7 +123,7 @@
   height: 18px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 106, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(28, 57, 249, 0.2), transparent);
   transition: border-color 0.3s;
 }
 
@@ -142,8 +142,8 @@
   top: 0;
   bottom: 0;
   width: 3px;
-  background: #00ff6a;
-  box-shadow: 2px 0 10px rgba(0, 255, 106, 0.4);
+  background: var(--color-primary);
+  box-shadow: 2px 0 10px var(--color-primary-glow);
   border-radius: 0 4px 4px 0;
 }
 
@@ -152,7 +152,7 @@
   margin-top: 2rem;
   position: relative;
   background: linear-gradient(135deg, #1a1f2e 0%, #0f1219 100%);
-  border: 1px solid rgba(0, 255, 106, 0.15);
+  border: 1px solid rgba(28, 57, 249, 0.3);
   border-radius: 12px;
   padding: 1.5rem;
   overflow: hidden;
@@ -171,7 +171,7 @@
 }
 
 .textGreen {
-  color: #00ff6a;
+  color: var(--color-primary);
 }
 
 .proContent p {
@@ -182,9 +182,9 @@
 
 .proContent button {
   width: 100%;
-  background: rgba(0, 255, 106, 0.1);
-  border: 1px solid #00ff6a;
-  color: #00ff6a;
+  background: rgba(28, 57, 249, 0.1);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
   padding: 0.5rem;
   border-radius: 6px;
   font-size: 0.8rem;
@@ -195,9 +195,9 @@
 }
 
 .proContent button:hover {
-  background: #00ff6a;
-  color: #000;
-  box-shadow: 0 0 15px rgba(0, 255, 106, 0.4);
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 0 15px var(--color-primary-glow);
 }
 
 .proBg {
@@ -206,7 +206,7 @@
   right: -20%;
   width: 100px;
   height: 100px;
-  background: #00ff6a;
+  background: var(--color-primary);
   filter: blur(50px);
   opacity: 0.15;
   z-index: 1;
@@ -308,4 +308,10 @@
   font-size: 0.85rem;
   color: var(--color-text-muted);
   font-family: 'Rajdhani', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
 }

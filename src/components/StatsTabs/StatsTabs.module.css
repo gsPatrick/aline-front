@@ -32,7 +32,7 @@
 
 .active {
   color: var(--color-primary);
-  text-shadow: 0 0 10px rgba(0, 255, 106, 0.3);
+  text-shadow: 0 0 10px var(--color-primary-glow);
 }
 
 .underline {
@@ -43,4 +43,53 @@
   height: 2px;
   background-color: var(--color-primary);
   box-shadow: 0 -2px 8px var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .tabsContainer {
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+    /* Prevent container scroll, allow list scroll */
+  }
+
+  .tabsList {
+    display: flex;
+    flex-wrap: nowrap;
+    /* Force single line */
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 1rem;
+    gap: 1.5rem;
+    /* Reduced gap */
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    /* Show scrollbar subtly */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) transparent;
+    padding-bottom: 4px;
+    /* Space for scrollbar */
+  }
+
+  .tabsList::-webkit-scrollbar {
+    display: block;
+    height: 3px;
+  }
+
+  .tabsList::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .tabsList::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 3px;
+  }
+
+  .tabButton {
+    white-space: nowrap;
+    flex-shrink: 0;
+    /* Prevent shrinking */
+    padding: 1rem 0.5rem;
+    font-size: 0.9rem;
+  }
 }

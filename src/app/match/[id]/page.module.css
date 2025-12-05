@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden; /* O scroll será interno no mainContent */
+  overflow: hidden;
+  /* O scroll será interno no mainContent */
 }
 
 .contentLayout {
@@ -13,7 +14,8 @@
   max-width: 1600px;
   width: 100%;
   margin: 0 auto;
-  height: calc(100vh - 70px); /* Altura total menos header */
+  height: calc(100vh - 70px);
+  /* Altura total menos header */
 }
 
 .mainContent {
@@ -44,24 +46,74 @@
   border-radius: 3px;
 }
 
-.loadingScreen, .errorScreen {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-main);
-    background-color: var(--color-bg-main);
-    gap: 1rem;
+.loadingScreen,
+.errorScreen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-main);
+  background-color: var(--color-bg-main);
+  gap: 1rem;
 }
 
 .spinner {
-    font-size: 3rem;
-    color: var(--color-primary);
-    animation: spin 1s linear infinite;
+  font-size: 3rem;
+  color: var(--color-primary);
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.motionWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .pageWrapper {
+    height: auto;
+    overflow: visible;
+  }
+
+  .contentLayout {
+    height: auto;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .mainContent {
+    height: auto;
+    overflow: visible;
+  }
+
+  .motionWrapper {
+    height: auto;
+    overflow: visible;
+    display: block;
+    /* Remove flex constraint to allow natural flow */
+  }
+
+  .scrollableContent {
+    overflow: visible;
+    /* Let the body scroll */
+    padding: 1rem;
+    padding-bottom: 100px;
+    /* Space for BottomNav */
+    height: auto;
+    flex: none;
+  }
 }

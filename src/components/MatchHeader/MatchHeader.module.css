@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   padding: 2.5rem 2rem;
-  background: linear-gradient(180deg, rgba(19,23,32,1) 0%, rgba(11,14,20,0) 100%);
+  background: linear-gradient(180deg, rgba(19, 23, 32, 1) 0%, rgba(11, 14, 20, 0) 100%);
   border-bottom: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
   transform: translateX(-50%);
   width: 60%;
   height: 100%;
-  background: radial-gradient(circle, rgba(0, 255, 106, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%);
   filter: blur(60px);
   z-index: 0;
   pointer-events: none;
@@ -111,8 +111,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(0, 255, 106, 0.1);
-  border: 1px solid rgba(0, 255, 106, 0.3);
+  background: rgba(28, 57, 249, 0.1);
+  border: 1px solid var(--color-primary);
   padding: 4px 12px;
   border-radius: 20px;
 }
@@ -127,47 +127,73 @@
 }
 
 .time {
-  color: var(--color-success);
+  color: var(--color-primary);
   font-weight: 700;
   font-size: 0.9rem;
   font-family: 'Rajdhani', sans-serif;
 }
 
 @keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.4; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
+  .headerContainer {
+    padding: 1rem;
+  }
+
   .scoreboard {
-    gap: 1rem;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: space-between;
   }
+
   .team {
-    width: auto;
+    width: 30%;
+    gap: 0.5rem;
   }
+
   .teamName {
     display: none;
   }
+
   .scoreDisplay {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    gap: 0.2rem;
   }
+
   .logoPlaceholder {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .metaInfo {
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
   }
 }
 
 .teamLogo {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 10px;
 }
+
 .logoText {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
 }
 
 .team {
