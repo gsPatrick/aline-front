@@ -1,6 +1,7 @@
+
 'use client';
 import { useState, useEffect } from 'react';
-import Link from 'next/link'; // Importante para a navegação
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     FaFutbol, FaSquare, FaSpinner, FaChartPie, FaMapMarkerAlt,
@@ -9,17 +10,21 @@ import {
     FaWeight, FaBirthdayCake, FaExternalLinkAlt
 } from 'react-icons/fa';
 import api from '@/lib/api';
-import Loader from '@/components/Loader/Loader';
 import styles from './MatchContent.module.css';
+
+// Variantes de Animação para as Abas
+const tabVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } },
+    exit: { opacity: 0, x: 10, transition: { duration: 0.3 } }
+};
 
 // --- COMPONENTE MODAL DE DETALHES DO JOGADOR ---
 const PlayerModal = ({ data, onClose }) => {
     if (!data) return null;
 
-    // Normalização: tenta pegar de 'player' ou usa o próprio objeto
+    // Normalização segura: tenta pegar de 'player' ou usa o próprio objeto
     const playerInfo = data.player || data;
-
-    // Verifica se temos dados físicos (o endpoint de fixture geralmente não manda, mas o de player sim)
     const hasDetails = playerInfo.height || playerInfo.weight || playerInfo.date_of_birth;
 
     const getAge = (dob) => {
@@ -40,9 +45,9 @@ const PlayerModal = ({ data, onClose }) => {
         >
             <motion.div
                 className={styles.modalContent}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
+                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.9, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
             >
                 <button className={styles.closeBtn} onClick={onClose}><FaTimes /></button>
@@ -50,8 +55,8 @@ const PlayerModal = ({ data, onClose }) => {
                 <div className={styles.modalHeader}>
                     <div className={styles.modalAvatarContainer}>
                         <img
-                            src={playerInfo.image_path || playerInfo.photo || '/api/placeholder/100/100'}
-                            alt={playerInfo.display_name || playerInfo.name}
+                            src={playerInfo.photo || playerInfo.image_path || '/api/placeholder/100/100'}
+                            alt={playerInfo.name}
                             className={styles.modalAvatar}
                             onError={(e) => e.target.src = '/api/placeholder/100/100'}
                         />
@@ -66,8 +71,6 @@ const PlayerModal = ({ data, onClose }) => {
 
                         <div className={styles.modalTags}>
                             <span className={styles.modalPosition}>Camisa {data.number || '-'}</span>
-
-                            {/* Se tiver Nota (Rating), exibe com destaque */}
                             {data.rating && (
                                 <span className={`${styles.modalPosition} ${parseFloat(data.rating) >= 7 ? styles.highRating : ''}`} style={{ marginLeft: 8 }}>
                                     Nota: {data.rating}
@@ -77,7 +80,6 @@ const PlayerModal = ({ data, onClose }) => {
                     </div>
                 </div>
 
-                {/* Lógica condicional: Se tiver dados físicos mostra, senão foca na nota */}
                 {hasDetails ? (
                     <div className={styles.modalStatsGrid}>
                         <div className={styles.modalStatItem}>
@@ -93,25 +95,22 @@ const PlayerModal = ({ data, onClose }) => {
                         <div className={styles.modalStatItem}>
                             <FaBirthdayCake className={styles.statIcon} />
                             <span className={styles.statLabel}>Idade</span>
-                            <span className={styles.statValue}>
-                                {getAge(playerInfo.date_of_birth)} anos
-                            </span>
+                            <span className={styles.statValue}>{getAge(playerInfo.date_of_birth)} anos</span>
                         </div>
                     </div>
                 ) : (
                     <div className={styles.modalStatsGrid} style={{ gridTemplateColumns: '1fr' }}>
                         <div className={styles.modalStatItem}>
-                            <span className={styles.statLabel} style={{ marginBottom: 5 }}>Performance na Partida</span>
-                            <span className={styles.statValue} style={{ fontSize: '2rem', color: data.rating && parseFloat(data.rating) >= 7 ? '#00ff6a' : '#fff' }}>
+                            <span className={styles.statLabel} style={{ marginBottom: 5 }}>Performance</span>
+                            <span className={styles.statValue} style={{ fontSize: '2rem', color: 'var(--color-primary)' }}>
                                 {data.rating || "-"}
                             </span>
-                            <span className={styles.statSubText}>Nota Sofascore/Sportmonks</span>
+                            <span className={styles.statSubText}>Nota da Partida</span>
                         </div>
                     </div>
                 )}
 
                 <div className={styles.modalActions}>
-                    {/* --- AQUI ESTÁ O LINK PARA A PÁGINA DO JOGADOR --- */}
                     <Link href={`/player/${playerInfo.id}`} className={styles.profileBtn}>
                         Ver Perfil Completo <FaExternalLinkAlt style={{ fontSize: '0.8rem' }} />
                     </Link>
@@ -121,17 +120,15 @@ const PlayerModal = ({ data, onClose }) => {
     );
 };
 
-// --- 1. ABA VISÃO GERAL (TIMELINE COM VAR) ---
+// --- 1. ABA VISÃO GERAL (TIMELINE) ---
 const OverviewTab = ({ events, homeId }) => {
     if (!events || events.length === 0) return <div className={styles.emptyState}>Sem eventos registrados para esta partida.</div>;
-
-    const sortedEvents = [...events].sort((a, b) => b.minute - a.minute);
 
     return (
         <div className={styles.tabPanel}>
             <h3 className={styles.cardTitle}>Linha do Tempo</h3>
             <div className={styles.timeline}>
-                {sortedEvents.map((event, idx) => {
+                {events.map((event, idx) => {
                     const isHome = event.is_home;
                     const type = event.type || "Unknown";
 
@@ -145,25 +142,31 @@ const OverviewTab = ({ events, homeId }) => {
                     if (!isGoal && !isYellow && !isRed && !isSub && !isVar) return null;
 
                     return (
-                        <div key={`${event.id}-${idx}`} className={`${styles.timelineEvent} ${isHome ? styles.home : styles.away}`}>
+                        <motion.div
+                            key={`${event.id}-${idx}`}
+                            className={`${styles.timelineEvent} ${isHome ? styles.home : styles.away}`}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.05 }}
+                        >
                             <div className={styles.timeBadge}>{event.minute}'</div>
                             <div className={styles.eventDetail}>
                                 <span className={styles.icon}>
-                                    {isGoal && <FaFutbol />}
+                                    {isGoal && <FaFutbol className={styles.iconGoal} />}
                                     {isYellow && <FaSquare style={{ color: '#ffd700' }} />}
                                     {isRed && <FaSquare style={{ color: '#ff3333' }} />}
-                                    {isSub && <FaExchangeAlt style={{ fontSize: '0.8rem' }} />}
+                                    {isSub && <FaExchangeAlt style={{ fontSize: '0.8rem', color: '#a0a0a0' }} />}
                                     {isVar && <FaVideo style={{ color: '#00d4ff' }} />}
                                 </span>
                                 <div className={styles.eventText}>
                                     <span className={styles.playerName}>{event.player_name}</span>
                                     {event.related_player_name && <span className={styles.subName}>({event.related_player_name})</span>}
                                     <span className={styles.eventType}>
-                                        {isVar ? `VAR: ${type.replace('VAR', '').replace('_', ' ') || 'Revisão'}` : type}
+                                        {isVar ? `VAR: ${type.replace('VAR', '')}` : type}
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     );
                 })}
             </div>
@@ -174,22 +177,20 @@ const OverviewTab = ({ events, homeId }) => {
 // --- 2. ABA ESTATÍSTICAS ---
 const StatsTab = ({ stats }) => {
     if (!stats || !stats.home || Object.keys(stats.home).length === 0) {
-        return <div className={styles.emptyState}>Estatísticas aguardando início do jogo ou indisponíveis.</div>;
+        return <div className={styles.emptyState}>Estatísticas aguardando início do jogo.</div>;
     }
 
     const statsConfig = [
-        { key: 'ball-possession', label: 'Posse de Bola (%)', type: 'percent' },
-        { key: 'goal-attempts', label: 'Finalizações Totais', type: 'number' },
-        { key: 'shots-on-target', label: 'No Gol', type: 'number' },
-        { key: 'saves', label: 'Defesas do Goleiro', type: 'number', icon: <FaHandPaper /> },
+        { key: 'possession', label: 'Posse de Bola (%)', type: 'percent' },
+        { key: 'shots_total', label: 'Finalizações', type: 'number' },
+        { key: 'shots_on_target', label: 'No Gol', type: 'number' },
         { key: 'corners', label: 'Escanteios', type: 'number' },
         { key: 'fouls', label: 'Faltas', type: 'number' },
         { key: 'yellowcards', label: 'Cartões Amarelos', type: 'number' },
         { key: 'redcards', label: 'Cartões Vermelhos', type: 'number' },
-        { key: 'passes', label: 'Passes Totais', type: 'number' },
-        { key: 'successful-passes-percentage', label: 'Precisão de Passe (%)', type: 'percent' },
-        { key: 'duels-won', label: 'Duelos Ganhos', type: 'number' },
-        { key: 'tackles', label: 'Desarmes', type: 'number' }
+        { key: 'passes', label: 'Passes', type: 'number' },
+        { key: 'dangerous_attacks', label: 'Ataques Perigosos', type: 'number' },
+        { key: 'attacks', label: 'Ataques', type: 'number' }
     ];
 
     return (
@@ -197,8 +198,9 @@ const StatsTab = ({ stats }) => {
             <div className={styles.statsList}>
                 {statsConfig.map((config, index) => {
                     const key = config.key;
-                    const homeVal = stats.home[key] || 0;
-                    const awayVal = stats.away[key] || 0;
+                    // Verifica variações de chaves (algumas APIs retornam com hifen, outras underscore)
+                    const homeVal = stats.home[key] ?? stats.home[key.replace('_', '-')] ?? 0;
+                    const awayVal = stats.away[key] ?? stats.away[key.replace('_', '-')] ?? 0;
                     const total = homeVal + awayVal;
 
                     let homePercent = 50;
@@ -212,16 +214,19 @@ const StatsTab = ({ stats }) => {
                         awayPercent = awayVal;
                     }
 
-                    if (homeVal === 0 && awayVal === 0 && key !== 'ball-possession') return null;
+                    if (homeVal === 0 && awayVal === 0 && key !== 'possession') return null;
 
                     return (
-                        <div key={index} className={styles.statRow}>
+                        <motion.div
+                            key={index}
+                            className={styles.statRow}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.05 }}
+                        >
                             <div className={styles.labels}>
                                 <span className={styles.valueHome}>{homeVal}{config.type === 'percent' ? '%' : ''}</span>
-                                <span className={styles.statName}>
-                                    {config.icon && <span style={{ marginRight: 4, display: 'inline-block', verticalAlign: 'middle' }}>{config.icon}</span>}
-                                    {config.label}
-                                </span>
+                                <span className={styles.statName}>{config.label}</span>
                                 <span className={styles.valueAway}>{awayVal}{config.type === 'percent' ? '%' : ''}</span>
                             </div>
                             <div className={styles.barTrack}>
@@ -229,17 +234,17 @@ const StatsTab = ({ stats }) => {
                                     className={styles.barHome}
                                     initial={{ width: 0 }}
                                     animate={{ width: `${homePercent}%` }}
-                                    transition={{ duration: 1 }}
+                                    transition={{ duration: 1, ease: "circOut" }}
                                 />
                                 <div className={styles.barSeparator} />
                                 <motion.div
                                     className={styles.barAway}
                                     initial={{ width: 0 }}
                                     animate={{ width: `${awayPercent}%` }}
-                                    transition={{ duration: 1 }}
+                                    transition={{ duration: 1, ease: "circOut" }}
                                 />
                             </div>
-                        </div>
+                        </motion.div>
                     )
                 })}
             </div>
@@ -249,7 +254,7 @@ const StatsTab = ({ stats }) => {
 
 // --- 3. ABA PROJEÇÕES (IA) ---
 const PredictionsTab = ({ predictions, homeName, awayName }) => {
-    if (!predictions || !predictions.fulltime) return <div className={styles.emptyState}>Análise de IA indisponível. Veja as Odds na barra lateral.</div>;
+    if (!predictions || !predictions.fulltime) return <div className={styles.emptyState}>Probabilidades não disponíveis no momento.</div>;
 
     const ft = predictions.fulltime;
 
@@ -259,31 +264,51 @@ const PredictionsTab = ({ predictions, homeName, awayName }) => {
 
             <div className={styles.predChart}>
                 <div className={styles.predBarContainer}>
-                    <div className={styles.predBar} style={{ width: `${ft.home}%`, background: 'var(--color-primary)' }}>
-                        <span className={styles.predLabel}>{ft.home}%</span>
-                    </div>
-                    <div className={styles.predBar} style={{ width: `${ft.draw}%`, background: '#64748b' }}>
-                        <span className={styles.predLabel}>{ft.draw}%</span>
-                    </div>
-                    <div className={styles.predBar} style={{ width: `${ft.away}%`, background: '#3b82f6' }}>
-                        <span className={styles.predLabel}>{ft.away}%</span>
-                    </div>
+                    <motion.div
+                        className={styles.predBar}
+                        style={{ background: 'var(--color-primary)' }}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${ft.home}%` }}
+                        transition={{ duration: 1 }}
+                    >
+                        <span className={styles.predLabel}>{parseInt(ft.home)}%</span>
+                    </motion.div>
+
+                    <motion.div
+                        className={styles.predBar}
+                        style={{ background: '#64748b' }}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${ft.draw}%` }}
+                        transition={{ duration: 1, delay: 0.2 }}
+                    >
+                        <span className={styles.predLabel}>{parseInt(ft.draw)}%</span>
+                    </motion.div>
+
+                    <motion.div
+                        className={styles.predBar}
+                        style={{ background: '#0ea5e9' }}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${ft.away}%` }}
+                        transition={{ duration: 1, delay: 0.4 }}
+                    >
+                        <span className={styles.predLabel}>{parseInt(ft.away)}%</span>
+                    </motion.div>
                 </div>
                 <div className={styles.predLegend}>
                     <span style={{ color: 'var(--color-primary)' }}>{homeName}</span>
                     <span style={{ color: '#64748b' }}>Empate</span>
-                    <span style={{ color: '#3b82f6' }}>{awayName}</span>
+                    <span style={{ color: '#0ea5e9' }}>{awayName}</span>
                 </div>
             </div>
 
             <div className={styles.aiInsight}>
-                <p>🤖 <strong>Análise IA:</strong> Probabilidades calculadas com base no histórico recente.</p>
+                <p>🤖 <strong>Análise 10Stats:</strong> Probabilidades calculadas com base no histórico recente e performance.</p>
             </div>
         </div>
     );
 };
 
-// --- 4. ABA ESCALAÇÕES (COM FOTO TÉCNICO E LINK DE JOGADOR) ---
+// --- 4. ABA ESCALAÇÕES ---
 const LineupsTab = ({ lineups, homeName, awayName }) => {
     const [activeTeam, setActiveTeam] = useState('home');
     const [selectedPlayer, setSelectedPlayer] = useState(null);
@@ -295,16 +320,24 @@ const LineupsTab = ({ lineups, homeName, awayName }) => {
     const currentLineup = activeTeam === 'home' ? lineups.home : lineups.away;
     const currentName = activeTeam === 'home' ? homeName : awayName;
 
+    // Função auxiliar para agrupar jogadores por linha no campo (Simplificada)
+    // Sportmonks retorna 'grid' tipo "4:1". Vamos agrupar pela primeira parte.
     const groupPlayersByRow = (starters) => {
-        const rows = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+        const rows = { 1: [], 2: [], 3: [], 4: [], 5: [] }; // Goleiro até Ataque
         starters.forEach(player => {
             if (player.grid) {
                 const [rowIndex] = player.grid.split(':');
                 if (rows[rowIndex]) rows[rowIndex].push(player);
+            } else {
+                // Fallback baseado na posição se não tiver grid
+                const posMap = { 24: 1, 25: 2, 26: 3, 27: 4 }; // IDs padrão sportmonks
+                const row = posMap[player.position] || 3;
+                rows[row].push(player);
             }
         });
-        Object.keys(rows).forEach(rowKey => {
-            rows[rowKey].sort((a, b) => parseInt(a.grid.split(':')[1]) - parseInt(b.grid.split(':')[1]));
+        // Ordena jogadores em cada linha
+        Object.keys(rows).forEach(key => {
+            rows[key].sort((a, b) => (a.grid?.split(':')[1] || 0) - (b.grid?.split(':')[1] || 0));
         });
         return rows;
     };
@@ -313,13 +346,12 @@ const LineupsTab = ({ lineups, homeName, awayName }) => {
 
     const PlayerNode = ({ player }) => {
         const rating = player.rating ? parseFloat(player.rating) : null;
-        const isHighRating = rating && rating >= 7.0;
-
         return (
-            <div
+            <motion.div
                 className={styles.playerNode}
                 onClick={() => setSelectedPlayer(player)}
-                style={{ cursor: 'pointer' }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
             >
                 <div className={styles.playerAvatar}>
                     <img
@@ -330,14 +362,14 @@ const LineupsTab = ({ lineups, homeName, awayName }) => {
                     />
                     {player.is_captain && <div className={styles.captainBadge}>C</div>}
                     {rating && (
-                        <div className={`${styles.ratingBadge} ${isHighRating ? styles.highRatingBadge : ''}`}>
+                        <div className={`${styles.ratingBadge} ${rating >= 7.0 ? styles.highRatingBadge : ''}`}>
                             {rating.toFixed(1)}
                         </div>
                     )}
                 </div>
-                <div className={styles.playerNameField}>{player.name}</div>
+                <div className={styles.playerNameField}>{player.name.split(' ').pop()}</div>
                 <div className={styles.playerNumberField}>{player.number}</div>
-            </div>
+            </motion.div>
         );
     };
 
@@ -367,112 +399,113 @@ const LineupsTab = ({ lineups, homeName, awayName }) => {
                 </button>
             </div>
 
-            <AnimatePresence mode='wait'>
-                <motion.div
-                    key={activeTeam}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ duration: 0.2 }}
-                >
-                    {/* Campo Tático */}
-                    <div className={styles.pitchContainer}>
-                        <div className={styles.pitch}>
-                            <div className={styles.fieldLines}>
-                                <div className={styles.halfLine} />
-                                <div className={styles.centerCircle} />
-                                <div className={styles.penaltyBoxTop} />
-                                <div className={styles.penaltyBoxBottom} />
-                            </div>
-
-                            <div className={styles.playersGrid}>
-                                {[5, 4, 3, 2, 1].map(rowNum => {
-                                    if (rows[rowNum].length === 0) return null;
-                                    return (
-                                        <div key={rowNum} className={styles.playerRow}>
-                                            {rows[rowNum].map(player => (
-                                                <PlayerNode key={player.id} player={player} />
-                                            ))}
-                                        </div>
-                                    );
-                                })}
-                            </div>
+            <motion.div
+                key={activeTeam}
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.3 }}
+            >
+                {/* Campo Tático */}
+                <div className={styles.pitchContainer}>
+                    <div className={styles.pitch}>
+                        <div className={styles.fieldLines}>
+                            <div className={styles.halfLine} />
+                            <div className={styles.centerCircle} />
+                            <div className={styles.penaltyBoxTop} />
+                            <div className={styles.penaltyBoxBottom} />
                         </div>
-                    </div>
 
-                    <div className={styles.lineupHeader}>
-                        <h4 className={styles.teamTitle}>
-                            <FaUserShield style={{ marginRight: 6 }} />
-                            {currentName}
-                        </h4>
-                        <span className={styles.formationBadge}>
-                            {currentLineup.formation || 'Formação N/A'}
-                        </span>
-                    </div>
-
-                    {/* Técnico com Foto */}
-                    {currentLineup.coach && (
-                        <div className={styles.coachRow}>
-                            <div className={styles.coachInfo}>
-                                <span className={styles.coachLabel}>Técnico</span>
-                                <div className={styles.coachDetail}>
-                                    <img
-                                        src={currentLineup.coach.photo || '/api/placeholder/40/40'}
-                                        alt={currentLineup.coach.name}
-                                        className={styles.coachPhoto}
-                                        onError={(e) => e.target.src = '/api/placeholder/40/40'}
-                                    />
-                                    <span className={styles.coachName}>{currentLineup.coach.name}</span>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {currentLineup.bench && currentLineup.bench.length > 0 && (
-                        <div className={styles.benchContainer}>
-                            <h5 className={styles.listGroupTitle}>
-                                <FaTshirt style={{ marginRight: 5, fontSize: '0.7rem' }} /> Reservas
-                            </h5>
-                            <div className={styles.benchList}>
-                                {currentLineup.bench.map((player) => (
-                                    <div
-                                        key={player.id}
-                                        className={styles.benchRow}
-                                        onClick={() => setSelectedPlayer(player)}
-                                    >
-                                        <span className={styles.benchNumber}>{player.number}</span>
-                                        <span className={styles.benchName}>{player.name}</span>
-                                        {player.rating && <span className={styles.benchRating}>{player.rating}</span>}
+                        <div className={styles.playersGrid}>
+                            {/* Renderiza Goleiro (Linha 1) no fundo se for home, topo se away? 
+                                Normalmente campo tático é estático. Goleiro embaixo.
+                            */}
+                            {[1, 2, 3, 4, 5].map(rowNum => {
+                                if (rows[rowNum].length === 0) return null;
+                                return (
+                                    <div key={rowNum} className={styles.playerRow}>
+                                        {rows[rowNum].map(player => (
+                                            <PlayerNode key={player.id} player={player} />
+                                        ))}
                                     </div>
-                                ))}
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.lineupHeader}>
+                    <h4 className={styles.teamTitle}>
+                        <FaUserShield style={{ marginRight: 6 }} />
+                        {currentName}
+                    </h4>
+                    <span className={styles.formationBadge}>
+                        {currentLineup.formation || 'Formação N/A'}
+                    </span>
+                </div>
+
+                {currentLineup.coach && (
+                    <div className={styles.coachRow}>
+                        <div className={styles.coachInfo}>
+                            <span className={styles.coachLabel}>Técnico</span>
+                            <div className={styles.coachDetail}>
+                                <img
+                                    src={currentLineup.coach.photo || '/api/placeholder/40/40'}
+                                    alt={currentLineup.coach.name}
+                                    className={styles.coachPhoto}
+                                    onError={(e) => e.target.src = '/api/placeholder/40/40'}
+                                />
+                                <span className={styles.coachName}>{currentLineup.coach.name}</span>
                             </div>
                         </div>
-                    )}
-                </motion.div>
-            </AnimatePresence>
+                    </div>
+                )}
+
+                {currentLineup.bench && currentLineup.bench.length > 0 && (
+                    <div className={styles.benchContainer}>
+                        <h5 className={styles.listGroupTitle}>
+                            <FaTshirt style={{ marginRight: 5, fontSize: '0.7rem' }} /> Banco de Reservas
+                        </h5>
+                        <div className={styles.benchList}>
+                            {currentLineup.bench.map((player) => (
+                                <div
+                                    key={player.id}
+                                    className={styles.benchRow}
+                                    onClick={() => setSelectedPlayer(player)}
+                                >
+                                    <span className={styles.benchNumber}>{player.number}</span>
+                                    <span className={styles.benchName}>{player.name}</span>
+                                    {player.rating && <span className={styles.benchRating}>{player.rating}</span>}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </motion.div>
         </div>
     );
 };
 
-// --- 5. ABA H2H (CONFRONTOS DIRETOS) ---
+// --- 5. ABA H2H ---
 const H2HTab = ({ matchId }) => {
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Usa o endpoint /h2h criado no backend
         api.get(`/matches/${matchId}/h2h`)
             .then(res => setHistory(res.data || []))
-            .catch(err => console.error("Erro ao carregar H2H", err))
+            .catch(err => console.error("Erro H2H", err))
             .finally(() => setLoading(false));
     }, [matchId]);
 
-    if (loading) return <Loader text="Carregando histórico..." />;
-    if (!history || history.length === 0) return <div className={styles.emptyState}>Sem histórico recente de confrontos.</div>;
+    if (loading) return <div className={styles.miniLoader}><FaSpinner className={styles.spinner} /> Carregando histórico...</div>;
+    if (!history || history.length === 0) return <div className={styles.emptyState}>Sem histórico recente.</div>;
 
     return (
         <div className={styles.tabPanel}>
             <div className={styles.h2hList}>
-                {history.map(match => {
+                {history.map((match, idx) => {
                     const homeScore = match.home_team.score;
                     const awayScore = match.away_team.score;
                     const isHomeWin = homeScore > awayScore;
@@ -480,29 +513,35 @@ const H2HTab = ({ matchId }) => {
                     const isDraw = homeScore === awayScore;
 
                     return (
-                        <div key={match.id} className={styles.h2hCard}>
+                        <motion.div
+                            key={match.id}
+                            className={styles.h2hCard}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.1 }}
+                        >
                             <div className={styles.h2hHeader}>
                                 <span className={styles.h2hDate}>
-                                    {new Date(match.timestamp * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' })}
+                                    {new Date(match.timestamp * 1000).toLocaleDateString('pt-BR')}
                                 </span>
                                 <span className={styles.h2hLeague}>{match.league.name}</span>
                             </div>
                             <div className={styles.h2hContent}>
-                                <div className={`${styles.h2hTeam} ${styles.teamHome} ${isHomeWin ? styles.winner : (isDraw ? '' : styles.loser)}`}>
+                                <div className={`${styles.h2hTeam} ${styles.teamHome} ${isHomeWin ? styles.winner : ''}`}>
                                     <span className={styles.h2hTeamName}>{match.home_team.name}</span>
-                                    {match.home_team.logo ? <img src={match.home_team.logo} className={styles.h2hLogo} alt="H" /> : <div className={styles.h2hPlaceholder} />}
+                                    <img src={match.home_team.logo} className={styles.h2hLogo} alt="H" />
                                 </div>
                                 <div className={styles.h2hScoreBox}>
                                     <span className={`${styles.scoreNum} ${isHomeWin ? styles.scoreWin : ''}`}>{homeScore}</span>
                                     <span className={styles.scoreDiv}>:</span>
                                     <span className={`${styles.scoreNum} ${isAwayWin ? styles.scoreWin : ''}`}>{awayScore}</span>
                                 </div>
-                                <div className={`${styles.h2hTeam} ${styles.teamAway} ${isAwayWin ? styles.winner : (isDraw ? '' : styles.loser)}`}>
-                                    {match.away_team.logo ? <img src={match.away_team.logo} className={styles.h2hLogo} alt="A" /> : <div className={styles.h2hPlaceholder} />}
+                                <div className={`${styles.h2hTeam} ${styles.teamAway} ${isAwayWin ? styles.winner : ''}`}>
+                                    <img src={match.away_team.logo} className={styles.h2hLogo} alt="A" />
                                     <span className={styles.h2hTeamName}>{match.away_team.name}</span>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     );
                 })}
             </div>
@@ -517,43 +556,46 @@ export default function MatchContent({ activeTab, match }) {
     return (
         <div className={styles.contentGrid}>
             <div className={styles.mainColumn}>
-                <motion.div
-                    key={activeTab}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    {activeTab === 'overview' && (
-                        <OverviewTab events={match.events} homeId={match.home_team.id} />
-                    )}
+                <AnimatePresence mode='wait'>
+                    <motion.div
+                        key={activeTab}
+                        variants={tabVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                    >
+                        {activeTab === 'overview' && (
+                            <OverviewTab events={match.timeline || match.events} homeId={match.home_team.id} />
+                        )}
 
-                    {activeTab === 'stats' && (
-                        <StatsTab stats={match.stats} />
-                    )}
+                        {activeTab === 'stats' && (
+                            <StatsTab stats={match.stats} />
+                        )}
 
-                    {activeTab === 'predictions' && (
-                        <PredictionsTab
-                            predictions={match.predictions}
-                            homeName={match.home_team.name}
-                            awayName={match.away_team.name}
-                        />
-                    )}
+                        {activeTab === 'predictions' && (
+                            <PredictionsTab
+                                predictions={match.predictions}
+                                homeName={match.home_team.name}
+                                awayName={match.away_team.name}
+                            />
+                        )}
 
-                    {activeTab === 'lineups' && (
-                        <LineupsTab
-                            lineups={match.lineups}
-                            homeName={match.home_team.name}
-                            awayName={match.away_team.name}
-                        />
-                    )}
+                        {activeTab === 'lineups' && (
+                            <LineupsTab
+                                lineups={match.lineups}
+                                homeName={match.home_team.name}
+                                awayName={match.away_team.name}
+                            />
+                        )}
 
-                    {activeTab === 'h2h' && (
-                        <H2HTab matchId={match.id} />
-                    )}
-                </motion.div>
+                        {activeTab === 'h2h' && (
+                            <H2HTab matchId={match.id} />
+                        )}
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
-            {/* SIDEBAR */}
+            {/* SIDEBAR DE INFORMAÇÕES */}
             <div className={styles.sideColumn}>
                 <div className={styles.card}>
                     <h3 className={styles.cardTitle}><FaMapMarkerAlt /> Detalhes</h3>
@@ -575,33 +617,31 @@ export default function MatchContent({ activeTab, match }) {
                     )}
                 </div>
 
-                {/* ODDS (Se Predictions for Null ou se Odds existirem) */}
                 {match.odds && (
                     <div className={styles.card}>
                         <h3 className={styles.cardTitle}>
-                            <FaMoneyBillWave style={{ color: '#00ff6a' }} /> Odds ({match.odds.bookmaker})
+                            <FaMoneyBillWave style={{ color: 'var(--color-primary)' }} /> Odds ({match.odds.bookmaker})
                         </h3>
                         <div className={styles.oddsContainer}>
-                            <div className={styles.oddBox}>
-                                <span className={styles.oddLabel}>Casa</span>
-                                <span className={styles.oddValue}>{match.odds.home?.value}</span>
+                            <motion.div className={styles.oddBox} whileHover={{ scale: 1.05 }}>
+                                <span className={styles.oddLabel}>1</span>
+                                <span className={styles.oddValue}>{match.odds.home?.value || '-'}</span>
                                 <span className={styles.oddProb}>{match.odds.home?.prob}</span>
-                            </div>
-                            <div className={styles.oddBox}>
+                            </motion.div>
+                            <motion.div className={styles.oddBox} whileHover={{ scale: 1.05 }}>
                                 <span className={styles.oddLabel}>X</span>
-                                <span className={styles.oddValue}>{match.odds.draw?.value}</span>
+                                <span className={styles.oddValue}>{match.odds.draw?.value || '-'}</span>
                                 <span className={styles.oddProb}>{match.odds.draw?.prob}</span>
-                            </div>
-                            <div className={styles.oddBox}>
-                                <span className={styles.oddLabel}>Fora</span>
-                                <span className={styles.oddValue}>{match.odds.away?.value}</span>
+                            </motion.div>
+                            <motion.div className={styles.oddBox} whileHover={{ scale: 1.05 }}>
+                                <span className={styles.oddLabel}>2</span>
+                                <span className={styles.oddValue}>{match.odds.away?.value || '-'}</span>
                                 <span className={styles.oddProb}>{match.odds.away?.prob}</span>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 )}
 
-                {/* Mini Gráfico (apenas se predictions existirem) */}
                 {match.predictions && activeTab !== 'predictions' && (
                     <div className={styles.card}>
                         <h3 className={styles.cardTitle}>Probabilidade</h3>
@@ -618,18 +658,11 @@ export default function MatchContent({ activeTab, match }) {
                                 <span className={styles.miniVal}>{match.predictions.fulltime?.away}%</span>
                             </div>
                             <div className={styles.miniTrack}>
-                                <div className={styles.miniBar} style={{ width: `${match.predictions.fulltime?.away}%`, background: '#3b82f6' }}></div>
+                                <div className={styles.miniBar} style={{ width: `${match.predictions.fulltime?.away}%`, background: '#0ea5e9' }}></div>
                             </div>
                         </div>
                     </div>
                 )}
-
-                <div className={styles.card}>
-                    <h3 className={styles.cardTitle}><FaHistory /> Histórico</h3>
-                    <p className={styles.infoText}>
-                        Acompanhe o histórico completo na aba H2H para ver confrontos passados.
-                    </p>
-                </div>
             </div>
         </div>
     );
