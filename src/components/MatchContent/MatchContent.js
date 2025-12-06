@@ -459,20 +459,188 @@ const LineupsTab = ({ lineups, homeName, awayName }) => {
     );
 };
 
-// --- 5. ABA H2H ---
-const H2HTab = ({ matchId }) => {
-    const [history, setHistory] = useState([]);
-    const [loading, setLoading] = useState(true);
+// --- 5. ABA CLASSIFICAÇÃO (STANDINGS) ---
+const StandingsTab = ({ standings }) => {
+    if (!standings || !standings.table || standings.table.length === 0) {
+        return <div className={styles.emptyState}>Tabela de classificação não disponível.</div>;
+    }
 
-    useEffect(() => {
-        // Usa o endpoint /h2h criado no backend
-        api.get(`/matches/${matchId}/h2h`)
-            .then(res => setHistory(res.data || []))
-            .catch(err => console.error("Erro H2H", err))
-            .finally(() => setLoading(false));
-    }, [matchId]);
+    return (
+        <div className={styles.tabPanel}>
+            <div className={styles.standingsTable}>
+                <div className={styles.standingsHeader}>
+                    <span className={styles.colPos}>#</span>
+                    <span className={styles.colTeam}>Time</span>
+                    <span className={styles.colPts}>P</span>
+                    <span className={styles.colJ}>J</span>
+                    <span className={styles.colV}>V</span>
+                    <span className={styles.colE}>E</span>
+                    <span className={styles.colD}>D</span>
+                    <span className={styles.colSG}>SG</span>
+                </div>
+                {standings.table.map((row) => (
+                    <div
+                        key={row.team.id}
+                        className={`${styles.standingsRow} ${row.team.id === standings.home_id || row.team.id === standings.away_id ? styles.highlightRow : ''}`}
+                    >
+                        <span className={styles.colPos}>{row.position}</span>
+                        <div className={styles.colTeam}>
+                            <img src={row.team.logo} alt={row.team.name} className={styles.tableLogo} />
+                            <span className={styles.tableName}>{row.team.name}</span>
+                        </div>
+                        <span className={styles.colPts}>{row.points}</span>
+                        <span className={styles.colJ}>{row.overall.games_played}</span>
+                        <span className={styles.colV}>{row.overall.won}</span>
+                        <span className={styles.colE}>{row.overall.draw}</span>
+                        <span className={styles.colD}>{row.overall.lost}</span>
+                        <span className={styles.colSG}>{row.overall.goal_difference}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
-    if (loading) return <div className={styles.miniLoader}><FaSpinner className={styles.spinner} /> Carregando histórico...</div>;
+// --- 6. ABA FORMA (LAST 10 GAMES) ---
+const FormTab = ({ form, homeName, awayName }) => {
+    const [activeTeam, setActiveTeam] = useState('home');
+
+    if (!form || (!form.home?.length && !form.away?.length)) {
+        return <div className={styles.emptyState}>Histórico recente não disponível.</div>;
+    }
+
+    const currentForm = activeTeam === 'home' ? form.home : form.away;
+    const currentName = activeTeam === 'home' ? homeName : awayName;
+
+    return (
+        <div className={styles.tabPanel}>
+            <div className={styles.lineupToggleContainer}>
+                <button
+                    className={`${styles.toggleBtn} ${activeTeam === 'home' ? styles.activeToggle : ''}`}
+                    onClick={() => setActiveTeam('home')}
+                >
+                    {homeName}
+                </button>
+                <button
+                    className={`${styles.toggleBtn} ${activeTeam === 'away' ? styles.activeToggle : ''}`}
+                    onClick={() => setActiveTeam('away')}
+                >
+                    {awayName}
+                </button>
+            </div>
+
+            <h4 className={styles.sectionTitle}>Últimos 10 Jogos - {currentName}</h4>
+
+            <div className={styles.h2hList}>
+                {currentForm.map((match, idx) => {
+                    const isWinner = match.home_team.is_winner || match.away_team.is_winner; // Ajustar conforme lógica de winner
+                    // Simplificação visual
+                    return (
+                        <motion.div
+                            key={match.id}
+                            className={styles.h2hCard}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.05 }}
+                        >
+                            <div className={styles.h2hHeader}>
+                                <span className={styles.h2hDate}>
+                                    {new Date(match.timestamp * 1000).toLocaleDateString('pt-BR')}
+                                </span>
+                                <span className={styles.h2hLeague}>{match.league.name}</span>
+                            </div>
+                            <div className={styles.h2hContent}>
+                                <div className={styles.h2hTeam}>
+                                    <span className={styles.h2hTeamName}>{match.home_team.name}</span>
+                                    <img src={match.home_team.logo} className={styles.h2hLogo} alt="H" />
+                                </div>
+                                <div className={styles.h2hScoreBox}>
+                                    <span className={styles.scoreNum}>{match.home_team.score}</span>
+                                    <span className={styles.scoreDiv}>:</span>
+                                    <span className={styles.scoreNum}>{match.away_team.score}</span>
+                                </div>
+                                <div className={styles.h2hTeam}>
+                                    <img src={match.away_team.logo} className={styles.h2hLogo} alt="A" />
+                                    <span className={styles.h2hTeamName}>{match.away_team.name}</span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
+
+// --- 7. ABA PRÓXIMOS JOGOS ---
+const UpcomingTab = ({ upcoming, homeName, awayName }) => {
+    const [activeTeam, setActiveTeam] = useState('home');
+
+    if (!upcoming || (!upcoming.home?.length && !upcoming.away?.length)) {
+        return <div className={styles.emptyState}>Próximos jogos não agendados.</div>;
+    }
+
+    const currentList = activeTeam === 'home' ? upcoming.home : upcoming.away;
+    const currentName = activeTeam === 'home' ? homeName : awayName;
+
+    return (
+        <div className={styles.tabPanel}>
+            <div className={styles.lineupToggleContainer}>
+                <button
+                    className={`${styles.toggleBtn} ${activeTeam === 'home' ? styles.activeToggle : ''}`}
+                    onClick={() => setActiveTeam('home')}
+                >
+                    {homeName}
+                </button>
+                <button
+                    className={`${styles.toggleBtn} ${activeTeam === 'away' ? styles.activeToggle : ''}`}
+                    onClick={() => setActiveTeam('away')}
+                >
+                    {awayName}
+                </button>
+            </div>
+
+            <h4 className={styles.sectionTitle}>Próximos Jogos - {currentName}</h4>
+
+            <div className={styles.h2hList}>
+                {currentList.map((match, idx) => (
+                    <motion.div
+                        key={match.id}
+                        className={styles.h2hCard}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.05 }}
+                    >
+                        <div className={styles.h2hHeader}>
+                            <span className={styles.h2hDate}>
+                                {new Date(match.timestamp * 1000).toLocaleDateString('pt-BR')}
+                            </span>
+                            <span className={styles.h2hLeague}>{match.league.name}</span>
+                        </div>
+                        <div className={styles.h2hContent}>
+                            <div className={styles.h2hTeam}>
+                                <span className={styles.h2hTeamName}>{match.home_team.name}</span>
+                                <img src={match.home_team.logo} className={styles.h2hLogo} alt="H" />
+                            </div>
+                            <div className={styles.h2hScoreBox}>
+                                <span className={styles.scoreNum}>-</span>
+                                <span className={styles.scoreDiv}>:</span>
+                                <span className={styles.scoreNum}>-</span>
+                            </div>
+                            <div className={styles.h2hTeam}>
+                                <img src={match.away_team.logo} className={styles.h2hLogo} alt="A" />
+                                <span className={styles.h2hTeamName}>{match.away_team.name}</span>
+                            </div>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+// --- 8. ABA H2H (Otimizada) ---
+const H2HTab = ({ history }) => {
     if (!history || history.length === 0) return <div className={styles.emptyState}>Sem histórico recente.</div>;
 
     return (
@@ -483,7 +651,6 @@ const H2HTab = ({ matchId }) => {
                     const awayScore = match.away_team.score;
                     const isHomeWin = homeScore > awayScore;
                     const isAwayWin = awayScore > homeScore;
-                    const isDraw = homeScore === awayScore;
 
                     return (
                         <motion.div
@@ -564,8 +731,30 @@ export default function MatchContent({ activeTab, match }) {
                             />
                         )}
 
+                        {activeTab === 'standings' && (
+                            <StandingsTab
+                                standings={match.analysis?.standings}
+                            />
+                        )}
+
+                        {activeTab === 'form' && (
+                            <FormTab
+                                form={match.analysis?.form}
+                                homeName={match.home_team.name}
+                                awayName={match.away_team.name}
+                            />
+                        )}
+
+                        {activeTab === 'upcoming' && (
+                            <UpcomingTab
+                                upcoming={match.analysis?.upcoming}
+                                homeName={match.home_team.name}
+                                awayName={match.away_team.name}
+                            />
+                        )}
+
                         {activeTab === 'h2h' && (
-                            <H2HTab matchId={match.id} />
+                            <H2HTab history={match.analysis?.h2h || []} />
                         )}
                     </motion.div>
                 </AnimatePresence>

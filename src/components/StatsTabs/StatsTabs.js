@@ -9,10 +9,13 @@ export default function StatsTabs({ activeTab, setActiveTab, matchStatus }) {
   const tabs = [
     { id: 'overview', label: 'Visão Geral' },
     // Se o jogo não começou, mostra 'Projeções', senão 'Estatísticas'
-    isUpcoming 
-        ? { id: 'predictions', label: 'Projeções' }
-        : { id: 'stats', label: 'Estatísticas' },
+    isUpcoming
+      ? { id: 'predictions', label: 'Projeções' }
+      : { id: 'stats', label: 'Estatísticas' },
     { id: 'lineups', label: 'Escalações' },
+    { id: 'standings', label: 'Classificação' },
+    { id: 'form', label: 'Forma' },
+    { id: 'upcoming', label: 'Próximos' },
     { id: 'h2h', label: 'H2H' },
   ];
 
