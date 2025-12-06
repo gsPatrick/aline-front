@@ -8,12 +8,11 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import MatchHeader from "@/components/MatchHeader/MatchHeader";
 import StatsTabs from "@/components/StatsTabs/StatsTabs";
 import MatchContent from "@/components/MatchContent/MatchContent";
-import MatchContent from "@/components/MatchContent/MatchContent";
 import { matchService } from '@/lib/api';
 import { FaSpinner, FaExclamationTriangle } from 'react-icons/fa';
 import styles from "./page.module.css";
 
-// Variantes de Animação para entrada da página
+// Va   riantes de Animação para entrada da página
 const pageVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
