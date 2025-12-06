@@ -689,8 +689,42 @@ const H2HTab = ({ history }) => {
     );
 };
 
+import GoalsAnalysis from './GoalsAnalysis';
+import CornersAnalysis from './CornersAnalysis';
+import CardsAnalysis from './CardsAnalysis';
+
 // --- COMPONENTE PRINCIPAL ---
 export default function MatchContent({ activeTab, match }) {
+    const [goalsData, setGoalsData] = useState(null);
+    const [cornersData, setCornersData] = useState(null);
+    const [cardsData, setCardsData] = useState(null);
+
+    // Fetch data on tab change
+    useEffect(() => {
+        if (!match?.id) return;
+
+        const fetchData = async () => {
+            try {
+                if (activeTab === 'goals' && !goalsData) {
+                    const data = await api.matchService.getGoalsAnalysis(match.id);
+                    setGoalsData(data.data);
+                }
+                if (activeTab === 'corners' && !cornersData) {
+                    const data = await api.matchService.getCornersAnalysis(match.id);
+                    setCornersData(data.data);
+                }
+                if (activeTab === 'cards' && !cardsData) {
+                    const data = await api.matchService.getCardsAnalysis(match.id);
+                    setCardsData(data.data);
+                }
+            } catch (error) {
+                console.error("Error fetching analysis:", error);
+            }
+        };
+
+        fetchData();
+    }, [activeTab, match?.id, goalsData, cornersData, cardsData]); // Added data dependencies to re-fetch if data is cleared or becomes null
+
     if (!match) return null;
 
     return (
@@ -721,6 +755,18 @@ export default function MatchContent({ activeTab, match }) {
                             <PredictionsTab
                                 predictions={match.analysis?.predictions || match.predictions}
                             />
+                        )}
+
+                        {activeTab === 'goals' && (
+                            <GoalsAnalysis data={goalsData} />
+                        )}
+
+                        {activeTab === 'corners' && (
+                            <CornersAnalysis data={cornersData} />
+                        )}
+
+                        {activeTab === 'cards' && (
+                            <CardsAnalysis data={cardsData} />
                         )}
 
                         {activeTab === 'lineups' && (

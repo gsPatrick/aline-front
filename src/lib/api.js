@@ -46,6 +46,19 @@ export const matchService = {
   getAnalysis: async (matchId) => {
     const { data } = await api.get(`/matches/${matchId}/analysis`);
     return data;
+  },
+  // NOVOS ENDPOINTS DE ANÁLISE
+  getGoalsAnalysis: async (fixtureId) => {
+    const { data } = await api.get(`/sportmonks/match/${fixtureId}/goals-analysis`);
+    return data;
+  },
+  getCornersAnalysis: async (fixtureId) => {
+    const { data } = await api.get(`/sportmonks/match/${fixtureId}/corners-analysis`);
+    return data;
+  },
+  getCardsAnalysis: async (fixtureId) => {
+    const { data } = await api.get(`/sportmonks/match/${fixtureId}/cards-analysis`);
+    return data;
   }
 };
 export const leagueService = {

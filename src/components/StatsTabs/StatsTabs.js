@@ -12,6 +12,9 @@ export default function StatsTabs({ activeTab, setActiveTab, matchStatus }) {
     isUpcoming
       ? { id: 'predictions', label: 'Projeções' }
       : { id: 'stats', label: 'Estatísticas' },
+    { id: 'goals', label: 'Gols' },
+    { id: 'corners', label: 'Cantos' },
+    { id: 'cards', label: 'Cartões' },
     { id: 'lineups', label: 'Escalações' },
     { id: 'standings', label: 'Classificação' },
     { id: 'form', label: 'Forma' },

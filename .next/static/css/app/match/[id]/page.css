@@ -2369,6 +2369,193 @@
         padding: 8px;
     }
 }
+
+/* --- ANÁLISE DETALHADA (GOLS, CANTOS, CARTÕES) --- */
+.MatchContent_analysisContainer__Qxtd3 {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 2rem;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .MatchContent_analysisContainer__Qxtd3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.MatchContent_analysisTableContainer__j7nHE {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.MatchContent_filterButtons__Rw00E {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    border-radius: 8px;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.MatchContent_filterBtn__ks7vz {
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.MatchContent_activeFilter__BHqHS {
+    background: var(--color-primary);
+    color: #000 !important;
+}
+
+.MatchContent_tableWrapper__e_Tu7 {
+    overflow-x: auto;
+}
+
+.MatchContent_analysisTable__POL_l {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.MatchContent_analysisTable__POL_l th {
+    text-align: left;
+    padding: 10px;
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.MatchContent_analysisTable__POL_l td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.MatchContent_marketName__rXcGz {
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+.MatchContent_probCell__bylr7 {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 60px;
+}
+
+.MatchContent_probCell__bylr7 span {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.MatchContent_miniBar__2TYgZ {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.MatchContent_statsPanel__AsC4L {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.MatchContent_statGroup__1kuFQ {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+}
+
+.MatchContent_statGroupTitle__KFFK2 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.MatchContent_timingGrid__OQiKk {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    grid-gap: 10px;
+    gap: 10px;
+}
+
+.MatchContent_timingItem__uqyN9 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.MatchContent_timingLabel__lvNwA {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.MatchContent_timingValue__I779b {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.MatchContent_raceTable__Rt6IK {
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.MatchContent_raceTable__Rt6IK td {
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.MatchContent_refereeInfo__QnCLe {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.MatchContent_refereeAvatar__l2A3m {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #333;
+    object-fit: cover;
+}
+
+.MatchContent_refereeDetails__jLtFk {
+    display: flex;
+    flex-direction: column;
+}
+
+.MatchContent_refereeName__yqMmQ {
+    font-weight: 700;
+    color: #fff;
+}
+
+.MatchContent_refereeStat__VM1iT {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
 /*!******************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/app/match/[id]/page.module.css ***!
   \******************************************************************************************************************************************************************************************************************************************************************************/
