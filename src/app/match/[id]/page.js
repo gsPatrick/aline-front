@@ -44,24 +44,51 @@ export default function MatchPage() {
             setError(null);
 
             try {
-                // Chama o endpoint de análise (que já traz tudo: fixture, stats, predictions)
-                const data = await matchService.getAnalysis(matchId);
+                // Chama o endpoint de análise
+                const response = await matchService.getAnalysis(matchId);
+                console.log("🔍 DADOS COMPLETOS DA API (DEBUG):", JSON.stringify(response, null, 2));
 
-                if (data && data.fixture) {
-                    console.log("🔍 DADOS COMPLETOS DA API (DEBUG):", JSON.stringify(data, null, 2));
-                    // Enriquece o objeto fixture com os dados de análise para passar aos componentes
+                if (response && response.success && response.data) {
+                    const apiData = response.data;
+
+                    // Mapeamento dos dados da nova API para a estrutura esperada pelos componentes
+                    const dateStr = apiData.match_info.date.replace(' ', 'T');
+                    const timestamp = Math.floor(new Date(dateStr).getTime() / 1000);
+
                     const enrichedMatch = {
-                        ...data.fixture,
+                        id: apiData.match_info.id,
+                        date: apiData.match_info.date,
+                        timestamp: timestamp,
+                        status: { short: 'NS' }, // Default para NS, ajustar se a API retornar status
+                        venue: apiData.match_info.venue,
+                        league: { name: apiData.match_info.league_name },
+                        round: { name: apiData.match_info.round },
+                        home_team: {
+                            ...apiData.teams.home,
+                            logo: apiData.teams.home.image
+                        },
+                        away_team: {
+                            ...apiData.teams.away,
+                            logo: apiData.teams.away.image
+                        },
+                        lineups: {
+                            home: { starters: apiData.teams.home.lineup || [] },
+                            away: { starters: apiData.teams.away.lineup || [] }
+                        },
                         analysis: {
-                            venue: data.venue,
-                            standings: data.standings,
-                            stats: data.stats,
-                            predictions: data.predictions
-                        }
+                            predictions: apiData.analysis.predictions,
+                            h2h_summary: apiData.analysis.h2h_summary,
+                            stats: apiData.analysis.h2h_summary, // Usando resumo como stats por enquanto
+                            history: apiData.history_data.h2h_matches
+                        },
+                        // Campos opcionais que podem não vir na nova API
+                        stats: null,
+                        events: []
                     };
+
                     setMatch(enrichedMatch);
                 } else {
-                    throw new Error("Dados da partida vazios.");
+                    throw new Error("Dados da partida vazios ou inválidos.");
                 }
             } catch (err) {
                 console.error("❌ Erro ao buscar detalhes da partida:", err);
