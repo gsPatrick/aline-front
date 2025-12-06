@@ -48,6 +48,7 @@ export default function MatchPage() {
                 const data = await matchService.getAnalysis(matchId);
 
                 if (data && data.fixture) {
+                    console.log("🔍 DADOS COMPLETOS DA API (DEBUG):", JSON.stringify(data, null, 2));
                     // Enriquece o objeto fixture com os dados de análise para passar aos componentes
                     const enrichedMatch = {
                         ...data.fixture,
