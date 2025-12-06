@@ -44,7 +44,7 @@ export const matchService = {
   },
   // NOVA: Busca análise detalhada
   getAnalysis: async (matchId) => {
-    const { data } = await api.get(`/matches/${matchId}/analysis`);
+    const { data } = await api.get(`/sportmonks/match/${matchId}/analysis`);
     return data;
   },
   // NOVOS ENDPOINTS DE ANÁLISE
