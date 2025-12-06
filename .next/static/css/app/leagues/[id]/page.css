@@ -1,0 +1,1198 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/Header/Header.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+.Header_header__AF_3G {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 100;
+  background: rgba(11, 14, 20, 0.85);
+  /* Dark translúcido */
+  -webkit-backdrop-filter: blur(16px);
+          backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.Header_container__3JNoS {
+  max-width: 1600px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+/* LOGO */
+.Header_logo__1FRrW {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.Header_logoText__Q2TRx {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.Header_highlight__5s2vN {
+  color: var(--color-primary);
+}
+
+.Header_logoDot__KH8I_ {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-primary);
+  margin-top: 8px;
+}
+
+/* NAVIGATION */
+.Header_nav__LVYU2 {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  height: 100%;
+}
+
+.Header_navLink__bX76H {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 100%;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 0 0.5rem;
+}
+
+.Header_icon__ZGc7x {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.Header_navLink__bX76H:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.Header_navLink__bX76H.Header_active__8Eipm {
+  color: var(--color-primary);
+  text-shadow: 0 0 12px var(--color-primary-glow);
+}
+
+.Header_activeIndicator__5HnBT {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+  box-shadow: 0 -2px 10px var(--color-primary);
+}
+
+/* CONTROLS */
+.Header_controls__M2daI {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.Header_planBadge__KUS66 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: rgba(28, 57, 249, 0.1);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(28, 57, 249, 0.2);
+  letter-spacing: 1px;
+}
+
+.Header_dot__w2Gap {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  animation: Header_pulse__a6MWY 2s infinite;
+}
+
+.Header_profileBtn__7Kg1S {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.Header_profileBtn__7Kg1S:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-primary);
+}
+
+@keyframes Header_pulse__a6MWY {
+  0% {
+    box-shadow: 0 0 0 0 rgba(28, 57, 249, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px rgba(28, 57, 249, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(28, 57, 249, 0);
+  }
+}
+
+.Header_userMenu__3n5Qv {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Header_userName__zmDpI {
+  color: var(--color-text-main);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.Header_logoutBtn__yx_7k {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Header_logoutBtn__yx_7k:hover {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+  background: rgba(255, 51, 51, 0.1);
+}
+
+.Header_headerLogoImg__6jn_r {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(28, 57, 249, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.Header_headerLogoImg__6jn_r:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 12px rgba(28, 57, 249, 0.8));
+}
+
+@media (max-width: 768px) {
+  .Header_nav__LVYU2 {
+    display: none;
+  }
+
+  .Header_container__3JNoS {
+    padding: 0 1rem;
+  }
+
+  .Header_controls__M2daI {
+    gap: 0.5rem;
+  }
+
+  .Header_planBadge__KUS66 {
+    display: none;
+  }
+
+  .Header_userName__zmDpI {
+    display: none;
+  }
+
+  .Header_logoText__Q2TRx {
+    font-size: 1.4rem;
+  }
+}
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/Sidebar/Sidebar.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+.Sidebar_sidebar__86IlD {
+  width: 280px;
+  height: calc(100vh - 70px);
+  /* Altura menos header */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 70px;
+  background: rgba(11, 14, 20, 0.6);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+}
+
+.Sidebar_scrollContainer__ok2wL {
+  flex: 1 1;
+  overflow-y: auto;
+  padding: 1.5rem 1rem;
+}
+
+/* Custom Scrollbar */
+.Sidebar_scrollContainer__ok2wL::-webkit-scrollbar {
+  width: 4px;
+}
+
+.Sidebar_scrollContainer__ok2wL::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.Sidebar_section__GtWJr {
+  margin-bottom: 2rem;
+}
+
+.Sidebar_sectionHeader__ffAhr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem 0.8rem 0.5rem;
+  cursor: pointer;
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+
+.Sidebar_sectionHeader__ffAhr:hover {
+  color: #ffffff;
+}
+
+.Sidebar_sectionTitle__s0c_b {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.Sidebar_fireIcon__I7_hN {
+  color: #ff9100;
+  filter: drop-shadow(0 0 5px rgba(255, 145, 0, 0.6));
+}
+
+.Sidebar_liveDot__aN6zd {
+  width: 6px;
+  height: 6px;
+  background-color: #ff3333;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ff3333;
+  animation: Sidebar_pulseRed___qIbU 1.5s infinite;
+}
+
+.Sidebar_toggleIcon__wP2Av {
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+.Sidebar_leagueList__2f7wI {
+  list-style: none;
+  overflow: hidden;
+}
+
+.Sidebar_leagueItem__irLxf {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 2px;
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.Sidebar_leagueItem__irLxf:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+}
+
+.Sidebar_leagueItem__irLxf.Sidebar_active__vqrO1 {
+  background: rgba(28, 57, 249, 0.1);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.Sidebar_leagueItem__irLxf.Sidebar_active__vqrO1 .Sidebar_flagPlaceholder__U6znR {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 5px var(--color-primary-glow);
+}
+
+.Sidebar_leagueInfo__R30_v {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.Sidebar_flagPlaceholder__U6znR {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(90deg, transparent, rgba(28, 57, 249, 0.2), transparent);
+  transition: border-color 0.3s;
+}
+
+.Sidebar_matchCount__BtcQI {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.Sidebar_activeGlow__gAP19 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-primary);
+  box-shadow: 2px 0 10px var(--color-primary-glow);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Pro Card */
+.Sidebar_proCard__oeN0Y {
+  margin-top: 2rem;
+  position: relative;
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1219 100%);
+  border: 1px solid rgba(28, 57, 249, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.Sidebar_proContent__dPfWz {
+  position: relative;
+  z-index: 2;
+}
+
+.Sidebar_proContent__dPfWz h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  color: #fff;
+}
+
+.Sidebar_textGreen__33Xaw {
+  color: var(--color-primary);
+}
+
+.Sidebar_proContent__dPfWz p {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.Sidebar_proContent__dPfWz button {
+  width: 100%;
+  background: rgba(28, 57, 249, 0.1);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.Sidebar_proContent__dPfWz button:hover {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 0 15px var(--color-primary-glow);
+}
+
+.Sidebar_proBg__5JUhD {
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 100px;
+  height: 100px;
+  background: var(--color-primary);
+  filter: blur(50px);
+  opacity: 0.15;
+  z-index: 1;
+}
+
+@keyframes Sidebar_pulseRed___qIbU {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 4px rgba(255, 51, 51, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 51, 51, 0);
+  }
+}
+
+.Sidebar_flagIcon__j9Iyy {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.Sidebar_footerLogo__UvzTm {
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.Sidebar_loadingItem__ewd2u {
+  padding: 1rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.Sidebar_loadMoreContainer__oSjSS {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.Sidebar_loadMoreBtn__lj_xL {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.Sidebar_loadMoreBtn__lj_xL:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(28, 57, 249, 0.1);
+}
+
+.Sidebar_paginationContainer__U9_OS {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.Sidebar_pageBtn__xbMRA {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: var(--color-text-secondary);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.Sidebar_pageBtn__xbMRA:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.Sidebar_pageBtn__xbMRA:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.Sidebar_pageInfo__JMQsQ {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-family: 'Rajdhani', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .Sidebar_sidebar__86IlD {
+    display: none;
+  }
+}
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/LeagueHeader/LeagueHeader.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+.LeagueHeader_header__kO34e {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+  background: linear-gradient(180deg, rgba(11,14,20,0) 0%, rgba(19,23,32,0.8) 100%);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.LeagueHeader_glowBg__rtG_p {
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 50%, rgba(0, 255, 106, 0.15), transparent 50%);
+  filter: blur(60px);
+  z-index: 0;
+}
+
+.LeagueHeader_content__41B3R {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.LeagueHeader_logoWrapper__v6Cmc {
+  position: relative;
+}
+
+.LeagueHeader_logoPlaceholder__xgkML {
+  width: 100px;
+  height: 100px;
+  background-color: #ffffff;
+  color: #000;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 255, 106, 0.3);
+  border: 2px solid var(--color-primary);
+}
+
+.LeagueHeader_info__O49_x {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.LeagueHeader_title__AdV6b {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-transform: uppercase;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.LeagueHeader_meta__BEPOH {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.LeagueHeader_dot__K8Skn {
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .LeagueHeader_header__kO34e {
+    height: auto;
+    padding: 1.5rem;
+    align-items: center;
+  }
+  .LeagueHeader_content__41B3R {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  .LeagueHeader_title__AdV6b {
+    font-size: 2rem;
+  }
+}
+
+.LeagueHeader_logoImage__QEIwU {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/StandingsTable/StandingsTable.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+/* components/StandingsTable/StandingsTable.module.css */
+.StandingsTable_tableContainer__2ks41 {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2rem;
+}
+
+.StandingsTable_title__5aHS4 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  color: var(--color-text-main);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--color-primary);
+  padding-left: 10px;
+}
+
+.StandingsTable_tableWrapper__mnaq_ {
+  overflow-x: auto;
+}
+
+.StandingsTable_table__JbDyr {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.StandingsTable_table__JbDyr th {
+  text-align: center;
+  padding: 1rem 0.5rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.StandingsTable_table__JbDyr th.StandingsTable_teamCol__wLLlq { text-align: left; }
+.StandingsTable_table__JbDyr td {
+  text-align: center;
+  padding: 0.8rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  color: var(--color-text-muted);
+}
+
+.StandingsTable_table__JbDyr tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02);
+  color: var(--color-text-main);
+}
+
+/* Coluna Posição */
+.StandingsTable_position__KV0kt {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-family: 'Rajdhani', sans-serif;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.StandingsTable_top4__x2ltF {
+  background-color: rgba(0, 255, 106, 0.15);
+  color: var(--color-primary);
+  border: 1px solid rgba(0, 255, 106, 0.3);
+}
+
+/* Coluna Time */
+.StandingsTable_teamWrapper__ojwp_ {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.StandingsTable_logo__6pTQw {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.StandingsTable_logoPlaceholder__26RSu {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #333;
+}
+
+.StandingsTable_teamName___RQrw {
+  font-weight: 600;
+  color: var(--color-text-main);
+  white-space: nowrap;
+}
+
+.StandingsTable_points__fxCWo {
+  font-weight: 700;
+  color: var(--color-text-main);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+}
+
+/* Coluna Forma */
+.StandingsTable_formFlex__LoDCI {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.StandingsTable_formBadge__0yAQO {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.StandingsTable_win__m4uRK { background-color: var(--color-success); color: #000; }
+.StandingsTable_draw__DNcQK { background-color: #94a3b8; color: #000; }
+.StandingsTable_loss__6jCYj { background-color: var(--color-danger); }
+
+.StandingsTable_empty__wRe8r {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .StandingsTable_formCol__rMyVr { display: none; } /* Esconde forma no mobile */
+}
+
+/* Adicione isso */
+.StandingsTable_teamLink__EySIT {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+}
+
+.StandingsTable_teamWrapper__ojwp_ {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer; /* Indica que é clicável */
+  transition: transform 0.2s;
+}
+
+.StandingsTable_teamWrapper__ojwp_:hover {
+  transform: translateX(5px);
+  color: var(--color-primary);
+}
+/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/app/leagues/[id]/page.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************/
+.page_pageWrapper__KdRy1 {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg-main);
+}
+
+.page_contentLayout__07i_3 {
+  display: flex;
+  flex: 1 1;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page_mainContent__4gxqZ {
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.page_leagueContent__Kn9qZ {
+  padding: 2rem;
+}
+
+/* TABS */
+.page_tabs__Ghksl {
+  display: flex;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+}
+
+.page_tab__OgqzC {
+  background: none;
+  border: none;
+  padding: 1rem 0;
+  color: var(--color-text-secondary);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+}
+
+.page_tab__OgqzC:hover {
+  color: #fff;
+}
+
+.page_tab__OgqzC.page_active__btzYE {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* LAYOUT GRID (VISÃO GERAL) */
+.page_grid__5zNhn {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 2rem;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .page_grid__5zNhn {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* SIDEBAR 48H */
+.page_upcomingContainer__pbf7H {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.page_sectionTitle__JJ1ui {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  color: var(--color-text-main);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--color-primary);
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page_fixturesList__vI_kK {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.page_emptyState__Hlh66 {
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}
+
+.page_viewMoreBtn__sIxDP {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.page_viewMoreBtn__sIxDP:hover {
+  background: var(--color-primary-dim);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* CALENDAR TAB STYLES */
+.page_calendarWrapper__rOUQN {
+  display: flex;
+  flex-direction: column;
+}
+
+.page_datePickerWrapper__ZLWwF {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  background: var(--color-bg-secondary);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+
+.page_dateSlider__JmGh1 {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+  flex: 1 1;
+  scrollbar-width: none;
+}
+
+.page_dateSlider__JmGh1::-webkit-scrollbar {
+  display: none;
+}
+
+.page_dateCard__Fu_QU {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  min-width: 75px;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--color-text-secondary);
+}
+
+.page_dateCard__Fu_QU:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.page_dateCardActive__KxzS1 {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #000 !important;
+}
+
+.page_dateCardToday__Jc6dR {
+  border-color: var(--color-primary);
+}
+
+.page_dateWeekday__uyOPj {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.page_dateNumber__IcK4m {
+  font-weight: 700;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.page_scrollBtn__GEwiu {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page_scrollBtn__GEwiu:hover {
+  background: var(--color-primary);
+  color: #000;
+}
+
+.page_calendarResults__BlFhM {
+  min-height: 200px;
+}
+
+.page_dateTitle__Di2f5 {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.page_matchesGrid__812ao {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-gap: 1rem;
+  gap: 1rem;
+}
+
+.page_emptyCalendar__WVrmh {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+
+/* MATCH ROW */
+.page_matchLink__tgoYc {
+  text-decoration: none;
+}
+
+.page_matchRow__0UlGU {
+  background-color: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+.page_matchRow__0UlGU:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary-dim);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.page_matchTimeBox__SChiB {
+  min-width: 50px;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding-right: 10px;
+}
+
+.page_timeText__M9FFk {
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.page_scoreboard__a_Tjn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1 1;
+  gap: 5px;
+}
+
+.page_teamBox__qkcdv {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 40%;
+}
+
+.page_teamHome__cPusl {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.page_teamAway__biFnd {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.page_teamName__qb5pZ {
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page_teamLogo__UVT8f {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.page_logoPlaceholder__MjsGU {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.page_vsBox__CgH6U {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.page_vsText__C3YwS {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* LOADING */
+@media (max-width: 768px) {
+  .page_grid__5zNhn {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .page_leagueContent__Kn9qZ {
+    padding: 1rem;
+    padding-bottom: 100px;
+    /* Space for BottomNav */
+  }
+
+  .page_tabs__Ghksl {
+    overflow-x: auto;
+    padding-bottom: 5px;
+    margin-bottom: 1.5rem;
+  }
+
+  .page_tab__OgqzC {
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+
+  .page_mainCol__EPLDr,
+  .page_sideCol__RkIgS {
+    width: 100%;
+  }
+
+  .page_upcomingContainer__pbf7H {
+    padding: 1rem;
+  }
+}

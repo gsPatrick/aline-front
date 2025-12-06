@@ -1,0 +1,82 @@
+.matrixContainer {
+    background: #1e1e1e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    margin-bottom: 1rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+.table th {
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 500;
+}
+
+.table td {
+    font-size: 0.95rem;
+}
+
+.teamName {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Heatmap Grid */
+.heatmapGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    /* 0-15, 16-30, 31-45, 46-60, 61-75, 76-90 */
+    gap: 4px;
+    margin-top: 1rem;
+}
+
+.heatmapCell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #fff;
+    background: #333;
+    /* Fallback */
+}
+
+.intervalLabel {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    margin-bottom: 2px;
+}
+
+.heatmapValue {
+    font-weight: bold;
+}

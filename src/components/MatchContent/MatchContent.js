@@ -11,6 +11,8 @@ import {
 } from 'react-icons/fa';
 import api from '@/lib/api';
 import styles from './MatchContent.module.css';
+import PredictionWidget from '@/components/PredictionWidget/PredictionWidget';
+import StatsMatrix from '@/components/StatsMatrix/StatsMatrix';
 
 // Variantes de Animação para as Abas
 const tabVariants = {
@@ -175,8 +177,8 @@ const OverviewTab = ({ events, homeId }) => {
 };
 
 // --- 2. ABA ESTATÍSTICAS ---
-const StatsTab = ({ stats }) => {
-    if (!stats || !stats.home || Object.keys(stats.home).length === 0) {
+const StatsTab = ({ stats, analysis, homeTeam, awayTeam }) => {
+    if (!stats && !analysis) {
         return <div className={styles.emptyState}>Estatísticas aguardando início do jogo.</div>;
     }
 
@@ -195,111 +197,82 @@ const StatsTab = ({ stats }) => {
 
     return (
         <div className={styles.tabPanel}>
-            <div className={styles.statsList}>
-                {statsConfig.map((config, index) => {
-                    const key = config.key;
-                    // Verifica variações de chaves (algumas APIs retornam com hifen, outras underscore)
-                    const homeVal = stats.home[key] ?? stats.home[key.replace('_', '-')] ?? 0;
-                    const awayVal = stats.away[key] ?? stats.away[key.replace('_', '-')] ?? 0;
-                    const total = homeVal + awayVal;
+            {/* Matriz de Análise (Novo Componente) */}
+            {analysis && (
+                <div style={{ marginBottom: '2rem' }}>
+                    <StatsMatrix
+                        homeTeam={homeTeam}
+                        awayTeam={awayTeam}
+                        stats={analysis}
+                    />
+                </div>
+            )}
 
-                    let homePercent = 50;
-                    let awayPercent = 50;
+            {stats && stats.home && (
+                <div className={styles.statsList}>
+                    {statsConfig.map((config, index) => {
+                        const key = config.key;
+                        const homeVal = stats.home[key] ?? stats.home[key.replace('_', '-')] ?? 0;
+                        const awayVal = stats.away[key] ?? stats.away[key.replace('_', '-')] ?? 0;
+                        const total = homeVal + awayVal;
 
-                    if (total > 0 && config.type !== 'percent') {
-                        homePercent = (homeVal / total) * 100;
-                        awayPercent = (awayVal / total) * 100;
-                    } else if (config.type === 'percent') {
-                        homePercent = homeVal;
-                        awayPercent = awayVal;
-                    }
+                        let homePercent = 50;
+                        let awayPercent = 50;
 
-                    if (homeVal === 0 && awayVal === 0 && key !== 'possession') return null;
+                        if (total > 0 && config.type !== 'percent') {
+                            homePercent = (homeVal / total) * 100;
+                            awayPercent = (awayVal / total) * 100;
+                        } else if (config.type === 'percent') {
+                            homePercent = homeVal;
+                            awayPercent = awayVal;
+                        }
 
-                    return (
-                        <motion.div
-                            key={index}
-                            className={styles.statRow}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.05 }}
-                        >
-                            <div className={styles.labels}>
-                                <span className={styles.valueHome}>{homeVal}{config.type === 'percent' ? '%' : ''}</span>
-                                <span className={styles.statName}>{config.label}</span>
-                                <span className={styles.valueAway}>{awayVal}{config.type === 'percent' ? '%' : ''}</span>
-                            </div>
-                            <div className={styles.barTrack}>
-                                <motion.div
-                                    className={styles.barHome}
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${homePercent}%` }}
-                                    transition={{ duration: 1, ease: "circOut" }}
-                                />
-                                <div className={styles.barSeparator} />
-                                <motion.div
-                                    className={styles.barAway}
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${awayPercent}%` }}
-                                    transition={{ duration: 1, ease: "circOut" }}
-                                />
-                            </div>
-                        </motion.div>
-                    )
-                })}
-            </div>
+                        if (homeVal === 0 && awayVal === 0 && key !== 'possession') return null;
+
+                        return (
+                            <motion.div
+                                key={index}
+                                className={styles.statRow}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.05 }}
+                            >
+                                <div className={styles.labels}>
+                                    <span className={styles.valueHome}>{homeVal}{config.type === 'percent' ? '%' : ''}</span>
+                                    <span className={styles.statName}>{config.label}</span>
+                                    <span className={styles.valueAway}>{awayVal}{config.type === 'percent' ? '%' : ''}</span>
+                                </div>
+                                <div className={styles.barTrack}>
+                                    <motion.div
+                                        className={styles.barHome}
+                                        initial={{ width: 0 }}
+                                        animate={{ width: `${homePercent}%` }}
+                                        transition={{ duration: 1, ease: "circOut" }}
+                                    />
+                                    <div className={styles.barSeparator} />
+                                    <motion.div
+                                        className={styles.barAway}
+                                        initial={{ width: 0 }}
+                                        animate={{ width: `${awayPercent}%` }}
+                                        transition={{ duration: 1, ease: "circOut" }}
+                                    />
+                                </div>
+                            </motion.div>
+                        )
+                    })}
+                </div>
+            )}
         </div>
     );
 };
 
 // --- 3. ABA PROJEÇÕES (IA) ---
-const PredictionsTab = ({ predictions, homeName, awayName }) => {
-    if (!predictions || !predictions.fulltime) return <div className={styles.emptyState}>Probabilidades não disponíveis no momento.</div>;
-
-    const ft = predictions.fulltime;
+const PredictionsTab = ({ predictions }) => {
+    if (!predictions) return <div className={styles.emptyState}>Probabilidades não disponíveis no momento.</div>;
 
     return (
         <div className={styles.tabPanel}>
-            <h3 className={styles.cardTitle}><FaChartPie /> Probabilidades de Vitória</h3>
-
-            <div className={styles.predChart}>
-                <div className={styles.predBarContainer}>
-                    <motion.div
-                        className={styles.predBar}
-                        style={{ background: 'var(--color-primary)' }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${ft.home}%` }}
-                        transition={{ duration: 1 }}
-                    >
-                        <span className={styles.predLabel}>{parseInt(ft.home)}%</span>
-                    </motion.div>
-
-                    <motion.div
-                        className={styles.predBar}
-                        style={{ background: '#64748b' }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${ft.draw}%` }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                    >
-                        <span className={styles.predLabel}>{parseInt(ft.draw)}%</span>
-                    </motion.div>
-
-                    <motion.div
-                        className={styles.predBar}
-                        style={{ background: '#0ea5e9' }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${ft.away}%` }}
-                        transition={{ duration: 1, delay: 0.4 }}
-                    >
-                        <span className={styles.predLabel}>{parseInt(ft.away)}%</span>
-                    </motion.div>
-                </div>
-                <div className={styles.predLegend}>
-                    <span style={{ color: 'var(--color-primary)' }}>{homeName}</span>
-                    <span style={{ color: '#64748b' }}>Empate</span>
-                    <span style={{ color: '#0ea5e9' }}>{awayName}</span>
-                </div>
-            </div>
+            <PredictionWidget predictions={predictions} />
 
             <div className={styles.aiInsight}>
                 <p>🤖 <strong>Análise 10Stats:</strong> Probabilidades calculadas com base no histórico recente e performance.</p>
@@ -569,14 +542,17 @@ export default function MatchContent({ activeTab, match }) {
                         )}
 
                         {activeTab === 'stats' && (
-                            <StatsTab stats={match.stats} />
+                            <StatsTab
+                                stats={match.stats}
+                                analysis={match.analysis?.stats}
+                                homeTeam={match.home_team}
+                                awayTeam={match.away_team}
+                            />
                         )}
 
                         {activeTab === 'predictions' && (
                             <PredictionsTab
-                                predictions={match.predictions}
-                                homeName={match.home_team.name}
-                                awayName={match.away_team.name}
+                                predictions={match.analysis?.predictions || match.predictions}
                             />
                         )}
 

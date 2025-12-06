@@ -862,6 +862,350 @@
   color: #fff;
   font-size: 1rem;
 }
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/TeamDashboard/TeamDashboard.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************/
+.TeamDashboard_dashboardContainer__MLjPV {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    grid-gap: 1.5rem;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    color: #e0e0e0;
+}
+
+/* --- Common Card Styles --- */
+.TeamDashboard_card__GllcP {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid #2a2a2a;
+    margin-bottom: 1.5rem;
+}
+
+.TeamDashboard_cardHeader__9MCK1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.75rem;
+}
+
+.TeamDashboard_cardTitle__kuv3E {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* --- Left Column: Next Match --- */
+.TeamDashboard_nextMatchCard__fTQ88 {
+    background: #252525;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.TeamDashboard_leagueHeader__p5cTH {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 1rem;
+}
+
+.TeamDashboard_leagueIcon__UpYfR {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.TeamDashboard_matchVersus__XvStf {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.TeamDashboard_teamLogo__bJcHY {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.TeamDashboard_vsInfo__rWCgi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.TeamDashboard_vsText___SL7o {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.TeamDashboard_matchDate__TxEmM {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.TeamDashboard_teamName__jDIY9 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    color: #ddd;
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.TeamDashboard_oddsContainer__mTf_h {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    gap: 0.5rem;
+}
+
+.TeamDashboard_oddBox__nt_Co {
+    background: #333;
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #ff9f43;
+    /* Orange accent */
+    flex: 1 1;
+    text-align: center;
+}
+
+/* --- Left Column: Competitions --- */
+.TeamDashboard_competitionItem__JN6m6 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.TeamDashboard_competitionItem__JN6m6:last-child {
+    border-bottom: none;
+}
+
+.TeamDashboard_compInfo__HT6z_ {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.TeamDashboard_compLogo__PL6nH {
+    width: 24px;
+    height: 24px;
+}
+
+.TeamDashboard_compName__YZl6Y {
+    font-size: 0.85rem;
+    color: #ddd;
+}
+
+.TeamDashboard_formBubbles__YBBjx {
+    display: flex;
+    gap: 3px;
+}
+
+.TeamDashboard_bubble__ApFJo {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.TeamDashboard_bubble__ApFJo.TeamDashboard_W__UXfpI {
+    background: #00b894;
+}
+
+/* Green */
+.TeamDashboard_bubble__ApFJo.TeamDashboard_D__w1kN_ {
+    background: #fdcb6e;
+    color: #333;
+}
+
+/* Yellow */
+.TeamDashboard_bubble__ApFJo.TeamDashboard_L__AuIvY {
+    background: #d63031;
+}
+
+/* Red */
+
+/* --- Right Column: Stats Summary --- */
+.TeamDashboard_statsHeader__r9HYC {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.TeamDashboard_mainTeamLogo__p663K {
+    width: 50px;
+    height: 50px;
+}
+
+.TeamDashboard_teamTitle__ThnB8 h2 {
+    font-size: 1.4rem;
+    margin: 0;
+    color: #fff;
+}
+
+.TeamDashboard_teamTitle__ThnB8 span {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.TeamDashboard_statsToggle__vo7Ma {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.TeamDashboard_toggleOption__11NmO {
+    cursor: pointer;
+    color: #888;
+    padding-bottom: 2px;
+}
+
+.TeamDashboard_toggleOption__11NmO.TeamDashboard_active__RN_TF {
+    color: #00b894;
+    border-bottom: 2px solid #00b894;
+}
+
+.TeamDashboard_statsGrid__GFzBQ {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-gap: 1rem;
+    gap: 1rem;
+    background: #252525;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.TeamDashboard_statBox__r29Pi {
+    text-align: center;
+}
+
+.TeamDashboard_statValue__gOZY9 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00cec9;
+    /* Cyan accent */
+}
+
+.TeamDashboard_statLabel___12JQ {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+/* --- Right Column: Matches Table --- */
+.TeamDashboard_matchesTabs___As5p {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+}
+
+.TeamDashboard_tabBtn__7y2wC {
+    background: none;
+    border: none;
+    color: #888;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.TeamDashboard_tabBtn__7y2wC.TeamDashboard_active__RN_TF {
+    color: #3498db;
+    /* Blue accent */
+    border-bottom: 2px solid #3498db;
+}
+
+.TeamDashboard_tableContainer__MVhL4 {
+    overflow-x: auto;
+}
+
+.TeamDashboard_table__VW98e {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.TeamDashboard_table__VW98e th {
+    text-align: left;
+    color: #888;
+    padding: 0.75rem;
+    border-bottom: 1px solid #333;
+}
+
+.TeamDashboard_table__VW98e td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #2a2a2a;
+    color: #ddd;
+}
+
+.TeamDashboard_scoreBadge__gCV2z {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    display: inline-block;
+    min-width: 40px;
+    text-align: center;
+}
+
+.TeamDashboard_scoreBadge__gCV2z.TeamDashboard_win__XJld_ {
+    background: rgba(0, 184, 148, 0.2);
+    color: #00b894;
+}
+
+.TeamDashboard_scoreBadge__gCV2z.TeamDashboard_draw__YVfi0 {
+    background: rgba(253, 203, 110, 0.2);
+    color: #fdcb6e;
+}
+
+.TeamDashboard_scoreBadge__gCV2z.TeamDashboard_loss__LiaWA {
+    background: rgba(214, 48, 49, 0.2);
+    color: #d63031;
+}
+
+.TeamDashboard_statCell__qvXk3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.TeamDashboard_statIcon__Xqa1j {
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+    .TeamDashboard_dashboardContainer__MLjPV {
+        grid-template-columns: 1fr;
+    }
+}
 /*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/app/team/[id]/page.module.css ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************/

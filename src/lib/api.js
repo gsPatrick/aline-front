@@ -41,6 +41,11 @@ export const matchService = {
   getStats: async (matchId) => {
     const { data } = await api.get(`/matches/${matchId}`);
     return data;
+  },
+  // NOVA: Busca análise detalhada
+  getAnalysis: async (matchId) => {
+    const { data } = await api.get(`/matches/${matchId}/analysis`);
+    return data;
   }
 };
 export const leagueService = {
@@ -76,6 +81,10 @@ export const teamService = {
   },
   getInfo: async (teamId) => {
     const { data } = await api.get(`/teams/${teamId}/info`);
+    return data;
+  },
+  getStats: async (teamId) => {
+    const { data } = await api.get(`/teams/${teamId}/stats`);
     return data;
   }
 }

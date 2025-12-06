@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import styles from './MatchHeader.module.css';
@@ -6,88 +7,110 @@ import styles from './MatchHeader.module.css';
 export default function MatchHeader({ match }) {
   if (!match) return null;
 
-  // Garante o acesso aos dados, independente se vier de 'teams' ou direto na raiz (dependendo do endpoint usado)
   const league = match.league || {};
   const home = match.home_team || match.teams?.home || {};
   const away = match.away_team || match.teams?.away || {};
   const status = match.status || {};
-
-  // Verifica se o jogo está ao vivo para exibir o ponto pulsante e o minuto
-  // IDs típicos Sportmonks: 2 = LIVE. Strings: LIVE, HT (Intervalo), ET (Prorrogação), PEN (Pênaltis)
   const isLive = status.id === 2 || ['LIVE', 'HT', 'ET', 'PEN'].includes(status.short);
 
-  // Lógica de exibição do tempo:
-  // Se tiver a propriedade 'minute' na raiz (comum em livescore), usa ela.
-  // Caso contrário, usa o status curto (ex: FT, NS, INT).
-  const timeDisplay = isLive && match.minute 
-    ? `${match.minute}'` 
-    : (status.short || 'NS');
+  // --- COUNTDOWN TIMER ---
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    if (isLive || status.short === 'FT') return;
+
+    const targetDate = new Date(match.timestamp * 1000).getTime();
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      } else {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [match.timestamp, isLive, status.short]);
+
+  // Formata número com zero à esquerda
+  const f = (n) => String(n).padStart(2, '0');
 
   return (
-    <motion.div 
+    <motion.div
       className={styles.headerContainer}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Fundo com efeito de brilho */}
       <div className={styles.bgGlow}></div>
 
-      {/* Informações da Liga (Clicável) */}
+      {/* Topo: Liga e Local */}
       <div className={styles.metaInfo}>
-        {league.id ? (
-          <Link href={`/leagues/${league.id}`} className={styles.leagueLink}>
-            <span className={styles.leagueName}>{league.name || 'Liga Desconhecida'}</span>
-          </Link>
-        ) : (
-          <span className={styles.leagueName}>{league.name || 'Liga'}</span>
-        )}
-        
-        <span className={styles.separator}>•</span>
-        <span className={styles.venueName}>{league.country || 'Mundo'}</span>
+        <div className={styles.leagueInfo}>
+          {league.logo && <img src={league.logo} alt="" className={styles.leagueIcon} />}
+          <span className={styles.leagueName}>{league.name}</span>
+        </div>
+        <span className={styles.venueName}>{match.venue || 'Estádio não informado'}</span>
       </div>
 
-      {/* Placar e Times */}
-      <div className={styles.scoreboard}>
-        
-        {/* Time da Casa (Clicável) */}
-        <Link href={`/team/${home.id}`} className={`${styles.team} ${styles.home}`}>
-          <div className={styles.logoPlaceholder}>
-             {home.logo ? (
-                <img src={home.logo} alt={home.name} className={styles.teamLogo} />
-             ) : (
-                <span className={styles.logoText}>{home.name?.charAt(0)}</span>
-             )}
+      <div className={styles.mainContent}>
+        {/* HOME TEAM */}
+        <div className={styles.teamContainer}>
+          <div className={styles.logoWrapper}>
+            {home.logo ? <img src={home.logo} alt={home.name} /> : <div className={styles.placeholder}>{home.name?.[0]}</div>}
           </div>
-          <h1 className={styles.teamName}>{home.name}</h1>
-        </Link>
-
-        {/* Centro do Placar (Score + Tempo) */}
-        <div className={styles.scoreCenter}>
-          <div className={styles.scoreDisplay}>
-            <span className={styles.goals}>{home.score ?? 0}</span>
-            <span className={styles.colon}>:</span>
-            <span className={styles.goals}>{away.score ?? 0}</span>
-          </div>
-          
-          <div className={styles.timerBadge}>
-            {isLive && <span className={styles.liveDot}></span>}
-            <span className={styles.time}>{timeDisplay}</span>
-          </div>
+          <h2 className={styles.teamName}>{home.name}</h2>
+          <span className={styles.positionBadge}>3.º</span> {/* Mock Position */}
         </div>
 
-        {/* Time Visitante (Clicável) */}
-        <Link href={`/team/${away.id}`} className={`${styles.team} ${styles.away}`}>
-          <div className={styles.logoPlaceholder}>
-            {away.logo ? (
-                <img src={away.logo} alt={away.name} className={styles.teamLogo} />
-             ) : (
-                <span className={styles.logoText}>{away.name?.charAt(0)}</span>
-             )}
-          </div>
-          <h1 className={styles.teamName}>{away.name}</h1>
-        </Link>
+        {/* CENTER: SCORE OR TIMER */}
+        <div className={styles.centerInfo}>
+          {isLive || status.short === 'FT' ? (
+            <div className={styles.scoreBoard}>
+              <span className={styles.score}>{home.score ?? 0}</span>
+              <span className={styles.divider}>:</span>
+              <span className={styles.score}>{away.score ?? 0}</span>
+              {isLive && <span className={styles.liveIndicator}>LIVE {match.minute}'</span>}
+            </div>
+          ) : (
+            <div className={styles.countdown}>
+              <div className={styles.timeBox}>
+                <span className={styles.timeVal}>{f(timeLeft.days)}</span>
+                <span className={styles.timeLabel}>DIAS</span>
+              </div>
+              <div className={styles.timeBox}>
+                <span className={styles.timeVal}>{f(timeLeft.hours)}</span>
+                <span className={styles.timeLabel}>HORAS</span>
+              </div>
+              <div className={styles.timeBox}>
+                <span className={styles.timeVal}>{f(timeLeft.minutes)}</span>
+                <span className={styles.timeLabel}>MINS</span>
+              </div>
+              <div className={styles.timeBox}>
+                <span className={styles.timeVal}>{f(timeLeft.seconds)}</span>
+                <span className={styles.timeLabel}>SEGS</span>
+              </div>
+            </div>
+          )}
+        </div>
 
+        {/* AWAY TEAM */}
+        <div className={styles.teamContainer}>
+          <div className={styles.logoWrapper}>
+            {away.logo ? <img src={away.logo} alt={away.name} /> : <div className={styles.placeholder}>{away.name?.[0]}</div>}
+          </div>
+          <h2 className={styles.teamName}>{away.name}</h2>
+          <span className={styles.positionBadge}>1.º</span> {/* Mock Position */}
+        </div>
       </div>
     </motion.div>
   );

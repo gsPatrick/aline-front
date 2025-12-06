@@ -8,7 +8,8 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import MatchHeader from "@/components/MatchHeader/MatchHeader";
 import StatsTabs from "@/components/StatsTabs/StatsTabs";
 import MatchContent from "@/components/MatchContent/MatchContent";
-import api from '@/lib/api';
+import MatchContent from "@/components/MatchContent/MatchContent";
+import { matchService } from '@/lib/api';
 import { FaSpinner, FaExclamationTriangle } from 'react-icons/fa';
 import styles from "./page.module.css";
 
@@ -44,11 +45,21 @@ export default function MatchPage() {
             setError(null);
 
             try {
-                // Chama o endpoint de detalhes (conforme match.routes.js do backend)
-                const { data } = await api.get(`/matches/${matchId}`);
+                // Chama o endpoint de análise (que já traz tudo: fixture, stats, predictions)
+                const data = await matchService.getAnalysis(matchId);
 
-                if (data) {
-                    setMatch(data);
+                if (data && data.fixture) {
+                    // Enriquece o objeto fixture com os dados de análise para passar aos componentes
+                    const enrichedMatch = {
+                        ...data.fixture,
+                        analysis: {
+                            venue: data.venue,
+                            standings: data.standings,
+                            stats: data.stats,
+                            predictions: data.predictions
+                        }
+                    };
+                    setMatch(enrichedMatch);
                 } else {
                     throw new Error("Dados da partida vazios.");
                 }

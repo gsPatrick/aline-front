@@ -1,4 +1,3 @@
-
 'use client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
@@ -8,9 +7,10 @@ import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import TeamHeader from "@/components/TeamHeader/TeamHeader";
 import SquadList from "@/components/SquadList/SquadList";
+import TeamDashboard from "@/components/TeamDashboard/TeamDashboard"; // Novo Componente
 import styles from './page.module.css';
 import { teamService } from '@/lib/api';
-import { FaSpinner, FaCalendarAlt, FaUsers, FaChevronLeft, FaChevronRight, FaExclamationTriangle } from 'react-icons/fa';
+import { FaSpinner, FaCalendarAlt, FaUsers, FaChevronLeft, FaChevronRight, FaExclamationTriangle, FaChartPie } from 'react-icons/fa';
 
 // Variantes de animação
 const contentVariants = {
@@ -204,11 +204,12 @@ export default function TeamPage() {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [activeTab, setActiveTab] = useState('matches'); // 'matches' | 'squad'
+    const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard' | 'matches' | 'squad'
 
     const [teamInfo, setTeamInfo] = useState(null);
     const [scheduleData, setScheduleData] = useState({ results: [], upcoming: [] });
     const [squadData, setSquadData] = useState([]);
+    const [statsData, setStatsData] = useState(null);
 
     useEffect(() => {
         if (!id) return;
@@ -219,10 +220,11 @@ export default function TeamPage() {
                 setError(null);
 
                 // Executa todas as requisições em paralelo
-                const [info, schedule, squad] = await Promise.all([
+                const [info, schedule, squad, stats] = await Promise.all([
                     teamService.getInfo(id),
                     teamService.getSchedule(id),
-                    teamService.getSquad(id)
+                    teamService.getSquad(id),
+                    teamService.getStats(id)
                 ]);
 
                 if (!info) throw new Error("Time não encontrado");
@@ -230,6 +232,7 @@ export default function TeamPage() {
                 setTeamInfo(info);
                 setScheduleData(schedule || { results: [], upcoming: [] });
                 setSquadData(squad || []);
+                setStatsData(stats || null);
 
             } catch (error) {
                 console.error("Erro ao carregar dados do time:", error);
@@ -300,6 +303,12 @@ export default function TeamPage() {
                             {/* Navegação de Abas */}
                             <div className={styles.tabs}>
                                 <button
+                                    className={`${styles.tab} ${activeTab === 'dashboard' ? styles.active : ''}`}
+                                    onClick={() => setActiveTab('dashboard')}
+                                >
+                                    <FaChartPie /> Dashboard
+                                </button>
+                                <button
                                     className={`${styles.tab} ${activeTab === 'matches' ? styles.active : ''}`}
                                     onClick={() => setActiveTab('matches')}
                                 >
@@ -316,7 +325,26 @@ export default function TeamPage() {
                             {/* Conteúdo das Abas */}
                             <div className={styles.tabContent}>
                                 <AnimatePresence mode="wait">
-                                    {/* ABA 1: JOGOS (Resultados e Calendário) */}
+                                    {/* ABA 1: DASHBOARD (NOVO) */}
+                                    {activeTab === 'dashboard' && (
+                                        <motion.div
+                                            key="dashboard"
+                                            variants={tabVariants}
+                                            initial="hidden"
+                                            animate="visible"
+                                            exit="exit"
+                                        >
+                                            <TeamDashboard
+                                                stats={statsData?.radar_data}
+                                                matches={statsData?.latest_matches}
+                                                nextMatch={statsData?.next_match}
+                                                upcomingMatches={statsData?.upcoming_matches}
+                                                teamInfo={teamInfo}
+                                            />
+                                        </motion.div>
+                                    )}
+
+                                    {/* ABA 2: JOGOS (Resultados e Calendário) */}
                                     {activeTab === 'matches' && (
                                         <motion.div
                                             key="matches"
@@ -344,7 +372,7 @@ export default function TeamPage() {
                                         </motion.div>
                                     )}
 
-                                    {/* ABA 2: ELENCO (Jogadores e Stats) */}
+                                    {/* ABA 3: ELENCO (Jogadores e Stats) */}
                                     {activeTab === 'squad' && (
                                         <motion.div
                                             key="squad"
