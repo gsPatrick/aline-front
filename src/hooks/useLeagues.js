@@ -4,42 +4,27 @@ import { leagueService } from '@/lib/api';
 export function useLeagues() {
   const [leagues, setLeagues] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-
-  const loadLeagues = async (pageNum) => {
-    try {
-      setLoading(true);
-      const data = await leagueService.getAll(pageNum);
-
-      if (data) {
-        setLeagues(data);
-      }
-    } catch (error) {
-      console.error("Erro ao carregar ligas", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    loadLeagues(1);
+    const loadLeagues = async () => {
+      try {
+        setLoading(true);
+        const response = await leagueService.getAll();
+
+        // A API agora retorna: { success, total, data: [...] }
+        // onde data contém todas as 113 ligas
+        setLeagues(response?.data || []);
+      } catch (err) {
+        console.error("Erro ao carregar ligas", err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadLeagues();
   }, []);
 
-  const nextPage = () => {
-    if (!loading) {
-      const next = page + 1;
-      setPage(next);
-      loadLeagues(next);
-    }
-  };
-
-  const prevPage = () => {
-    if (!loading && page > 1) {
-      const prev = page - 1;
-      setPage(prev);
-      loadLeagues(prev);
-    }
-  };
-
-  return { leagues, loading, page, nextPage, prevPage };
+  return { leagues, loading, error };
 }

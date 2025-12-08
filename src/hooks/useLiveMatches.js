@@ -14,8 +14,11 @@ export function useLiveMatches() {
       // Só mostra loading na primeira carga se não tiver dados
       if (matchesRef.current.length === 0) setLoading(true);
 
-      const data = await matchService.getLive();
-      const newMatches = data || [];
+      const response = await matchService.getLive();
+
+      // A API agora retorna: { success, total_leagues, total_fixtures, data: [...] }
+      // onde data é um array de objetos com: { league_id, league_name, country_name, country_flag, fixtures: [...] }
+      const newMatches = response?.data || [];
 
       setMatches(newMatches);
       matchesRef.current = newMatches;

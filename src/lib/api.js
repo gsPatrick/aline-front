@@ -24,15 +24,27 @@ api.interceptors.request.use((config) => {
 // --- Endpoints Mapeados ---
 
 export const matchService = {
-  // Busca jogos ao vivo
+  // Busca jogos ao vivo (agrupados por liga)
   getLive: async () => {
-    const { data } = await api.get('/matches/live');
+    const { data } = await api.get('/fixtures/live');
     return data;
   },
 
-  // Busca jogos do dia (Home)
+  // Busca jogos de hoje (agrupados por liga)
   getDaily: async () => {
-    const { data } = await api.get('/matches/daily');
+    const { data } = await api.get('/fixtures/today');
+    return data;
+  },
+
+  // Busca jogos de uma data específica (YYYY-MM-DD)
+  getByDate: async (date) => {
+    const { data } = await api.get(`/fixtures/date/${date}`);
+    return data;
+  },
+
+  // Busca jogos da próxima semana (7 dias)
+  getWeek: async () => {
+    const { data } = await api.get('/fixtures/week');
     return data;
   },
 
@@ -50,8 +62,9 @@ export const matchService = {
   }
 };
 export const leagueService = {
-  getAll: async (page = 1) => {
-    const { data } = await api.get(`/leagues?page=${page}`);
+  // Retorna TODAS as 113 ligas disponíveis (sem paginação)
+  getAll: async () => {
+    const { data } = await api.get('/leagues');
     return data;
   }
 };

@@ -11,10 +11,10 @@ import { useLeagues } from '@/hooks/useLeagues';
 import styles from './page.module.css';
 
 export default function LeaguesPage() {
-    const { leagues, loading, page, nextPage, prevPage } = useLeagues();
+    const { leagues, loading, error } = useLeagues();
     const [searchTerm, setSearchTerm] = useState('');
 
-    // Client-side filtering (since API might not support search yet)
+    // Client-side filtering
     const filteredLeagues = leagues.filter(league =>
         league.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (league.country && league.country.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -63,65 +63,54 @@ export default function LeaguesPage() {
                         <FaTrophy className={styles.spinner} />
                         <p>Carregando ligas...</p>
                     </div>
+                ) : error ? (
+                    <div className={styles.errorContainer}>
+                        <p>Erro ao carregar ligas. Tente novamente.</p>
+                    </div>
                 ) : (
-                    <>
-                        <motion.div
-                            className={styles.leaguesGrid}
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="show"
-                        >
-                            {filteredLeagues.map((league) => (
-                                <Link key={league.id} href={`/leagues/${league.id}`} passHref legacyBehavior>
-                                    <motion.a className={styles.leagueCard} variants={itemVariants}>
-                                        <div className={styles.cardHeader}>
-                                            {league.logo ? (
-                                                <img src={league.logo} alt={league.name} className={styles.leagueLogo} />
-                                            ) : (
-                                                <div className={styles.placeholderLogo}>🏆</div>
-                                            )}
-                                            <div className={styles.cardInfo}>
-                                                <h3 className={styles.leagueName}>{league.name}</h3>
-                                                {league.country && (
-                                                    <span className={styles.leagueCountry}>
-                                                        {league.country}
-                                                    </span>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className={styles.cardFooter}>
-                                            {league.season && (
-                                                <span className={styles.seasonBadge}>
-                                                    {league.season}
+                    <motion.div
+                        className={styles.leaguesGrid}
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="show"
+                    >
+                        {filteredLeagues.map((league) => (
+                            <Link key={league.id} href={`/leagues/${league.id}`} passHref legacyBehavior>
+                                <motion.a className={styles.leagueCard} variants={itemVariants}>
+                                    <div className={styles.cardHeader}>
+                                        {league.image_path ? (
+                                            <img src={league.image_path} alt={league.name} className={styles.leagueLogo} />
+                                        ) : (
+                                            <div className={styles.placeholderLogo}>🏆</div>
+                                        )}
+                                        <div className={styles.cardInfo}>
+                                            <h3 className={styles.leagueName}>{league.name}</h3>
+                                            {league.country && (
+                                                <span className={styles.leagueCountry}>
+                                                    {league.country}
                                                 </span>
                                             )}
-                                            <FaChevronRight className={styles.arrowIcon} />
                                         </div>
-                                    </motion.a>
-                                </Link>
-                            ))}
-                        </motion.div>
+                                    </div>
 
-                        {/* Pagination Controls */}
-                        <div className={styles.pagination}>
-                            <button
-                                className={styles.pageBtn}
-                                onClick={prevPage}
-                                disabled={page === 1 || loading}
-                            >
-                                <FaChevronLeft />
-                            </button>
-                            <span className={styles.pageIndicator}>Página {page}</span>
-                            <button
-                                className={styles.pageBtn}
-                                onClick={nextPage}
-                                disabled={loading}
-                            >
-                                <FaChevronRight />
-                            </button>
-                        </div>
-                    </>
+                                    <div className={styles.cardFooter}>
+                                        {league.short_code && (
+                                            <span className={styles.seasonBadge}>
+                                                {league.short_code}
+                                            </span>
+                                        )}
+                                        <FaChevronRight className={styles.arrowIcon} />
+                                    </div>
+                                </motion.a>
+                            </Link>
+                        ))}
+                    </motion.div>
+                )}
+
+                {!loading && !error && filteredLeagues.length === 0 && (
+                    <div className={styles.emptyContainer}>
+                        <p>Nenhuma liga encontrada.</p>
+                    </div>
                 )}
             </div>
 

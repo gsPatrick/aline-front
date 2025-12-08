@@ -91,28 +91,19 @@ export default function GamesList({ type = 'live' }) {
 
     const [selectedBookmaker, setSelectedBookmaker] = useState(2);
 
+    // A API agora retorna os dados JÁ AGRUPADOS por liga
+    // Formato: [{ league_id, league_name, country_name, country_flag, fixtures: [...] }]
+    // Precisamos apenas mapear os nomes dos campos para o formato esperado pelo componente
     const matchesByLeague = useMemo(() => {
-        const groups = {};
         if (!Array.isArray(matches)) return [];
 
-        matches.forEach(match => {
-            const leagueId = match.league?.id || "world";
-            const leagueName = match.league?.name || "Outros Jogos";
-            const leagueFlag = match.league?.logo || null;
-            const country = match.league?.country || "";
-
-            if (!groups[leagueId]) {
-                groups[leagueId] = {
-                    id: leagueId,
-                    name: leagueName,
-                    country: country,
-                    flag: leagueFlag,
-                    games: []
-                };
-            }
-            groups[leagueId].games.push(match);
-        });
-        return Object.values(groups);
+        return matches.map(leagueGroup => ({
+            id: leagueGroup.league_id,
+            name: leagueGroup.league_name,
+            country: leagueGroup.country_name,
+            flag: leagueGroup.country_flag,
+            games: leagueGroup.fixtures || []
+        }));
     }, [matches]);
 
     const [openLeagues, setOpenLeagues] = useState({});

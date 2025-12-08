@@ -10,8 +10,11 @@ export function useDailyMatches() {
     const fetchDaily = async () => {
       try {
         setLoading(true);
-        const data = await matchService.getDaily();
-        setMatches(data || []);
+        const response = await matchService.getDaily();
+
+        // A API agora retorna: { success, date, total_leagues, total_fixtures, data: [...] }
+        // onde data é um array de objetos com: { league_id, league_name, country_name, country_flag, fixtures: [...] }
+        setMatches(response?.data || []);
       } catch (err) {
         console.error(err);
         setError(err);
