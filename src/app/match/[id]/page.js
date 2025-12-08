@@ -117,9 +117,7 @@ export default function MatchPage() {
                                 >
                                     {activeTab === 'overview' && (
                                         <OverviewTab
-                                            data={goalAnalysis}
-                                            h2h={h2h}
-                                            history={history}
+                                            match={match}
                                         />
                                     )}
 
