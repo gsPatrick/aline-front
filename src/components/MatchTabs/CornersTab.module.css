@@ -1,0 +1,72 @@
+.container {
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.section {
+    background: var(--bg-card, #2a2a2a);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary, #e0e0e0);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.icon {
+    color: var(--accent-blue, #00d4ff);
+}
+
+.racesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.raceCard {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.raceLabel {
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.raceValue {
+    color: var(--accent-blue, #00d4ff);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.noData {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary, #a0a0a0);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .racesGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

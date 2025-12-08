@@ -1,0 +1,56 @@
+.container {
+    width: 100%;
+    background: var(--bg-card, #2a2a2a);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.title {
+    color: var(--text-primary, #e0e0e0);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.875rem;
+}
+
+.liveIndicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    color: var(--accent-green, #00ff88);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.liveDot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-green, #00ff88);
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}

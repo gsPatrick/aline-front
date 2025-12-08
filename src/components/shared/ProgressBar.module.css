@@ -1,0 +1,57 @@
+.container {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.homeLabel {
+    color: var(--accent-green, #00ff88);
+    font-weight: 600;
+}
+
+.centerLabel {
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.awayLabel {
+    color: var(--accent-blue, #00d4ff);
+    font-weight: 600;
+}
+
+.track {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+}
+
+.homeBar {
+    background: linear-gradient(90deg, var(--accent-green, #00ff88), rgba(0, 255, 136, 0.6));
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+}
+
+.awayBar {
+    background: linear-gradient(270deg, var(--accent-blue, #00d4ff), rgba(0, 212, 255, 0.6));
+    height: 100%;
+    border-radius: 0 4px 4px 0;
+}
+
+.separator {
+    width: 2px;
+    background: var(--bg-primary, #1e1e1e);
+    height: 100%;
+}

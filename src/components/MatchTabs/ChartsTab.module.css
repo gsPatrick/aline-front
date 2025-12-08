@@ -1,0 +1,42 @@
+.container {
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.chartsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.chartSection {
+    background: var(--bg-card, #2a2a2a);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.chartTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary, #e0e0e0);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.icon {
+    color: var(--accent-green, #00ff88);
+}
+
+@media (max-width: 768px) {
+    .chartsGrid {
+        grid-template-columns: 1fr;
+    }
+}

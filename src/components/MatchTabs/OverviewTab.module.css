@@ -1,0 +1,195 @@
+.container {
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.twoColumn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.section {
+    background: var(--bg-card, #2a2a2a);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary, #e0e0e0);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.titleIcon {
+    color: var(--accent-green, #00ff88);
+}
+
+/* Probabilities */
+.probabilities {
+    margin-top: 1rem;
+}
+
+.drawProb {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.drawLabel {
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.875rem;
+}
+
+.drawValue {
+    color: var(--accent-blue, #00d4ff);
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+/* Insights */
+.insightsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.insightBadge {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.insightValue {
+    display: block;
+    color: var(--accent-green, #00ff88);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.insightLabel {
+    display: block;
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* H2H Summary */
+.h2hSummary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.h2hStat {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.h2hLabel {
+    display: block;
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.h2hValue {
+    display: block;
+    color: var(--text-primary, #e0e0e0);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* History */
+.historyList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.historyCard {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.historyDate {
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.historyMatch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-primary, #e0e0e0);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.historyScore {
+    font-weight: 700;
+    color: var(--accent-green, #00ff88);
+}
+
+.historyStats {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.statBadge {
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--accent-blue, #00d4ff);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Timeline */
+.timeline {
+    min-height: 400px;
+}
+
+.timelinePlaceholder {
+    color: var(--text-secondary, #a0a0a0);
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .twoColumn {
+        grid-template-columns: 1fr;
+    }
+
+    .insightsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .h2hSummary {
+        grid-template-columns: 1fr;
+    }
+}

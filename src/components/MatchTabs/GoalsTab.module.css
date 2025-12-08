@@ -1,0 +1,87 @@
+.container {
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.filterContainer {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--bg-card, #2a2a2a);
+    padding: 0.5rem;
+    border-radius: 12px;
+    width: fit-content;
+}
+
+.filterBtn {
+    padding: 0.625rem 1.25rem;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filterBtn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary, #e0e0e0);
+}
+
+.filterBtn.active {
+    background: var(--accent-green, #00ff88);
+    color: #000;
+    font-weight: 600;
+}
+
+.section {
+    background: var(--bg-card, #2a2a2a);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary, #e0e0e0);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.icon {
+    color: var(--accent-green, #00ff88);
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .filterContainer {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filterBtn {
+        flex: 1;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+}

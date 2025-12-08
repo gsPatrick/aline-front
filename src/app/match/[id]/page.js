@@ -1,17 +1,21 @@
 'use client';
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import MatchHeader from "@/components/MatchHeader/MatchHeader";
-import StatsTabs from "@/components/StatsTabs/StatsTabs";
-import MatchContent from "@/components/MatchContent/MatchContent";
+import MatchTabs from "@/components/MatchTabs/MatchTabs";
+import OverviewTab from "@/components/MatchTabs/OverviewTab";
+import GoalsTab from "@/components/MatchTabs/GoalsTab";
+import CornersTab from "@/components/MatchTabs/CornersTab";
+import CardsTab from "@/components/MatchTabs/CardsTab";
+import ChartsTab from "@/components/MatchTabs/ChartsTab";
+import SquadTab from "@/components/MatchTabs/SquadTab";
 import { useMatchDetails } from '@/hooks/useMatchDetails';
-import { FaSpinner, FaExclamationTriangle, FaFilter } from 'react-icons/fa';
+import { FaSpinner, FaExclamationTriangle } from 'react-icons/fa';
 import styles from "./page.module.css";
 
-// Variantes de Animação para entrada da página
 const pageVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -21,17 +25,20 @@ const pageVariants = {
     }
 };
 
+const tabContentVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
+    exit: { opacity: 0, x: 20, transition: { duration: 0.3 } }
+};
+
 export default function MatchPage() {
     const params = useParams();
     const matchId = params?.id;
 
-    // Use enhanced hook with filter support
-    const { match, loading, error, filterCondition, setFilterCondition, isLive, refetch } = useMatchDetails(matchId);
-
-    // Estado para controlar qual aba está visível
+    const { match, loading, error, filterCondition, setFilterCondition, isLive } = useMatchDetails(matchId);
     const [activeTab, setActiveTab] = useState('overview');
 
-    // --- RENDER: LOADING ---
+    // Loading State
     if (loading) {
         return (
             <div className={styles.pageWrapper}>
@@ -41,7 +48,7 @@ export default function MatchPage() {
                     <main className={styles.mainContent}>
                         <div className={styles.loadingScreen}>
                             <FaSpinner className={styles.spinner} />
-                            <p className={styles.loadingText}>Analisando dados táticos...</p>
+                            <p className={styles.loadingText}>Carregando análise da partida...</p>
                         </div>
                     </main>
                 </div>
@@ -49,7 +56,7 @@ export default function MatchPage() {
         );
     }
 
-    // --- RENDER: ERRO ---
+    // Error State
     if (error || !match) {
         return (
             <div className={styles.pageWrapper}>
@@ -68,7 +75,9 @@ export default function MatchPage() {
         );
     }
 
-    // --- RENDER: CONTEÚDO PRINCIPAL ---
+    // Extract data from match object
+    const { goalAnalysis, cornerAnalysis, cardAnalysis, chartsAnalysis, squad, h2h, history, matchInfo } = match;
+
     return (
         <div className={styles.pageWrapper}>
             <Header />
@@ -83,53 +92,83 @@ export default function MatchPage() {
                         variants={pageVariants}
                         className={styles.motionWrapper}
                     >
-                        {/* 1. Cabeçalho com Placar e Times */}
-                        <MatchHeader match={match} isLive={isLive} />
+                        {/* Match Header */}
+                        <MatchHeader match={match} />
 
-                        {/* 2. Filter Toggle (for Goals, Corners, Cards tabs) */}
-                        {['goals', 'corners', 'cards'].includes(activeTab) && (
-                            <div className={styles.filterContainer}>
-                                <FaFilter className={styles.filterIcon} />
-                                <div className={styles.filterToggle}>
-                                    <button
-                                        className={`${styles.filterBtn} ${filterCondition === 'ALL' ? styles.active : ''}`}
-                                        onClick={() => setFilterCondition('ALL')}
-                                    >
-                                        Geral
-                                    </button>
-                                    <button
-                                        className={`${styles.filterBtn} ${filterCondition === 'HOME' ? styles.active : ''}`}
-                                        onClick={() => setFilterCondition('HOME')}
-                                    >
-                                        Casa
-                                    </button>
-                                    <button
-                                        className={`${styles.filterBtn} ${filterCondition === 'AWAY' ? styles.active : ''}`}
-                                        onClick={() => setFilterCondition('AWAY')}
-                                    >
-                                        Fora
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* 3. Menu de Abas */}
-                        <StatsTabs
+                        {/* Tabs Navigation */}
+                        <MatchTabs
                             activeTab={activeTab}
-                            setActiveTab={setActiveTab}
-                            matchStatus={match.matchInfo?.state || 'NS'}
+                            onTabChange={setActiveTab}
                         />
 
-                        {/* 4. Conteúdo Dinâmico */}
-                        <div className={styles.scrollableContent}>
-                            <MatchContent
-                                activeTab={activeTab}
-                                match={match}
-                                filterCondition={filterCondition}
-                                isLive={isLive}
-                            />
+                        {/* Tab Content */}
+                        <div className={styles.tabContent}>
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeTab}
+                                    variants={tabContentVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
+                                >
+                                    {activeTab === 'overview' && (
+                                        <OverviewTab
+                                            data={goalAnalysis}
+                                            h2h={h2h}
+                                            history={history}
+                                        />
+                                    )}
+
+                                    {activeTab === 'goals' && (
+                                        <GoalsTab
+                                            data={goalAnalysis}
+                                            filterCondition={filterCondition}
+                                            onFilterChange={setFilterCondition}
+                                        />
+                                    )}
+
+                                    {activeTab === 'corners' && (
+                                        <CornersTab
+                                            data={cornerAnalysis}
+                                            chartsData={chartsAnalysis}
+                                            filterCondition={filterCondition}
+                                            isLive={isLive}
+                                            currentMinute={matchInfo?.currentMinute || 90}
+                                        />
+                                    )}
+
+                                    {activeTab === 'cards' && (
+                                        <CardsTab
+                                            data={cardAnalysis}
+                                            referee={matchInfo?.referee}
+                                        />
+                                    )}
+
+                                    {activeTab === 'charts' && (
+                                        <ChartsTab
+                                            data={chartsAnalysis}
+                                        />
+                                    )}
+
+                                    {activeTab === 'squad' && (
+                                        <SquadTab
+                                            homeSquad={squad?.home}
+                                            awaySquad={squad?.away}
+                                            homeTeamName={match.homeTeam?.name}
+                                            awayTeamName={match.awayTeam?.name}
+                                        />
+                                    )}
+                                </motion.div>
+                            </AnimatePresence>
                         </div>
 
+                        {/* Live Indicator */}
+                        {isLive && (
+                            <div className={styles.liveIndicator}>
+                                <span className={styles.liveDot} />
+                                Atualização automática a cada 30 segundos
+                            </div>
+                        )}
                     </motion.div>
                 </main>
             </div>
