@@ -1,264 +1,342 @@
-
 'use client';
-import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Header from "@/components/Header/Header";
-import Sidebar from "@/components/Sidebar/Sidebar";
-import LeagueHeader from "@/components/LeagueHeader/LeagueHeader";
-import StandingsTable from "@/components/StandingsTable/StandingsTable";
+import { motion } from 'framer-motion';
+import Header from '@/components/Header/Header';
+import Sidebar from '@/components/Sidebar/Sidebar';
+import { useLeagueDetails } from '@/hooks/useLeagueDetails';
+import { FaSpinner, FaExclamationTriangle, FaTrophy, FaShieldAlt, FaStar, FaFrown } from 'react-icons/fa';
 import styles from './page.module.css';
-import api from '@/lib/api';
-import { FaSpinner, FaListAlt, FaCalendarAlt, FaClock, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// --- HELPERS DE DATA ---
-const getDatesRange = () => {
-    const dates = [];
-    const today = new Date();
-    // Gera datas de -3 dias até +14 dias
-    for (let i = -3; i <= 14; i++) {
-        const d = new Date(today);
-        d.setDate(today.getDate() + i);
-        dates.push(d);
+export default function LeagueDetailsPage() {
+    const params = useParams();
+    const leagueId = params?.id;
+    const { data, loading, error } = useLeagueDetails(leagueId);
+
+    if (loading) {
+        return (
+            <div className={styles.pageWrapper}>
+                <Header />
+                <div className={styles.contentLayout}>
+                    <Sidebar />
+                    <main className={styles.mainContent}>
+                        <div className={styles.loadingScreen}>
+                            <FaSpinner className={styles.spinner} />
+                            <p>Carregando detalhes da liga...</p>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        );
     }
-    return dates;
-};
 
-const formatDateToISO = (date) => date.toISOString().split('T')[0];
+    if (error || !data) {
+        return (
+            <div className={styles.pageWrapper}>
+                <Header />
+                <div className={styles.contentLayout}>
+                    <Sidebar />
+                    <main className={styles.mainContent}>
+                        <div className={styles.errorScreen}>
+                            <FaExclamationTriangle size={48} className={styles.errorIcon} />
+                            <h1>Liga não encontrada</h1>
+                            <p>{error || 'Verifique o ID da liga'}</p>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        );
+    }
 
-const formatDateDisplay = (date) => {
-    const day = date.getDate();
-    const month = date.toLocaleString('pt-BR', { month: 'short' }).replace('.', '');
-    const weekday = date.toLocaleString('pt-BR', { weekday: 'short' }).replace('.', '');
-    return { day, month, weekday };
-};
-
-// --- COMPONENTES VISUAIS INTERNOS ---
-
-const DatePicker = ({ selectedDate, onSelectDate }) => {
-    const dates = getDatesRange();
-
-    // Funções de scroll horizontal
-    const scrollLeft = () => document.getElementById('date-slider').scrollBy({ left: -200, behavior: 'smooth' });
-    const scrollRight = () => document.getElementById('date-slider').scrollBy({ left: 200, behavior: 'smooth' });
+    const { leagueInfo, leagueInsights, currentRound, standings, topPlayers, teamStatsTable } = data;
 
     return (
-        <div className={styles.datePickerWrapper}>
-            <button onClick={scrollLeft} className={styles.scrollBtn}><FaChevronLeft /></button>
-            <div id="date-slider" className={styles.dateSlider}>
-                {dates.map((date) => {
-                    const iso = formatDateToISO(date);
-                    const { day, month, weekday } = formatDateDisplay(date);
-                    const isSelected = selectedDate === iso;
-                    const isToday = iso === formatDateToISO(new Date());
+        <div className={styles.pageWrapper}>
+            <Header />
+            <div className={styles.contentLayout}>
+                <Sidebar />
+                <main className={styles.mainContent}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className={styles.container}
+                    >
+                        {/* League Header */}
+                        <header className={styles.leagueHeader}>
+                            <img src={leagueInfo.logo} alt={leagueInfo.name} className={styles.leagueLogo} />
+                            <div className={styles.leagueHeaderInfo}>
+                                <h1 className={styles.leagueName}>{leagueInfo.name}</h1>
+                                <div className={styles.leagueMeta}>
+                                    <img src={leagueInfo.country_flag} alt={leagueInfo.country} className={styles.countryFlag} />
+                                    <span>{leagueInfo.country}</span>
+                                    <span className={styles.separator}>•</span>
+                                    <span>{leagueInfo.season}</span>
+                                </div>
+                            </div>
+                        </header>
 
-                    return (
-                        <button
-                            key={iso}
-                            className={`${styles.dateCard} ${isSelected ? styles.dateCardActive : ''} ${isToday ? styles.dateCardToday : ''}`}
-                            onClick={() => onSelectDate(iso)}
-                        >
-                            <span className={styles.dateWeekday}>{weekday}</span>
-                            <span className={styles.dateNumber}>{day} {month.toUpperCase()}</span>
-                        </button>
-                    );
-                })}
+                        {/* League Insights Cards */}
+                        {leagueInsights && (
+                            <div className={styles.insightsGrid}>
+                                <InsightCard
+                                    icon={FaTrophy}
+                                    title="Melhor Ataque"
+                                    team={leagueInsights.bestAttack.team}
+                                    value={`${leagueInsights.bestAttack.value} gols`}
+                                    color="green"
+                                />
+                                <InsightCard
+                                    icon={FaShieldAlt}
+                                    title="Melhor Defesa"
+                                    team={leagueInsights.bestDefense.team}
+                                    value={`${leagueInsights.bestDefense.value} gols sofridos`}
+                                    color="blue"
+                                />
+                                <InsightCard
+                                    icon={FaStar}
+                                    title="Mais Vitórias"
+                                    team={leagueInsights.mostWins.team}
+                                    value={`${leagueInsights.mostWins.value} vitórias`}
+                                    color="green"
+                                />
+                                <InsightCard
+                                    icon={FaFrown}
+                                    title="Mais Derrotas"
+                                    team={leagueInsights.mostLosses.team}
+                                    value={`${leagueInsights.mostLosses.value} derrotas`}
+                                    color="red"
+                                />
+                            </div>
+                        )}
+
+                        {/* Current Round Fixtures */}
+                        {currentRound && currentRound.fixtures && currentRound.fixtures.length > 0 && (
+                            <section className={styles.section}>
+                                <h2 className={styles.sectionTitle}>{currentRound.name}</h2>
+                                <div className={styles.fixturesGrid}>
+                                    {currentRound.fixtures.map(fixture => (
+                                        <FixtureCard key={fixture.id} fixture={fixture} />
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Standings Table */}
+                        {standings && standings.length > 0 && (
+                            <section className={styles.section}>
+                                <h2 className={styles.sectionTitle}>Classificação</h2>
+                                <StandingsTable standings={standings} />
+                            </section>
+                        )}
+
+                        {/* Top Players */}
+                        {topPlayers && (
+                            <section className={styles.section}>
+                                <h2 className={styles.sectionTitle}>Destaques</h2>
+                                <div className={styles.topPlayersGrid}>
+                                    <TopPlayersList title="Artilheiros" players={topPlayers.scorers} stat="goals" />
+                                    <TopPlayersList title="Assistências" players={topPlayers.assists} stat="assists" />
+                                    <TopPlayersList title="Avaliação" players={topPlayers.ratings} stat="rating" />
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Team Stats Table */}
+                        {teamStatsTable && teamStatsTable.length > 0 && (
+                            <section className={styles.section}>
+                                <h2 className={styles.sectionTitle}>Estatísticas Detalhadas</h2>
+                                <TeamStatsTable stats={teamStatsTable} />
+                            </section>
+                        )}
+                    </motion.div>
+                </main>
             </div>
-            <button onClick={scrollRight} className={styles.scrollBtn}><FaChevronRight /></button>
         </div>
     );
-};
+}
 
-const MatchRow = ({ match }) => {
-    const dateObj = new Date(match.timestamp * 1000);
-    const timeStr = dateObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    const home = match.home_team || {};
-    const away = match.away_team || {};
-
-    // Verifica status para mostrar tempo ou placar final
-    const isFinished = ['FT', 'AET', 'FT_PEN'].includes(match.status?.short);
-    const isLive = match.status?.id === 2 || ['LIVE', '1T', '2T', 'HT'].includes(match.status?.short);
+// Insight Card Component
+function InsightCard({ icon: Icon, title, team, value, color }) {
+    const colorClass = color === 'green' ? styles.cardGreen : color === 'blue' ? styles.cardBlue : styles.cardRed;
 
     return (
-        <Link href={`/match/${match.id}`} className={styles.matchLink}>
-            <div className={styles.matchRow}>
-                <div className={styles.matchTimeBox}>
-                    {isLive ? (
-                        <span className={styles.liveTime}>{match.minute}'</span>
-                    ) : (
-                        <span className={styles.timeText}>{isFinished ? 'FIM' : timeStr}</span>
-                    )}
+        <div className={`${styles.insightCard} ${colorClass}`}>
+            <Icon className={styles.insightIcon} />
+            <div className={styles.insightContent}>
+                <span className={styles.insightTitle}>{title}</span>
+                <span className={styles.insightTeam}>{team}</span>
+                <span className={styles.insightValue}>{value}</span>
+            </div>
+        </div>
+    );
+}
+
+// Fixture Card Component
+function FixtureCard({ fixture }) {
+    const getStatusColor = (status) => {
+        switch (status) {
+            case 'LIVE': return styles.statusLive;
+            case 'HT': return styles.statusHT;
+            case 'FT': return styles.statusFT;
+            default: return styles.statusNS;
+        }
+    };
+
+    return (
+        <Link href={`/match/${fixture.id}`} className={styles.fixtureCard}>
+            <div className={styles.fixtureTeams}>
+                <div className={styles.fixtureTeam}>
+                    <img src={fixture.home_team.logo} alt={fixture.home_team.name} className={styles.teamLogo} />
+                    <span className={styles.teamName}>{fixture.home_team.name}</span>
                 </div>
-
-                <div className={styles.scoreboard}>
-                    {/* Time Casa */}
-                    <div className={`${styles.teamBox} ${styles.teamHome}`}>
-                        <span className={styles.teamName}>{home.name}</span>
-                        {home.logo ? (
-                            <img src={home.logo} className={styles.teamLogo} alt={home.name} />
-                        ) : (
-                            <div className={styles.logoPlaceholder} />
-                        )}
-                    </div>
-
-                    {/* Placar Central ou VS */}
-                    <div className={styles.vsBox}>
-                        <span className={`${styles.vsText} ${isLive ? styles.liveScore : ''}`}>
-                            {(isFinished || isLive) ? `${home.score} - ${away.score}` : 'VS'}
-                        </span>
-                    </div>
-
-                    {/* Time Visitante */}
-                    <div className={`${styles.teamBox} ${styles.teamAway}`}>
-                        {away.logo ? (
-                            <img src={away.logo} className={styles.teamLogo} alt={away.name} />
-                        ) : (
-                            <div className={styles.logoPlaceholder} />
-                        )}
-                        <span className={styles.teamName}>{away.name}</span>
-                    </div>
+                <div className={styles.fixtureScore}>
+                    <span className={styles.score}>{fixture.score || 'vs'}</span>
+                    <span className={`${styles.status} ${getStatusColor(fixture.status)}`}>{fixture.status}</span>
                 </div>
+                <div className={styles.fixtureTeam}>
+                    <span className={styles.teamName}>{fixture.away_team.name}</span>
+                    <img src={fixture.away_team.logo} alt={fixture.away_team.name} className={styles.teamLogo} />
+                </div>
+            </div>
+            <div className={styles.fixtureTime}>
+                {new Date(fixture.starting_at).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}
             </div>
         </Link>
     );
 }
 
-// --- COMPONENTE PRINCIPAL ---
-
-export default function LeaguePage() {
-    const params = useParams();
-
-    // Estados
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('overview');
-
-    // Estado do Calendário
-    const [selectedDate, setSelectedDate] = useState(formatDateToISO(new Date()));
-    const [calendarMatches, setCalendarMatches] = useState([]);
-    const [loadingCalendar, setLoadingCalendar] = useState(false);
-
-    // 1. CARREGAMENTO INICIAL (Info da Liga + Jogos do Dia)
-    useEffect(() => {
-        if (!params?.id) return;
-
-        setLoading(true);
-
-        const fetchLeagueInfo = api.get(`/leagues/${params.id}`);
-        const fetchTodayMatches = api.get(`/leagues/${params.id}/matches?date=${selectedDate}`);
-
-        Promise.all([fetchLeagueInfo, fetchTodayMatches])
-            .then(([resInfo, resMatches]) => {
-                setData(resInfo.data);
-                setCalendarMatches(resMatches.data || []);
-            })
-            .catch(err => {
-                console.error("Erro ao carregar dados iniciais da liga:", err);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params.id]);
-
-
-    // 2. CARREGAMENTO DO CALENDÁRIO (Quando muda a data)
-    useEffect(() => {
-        if (!params?.id || loading) return; // Evita conflito com load inicial
-
-        setLoadingCalendar(true);
-
-        api.get(`/leagues/${params.id}/matches?date=${selectedDate}`)
-            .then(res => setCalendarMatches(res.data || []))
-            .catch(err => console.error("Erro ao buscar calendário:", err))
-            .finally(() => setLoadingCalendar(false));
-
-    }, [selectedDate]);
-
-    // Helper: Filtrar próximas 48 horas para a Sidebar
-    const getNext48HoursMatches = () => {
-        if (!data?.upcoming_matches) return [];
-        const now = Date.now() / 1000;
-        const limit = now + (48 * 60 * 60); // +48h
-        return data.upcoming_matches
-            .filter(m => m.timestamp >= now && m.timestamp <= limit)
-            .slice(0, 5); // Limita a 5 jogos
+// Standings Table Component
+function StandingsTable({ standings }) {
+    const getStatusColor = (status) => {
+        if (status?.includes('Champions League')) return styles.zoneChampions;
+        if (status?.includes('Europa League')) return styles.zoneEuropa;
+        if (status?.includes('Relegation')) return styles.zoneRelegation;
+        return '';
     };
 
-    // --- RENDERS DE LOADING/ERRO ---
-    if (loading) return (
-        <div className={styles.pageWrapper}>
-            <Header />
-            <div className={styles.loadingWrapper}>
-                <FaSpinner className={styles.spinner} />
-                <p>Carregando dados da liga...</p>
-            </div>
+    return (
+        <div className={styles.tableContainer}>
+            <table className={styles.standingsTable}>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Time</th>
+                        <th>P</th>
+                        <th>J</th>
+                        <th>V</th>
+                        <th>E</th>
+                        <th>D</th>
+                        <th>GP</th>
+                        <th>GC</th>
+                        <th>SG</th>
+                        <th>Pts</th>
+                        <th>Forma</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {standings.map(team => {
+                        const [gf, gc] = team.stats.goals.split(':');
+                        const sg = parseInt(gf) - parseInt(gc);
+
+                        return (
+                            <tr key={team.position} className={getStatusColor(team.status)}>
+                                <td className={styles.position}>{team.position}</td>
+                                <td className={styles.teamCell}>
+                                    <img src={team.team_logo} alt={team.team_name} className={styles.teamLogoSmall} />
+                                    <span>{team.team_name}</span>
+                                </td>
+                                <td>{team.stats.p}</td>
+                                <td>{team.stats.p}</td>
+                                <td>{team.stats.w}</td>
+                                <td>{team.stats.d}</td>
+                                <td>{team.stats.l}</td>
+                                <td>{gf}</td>
+                                <td>{gc}</td>
+                                <td>{sg > 0 ? `+${sg}` : sg}</td>
+                                <td className={styles.points}>{team.points}</td>
+                                <td><FormIndicator form={team.form} /></td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
         </div>
     );
+}
 
-    if (!data) return (
-        <div className={styles.pageWrapper}>
-            <Header />
-            <div className={styles.loadingWrapper}>
-                <h2>Liga não encontrada</h2>
-            </div>
-        </div>
-    );
+// Form Indicator Component
+function FormIndicator({ form }) {
+    if (!form) return null;
 
-    const nextMatches = getNext48HoursMatches();
+    const results = form.split('-');
 
     return (
-        <div className={styles.pageWrapper}>
-            <Header />
+        <div className={styles.formContainer}>
+            {results.map((result, i) => (
+                <span key={i} className={`${styles.formBadge} ${styles[`form${result}`]}`}>
+                    {result}
+                </span>
+            ))}
+        </div>
+    );
+}
 
-            <div className={styles.contentLayout}>
-                <Sidebar />
+// Top Players List Component
+function TopPlayersList({ title, players, stat }) {
+    if (!players || players.length === 0) return null;
 
-                <main className={styles.mainContent}>
-
-                    {/* Cabeçalho da Liga (Logo, Nome, País) */}
-                    <LeagueHeader league={data.info} />
-
-                    <div className={styles.leagueContent}>
-
-                        {/* Navegação de Abas - REMOVIDO CALENDÁRIO */}
-                        <div className={styles.tabs}>
-                            <button
-                                className={`${styles.tab} ${activeTab === 'overview' ? styles.active : ''}`}
-                                onClick={() => setActiveTab('overview')}
-                            >
-                                <FaListAlt /> Visão Geral
-                            </button>
+    return (
+        <div className={styles.topPlayersCard}>
+            <h3 className={styles.topPlayersTitle}>{title}</h3>
+            <div className={styles.playersList}>
+                {players.map((player, idx) => (
+                    <div key={idx} className={styles.playerItem}>
+                        <div className={styles.playerRank}>{idx + 1}</div>
+                        <img src={player.team_logo} alt={player.team_name} className={styles.playerTeamLogo} />
+                        <div className={styles.playerInfo}>
+                            <span className={styles.playerName}>{player.player_name}</span>
+                            <span className={styles.playerTeam}>{player.team_name}</span>
                         </div>
-
-                        {/* ABA: VISÃO GERAL (Tabela + Sidebar de Jogos) */}
-                        {activeTab === 'overview' && (
-                            <div className={styles.grid}>
-                                {/* Coluna Principal: Tabela de Classificação */}
-                                <div className={styles.mainCol}>
-                                    <StandingsTable standings={data.standings} />
-                                </div>
-
-                                {/* Coluna Lateral: Próximos Jogos (48h) */}
-                                <div className={styles.sideCol}>
-                                    <div className={styles.upcomingContainer}>
-                                        <h3 className={styles.sectionTitle}><FaClock /> Próximas 48h</h3>
-
-                                        <div className={styles.fixturesList}>
-                                            {nextMatches.length > 0 ? (
-                                                nextMatches.map(m => <MatchRow key={m.id} match={m} />)
-                                            ) : (
-                                                <div className={styles.emptyState}>Nenhum jogo nas próximas 48h.</div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                        <span className={styles.playerStat}>{player[stat]}</span>
                     </div>
-                </main>
+                ))}
             </div>
+        </div>
+    );
+}
+
+// Team Stats Table Component
+function TeamStatsTable({ stats }) {
+    return (
+        <div className={styles.tableContainer}>
+            <table className={styles.statsTable}>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Over 0.5 HT</th>
+                        <th>Over 2.5 FT</th>
+                        <th>BTTS</th>
+                        <th>Média Gols</th>
+                        <th>Média Cantos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {stats.map((team, idx) => (
+                        <tr key={idx}>
+                            <td className={styles.teamCell}>
+                                <img src={team.team_logo} alt={team.team} className={styles.teamLogoSmall} />
+                                <span>{team.team}</span>
+                            </td>
+                            <td>{team.over05HT}%</td>
+                            <td>{team.over25FT}%</td>
+                            <td>{team.btts}%</td>
+                            <td>{team.avgGoals}</td>
+                            <td>{team.avgCorners}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }

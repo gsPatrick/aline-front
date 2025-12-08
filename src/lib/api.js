@@ -66,6 +66,12 @@ export const leagueService = {
   getAll: async () => {
     const { data } = await api.get('/leagues');
     return data;
+  },
+
+  // Retorna detalhes completos da liga (standings, fixtures, stats, etc.)
+  getDetails: async (leagueId) => {
+    const { data } = await api.get(`/leagues/${leagueId}/details`);
+    return data;
   }
 };
 export const authService = {
