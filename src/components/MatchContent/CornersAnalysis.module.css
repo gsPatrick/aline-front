@@ -1,0 +1,203 @@
+.container {
+    padding: 1.5rem;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    gap: 1rem;
+}
+
+.emptyIcon {
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+.chartSection {
+    margin-bottom: 2rem;
+}
+
+.chartContainer {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.teamToggle {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toggleBtn {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggleBtn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.toggleBtn.active {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.titleIcon {
+    color: #00d4ff;
+}
+
+.racesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.raceCard {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.raceCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.raceHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.raceIcon {
+    color: #00d4ff;
+    font-size: 1.25rem;
+}
+
+.raceTitle {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.raceValue {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+}
+
+.raceBar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.raceBarFill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.raceLabel {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.fallbackCard {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 170, 0, 0.1), rgba(255, 136, 0, 0.05));
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.fallbackIcon {
+    font-size: 2rem;
+    color: #ffaa00;
+    flex-shrink: 0;
+}
+
+.fallbackText {
+    flex: 1;
+}
+
+.fallbackText strong {
+    display: block;
+    color: #ffaa00;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.fallbackText p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .statsGrid,
+    .racesGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .fallbackCard {
+        flex-direction: column;
+        text-align: center;
+    }
+}

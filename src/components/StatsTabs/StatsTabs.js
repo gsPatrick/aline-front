@@ -15,6 +15,7 @@ export default function StatsTabs({ activeTab, setActiveTab, matchStatus }) {
     { id: 'goals', label: 'Gols' },
     { id: 'corners', label: 'Cantos' },
     { id: 'cards', label: 'Cartões' },
+    { id: 'squad', label: 'Jogadores' },
     { id: 'lineups', label: 'Escalações' },
     { id: 'standings', label: 'Classificação' },
     { id: 'form', label: 'Forma' },

@@ -74,13 +74,54 @@
   }
 }
 
-.motionWrapper {
+.filterContainer {
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.filterIcon {
+  color: #00d4ff;
+  font-size: 1.25rem;
+}
+
+.filterToggle {
+  display: flex;
+  gap: 0.5rem;
   flex: 1;
-  overflow: hidden;
+}
+
+.filterBtn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filterBtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.filterBtn.active {
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  color: white;
+  border-color: #00d4ff;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
 }
 
 @media (max-width: 768px) {
@@ -115,5 +156,18 @@
     /* Space for BottomNav */
     height: auto;
     flex: none;
+  }
+
+  .filterContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterToggle {
+    flex-direction: column;
+  }
+
+  .filterBtn {
+    width: 100%;
   }
 }

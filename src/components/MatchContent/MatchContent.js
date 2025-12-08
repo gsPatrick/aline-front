@@ -692,40 +692,22 @@ const H2HTab = ({ history }) => {
 import GoalsAnalysis from './GoalsAnalysis';
 import CornersAnalysis from './CornersAnalysis';
 import CardsAnalysis from './CardsAnalysis';
+import SquadAnalysis from './SquadAnalysis';
 
 // --- COMPONENTE PRINCIPAL ---
-export default function MatchContent({ activeTab, match }) {
-    const [goalsData, setGoalsData] = useState(null);
-    const [cornersData, setCornersData] = useState(null);
-    const [cardsData, setCardsData] = useState(null);
-
-    // Fetch data on tab change
-    useEffect(() => {
-        if (!match?.id) return;
-
-        const fetchData = async () => {
-            try {
-                if (activeTab === 'goals' && !goalsData) {
-                    const data = await api.matchService.getGoalsAnalysis(match.id);
-                    setGoalsData(data.data);
-                }
-                if (activeTab === 'corners' && !cornersData) {
-                    const data = await api.matchService.getCornersAnalysis(match.id);
-                    setCornersData(data.data);
-                }
-                if (activeTab === 'cards' && !cardsData) {
-                    const data = await api.matchService.getCardsAnalysis(match.id);
-                    setCardsData(data.data);
-                }
-            } catch (error) {
-                console.error("Error fetching analysis:", error);
-            }
-        };
-
-        fetchData();
-    }, [activeTab, match?.id, goalsData, cornersData, cardsData]); // Added data dependencies to re-fetch if data is cleared or becomes null
+export default function MatchContent({ activeTab, match, filterCondition = 'ALL', isLive = false }) {
+    // No longer need separate data fetching - everything comes from match object
 
     if (!match) return null;
+
+    // Extract data from unified match analysis structure
+    const goalAnalysis = match.goalAnalysis;
+    const cornerAnalysis = match.cornerAnalysis;
+    const cardAnalysis = match.cardAnalysis;
+    const chartsAnalysis = match.chartsAnalysis;
+    const homeSquad = match.homeTeam?.squad;
+    const awaySquad = match.awayTeam?.squad;
+    const referee = match.matchInfo?.referee;
 
     return (
         <div className={styles.contentGrid}>
@@ -739,15 +721,15 @@ export default function MatchContent({ activeTab, match }) {
                         exit="exit"
                     >
                         {activeTab === 'overview' && (
-                            <OverviewTab events={match.timeline || match.events} homeId={match.home_team.id} />
+                            <OverviewTab events={match.timeline || match.events} homeId={match.homeTeam?.id} />
                         )}
 
                         {activeTab === 'stats' && (
                             <StatsTab
                                 stats={match.stats}
                                 analysis={match.analysis?.stats}
-                                homeTeam={match.home_team}
-                                awayTeam={match.away_team}
+                                homeTeam={match.homeTeam}
+                                awayTeam={match.awayTeam}
                             />
                         )}
 
@@ -758,22 +740,44 @@ export default function MatchContent({ activeTab, match }) {
                         )}
 
                         {activeTab === 'goals' && (
-                            <GoalsAnalysis data={goalsData} />
+                            <GoalsAnalysis
+                                data={goalAnalysis}
+                                filterCondition={filterCondition}
+                            />
                         )}
 
                         {activeTab === 'corners' && (
-                            <CornersAnalysis data={cornersData} />
+                            <CornersAnalysis
+                                data={cornerAnalysis}
+                                chartsData={chartsAnalysis}
+                                filterCondition={filterCondition}
+                                isLive={isLive}
+                                currentMinute={match.matchInfo?.currentMinute || 90}
+                            />
                         )}
 
                         {activeTab === 'cards' && (
-                            <CardsAnalysis data={cardsData} />
+                            <CardsAnalysis
+                                data={cardAnalysis}
+                                referee={referee}
+                                filterCondition={filterCondition}
+                            />
+                        )}
+
+                        {activeTab === 'squad' && (
+                            <SquadAnalysis
+                                homeSquad={homeSquad}
+                                awaySquad={awaySquad}
+                                homeTeamName={match.homeTeam?.name}
+                                awayTeamName={match.awayTeam?.name}
+                            />
                         )}
 
                         {activeTab === 'lineups' && (
                             <LineupsTab
                                 lineups={match.lineups}
-                                homeName={match.home_team.name}
-                                awayName={match.away_team.name}
+                                homeName={match.homeTeam?.name}
+                                awayName={match.awayTeam?.name}
                             />
                         )}
 
@@ -786,16 +790,16 @@ export default function MatchContent({ activeTab, match }) {
                         {activeTab === 'form' && (
                             <FormTab
                                 form={match.analysis?.form}
-                                homeName={match.home_team.name}
-                                awayName={match.away_team.name}
+                                homeName={match.homeTeam?.name}
+                                awayName={match.awayTeam?.name}
                             />
                         )}
 
                         {activeTab === 'upcoming' && (
                             <UpcomingTab
                                 upcoming={match.analysis?.upcoming}
-                                homeName={match.home_team.name}
-                                awayName={match.away_team.name}
+                                homeName={match.homeTeam?.name}
+                                awayName={match.awayTeam?.name}
                             />
                         )}
 

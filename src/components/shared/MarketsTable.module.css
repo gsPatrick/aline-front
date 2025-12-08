@@ -1,0 +1,117 @@
+.container {
+    width: 100%;
+}
+
+.title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.table {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s ease;
+}
+
+.row:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.label {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.valueContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.barTrack {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.barFill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.barFill.high {
+    background: linear-gradient(90deg, #00ff88, #00cc66);
+}
+
+.barFill.medium {
+    background: linear-gradient(90deg, #ffaa00, #ff8800);
+}
+
+.barFill.low {
+    background: linear-gradient(90deg, #ff3366, #cc0033);
+}
+
+.value {
+    min-width: 50px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.value.high {
+    color: #00ff88;
+}
+
+.value.medium {
+    color: #ffaa00;
+}
+
+.value.low {
+    color: #ff3366;
+}
+
+@media (max-width: 768px) {
+
+    .header,
+    .row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .valueContainer {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+    .value {
+        min-width: 40px;
+    }
+}

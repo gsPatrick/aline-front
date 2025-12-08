@@ -30,34 +30,22 @@ export const matchService = {
     return data;
   },
 
-  // NOVA: Busca jogos do dia (Home)
+  // Busca jogos do dia (Home)
   getDaily: async () => {
     const { data } = await api.get('/matches/daily');
     return data;
   },
 
-  // CORREÇÃO DO BUG INFINITO:
-  // A rota no backend é /matches/:id e não /matches/:id/stats
+  // Busca análise completa da partida (NOVO ENDPOINT UNIFICADO)
+  // Retorna: goalAnalysis, cornerAnalysis, cardAnalysis, chartsAnalysis, squad, etc.
+  getAnalysis: async (matchId) => {
+    const { data } = await api.get(`/matches/${matchId}/analysis`);
+    return data;
+  },
+
+  // DEPRECATED: Mantido para compatibilidade, mas use getAnalysis()
   getStats: async (matchId) => {
     const { data } = await api.get(`/matches/${matchId}`);
-    return data;
-  },
-  // NOVA: Busca análise detalhada
-  getAnalysis: async (matchId) => {
-    const { data } = await api.get(`/sportmonks/match/${matchId}/analysis`);
-    return data;
-  },
-  // NOVOS ENDPOINTS DE ANÁLISE
-  getGoalsAnalysis: async (fixtureId) => {
-    const { data } = await api.get(`/sportmonks/match/${fixtureId}/goals-analysis`);
-    return data;
-  },
-  getCornersAnalysis: async (fixtureId) => {
-    const { data } = await api.get(`/sportmonks/match/${fixtureId}/corners-analysis`);
-    return data;
-  },
-  getCardsAnalysis: async (fixtureId) => {
-    const { data } = await api.get(`/sportmonks/match/${fixtureId}/cards-analysis`);
     return data;
   }
 };

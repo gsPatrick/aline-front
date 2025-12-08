@@ -1,18 +1,17 @@
-
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
-import { motion } from 'framer-motion'; // Adicionado para efeito cinematográfico
+import { motion } from 'framer-motion';
 import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import MatchHeader from "@/components/MatchHeader/MatchHeader";
 import StatsTabs from "@/components/StatsTabs/StatsTabs";
 import MatchContent from "@/components/MatchContent/MatchContent";
-import { matchService } from '@/lib/api';
-import { FaSpinner, FaExclamationTriangle } from 'react-icons/fa';
+import { useMatchDetails } from '@/hooks/useMatchDetails';
+import { FaSpinner, FaExclamationTriangle, FaFilter } from 'react-icons/fa';
 import styles from "./page.module.css";
 
-// Va   riantes de Animação para entrada da página
+// Variantes de Animação para entrada da página
 const pageVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -23,93 +22,14 @@ const pageVariants = {
 };
 
 export default function MatchPage() {
-    // 1. Pegando o ID da URL de forma segura
     const params = useParams();
     const matchId = params?.id;
 
-    // 2. Estados da Página
-    const [match, setMatch] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    // Use enhanced hook with filter support
+    const { match, loading, error, filterCondition, setFilterCondition, isLive, refetch } = useMatchDetails(matchId);
 
-    // Estado para controlar qual aba está visível (Overview, Stats, Lineups, etc)
+    // Estado para controlar qual aba está visível
     const [activeTab, setActiveTab] = useState('overview');
-
-    useEffect(() => {
-        if (!matchId) return;
-
-        const fetchMatchDetails = async () => {
-            console.log(`📡 Fetching Match Details for ID: ${matchId}`);
-            setLoading(true);
-            setError(null);
-
-            try {
-                // Chama o endpoint de análise
-                const response = await matchService.getAnalysis(matchId);
-                console.log("🔍 DADOS COMPLETOS DA API (DEBUG):", JSON.stringify(response, null, 2));
-
-                if (response && response.success && response.data) {
-                    const apiData = response.data;
-
-                    // Mapeamento dos dados da nova API para a estrutura esperada pelos componentes
-                    const dateStr = apiData.match_info.date.replace(' ', 'T');
-                    const timestamp = Math.floor(new Date(dateStr).getTime() / 1000);
-
-                    const enrichedMatch = {
-                        id: apiData.match_info.id,
-                        date: apiData.match_info.date,
-                        timestamp: timestamp,
-                        status: { short: 'NS' }, // Default para NS, ajustar se a API retornar status
-                        venue: apiData.match_info.venue,
-                        league: { name: apiData.match_info.league_name },
-                        round: { name: apiData.match_info.round },
-                        home_team: {
-                            ...apiData.teams.home,
-                            logo: apiData.teams.home.image
-                        },
-                        away_team: {
-                            ...apiData.teams.away,
-                            logo: apiData.teams.away.image
-                        },
-                        lineups: {
-                            home: { starters: apiData.teams.home.lineup || [] },
-                            away: { starters: apiData.teams.away.lineup || [] }
-                        },
-                        analysis: {
-                            predictions: apiData.analysis.predictions,
-                            h2h_summary: apiData.analysis.h2h_summary,
-                            stats: apiData.analysis.h2h_summary, // Usando resumo como stats por enquanto
-                            history: apiData.history_data.h2h_matches
-                        },
-                        // Campos opcionais que podem não vir na nova API
-                        stats: null,
-                        events: []
-                    };
-
-                    setMatch(enrichedMatch);
-                } else {
-                    throw new Error("Dados da partida vazios ou inválidos.");
-                }
-            } catch (err) {
-                console.error("❌ Erro ao buscar detalhes da partida:", err);
-                setError("Não foi possível carregar os dados. Tente novamente.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchMatchDetails();
-
-        // Opcional: Polling para atualizar dados se estiver ao vivo (a cada 60s)
-        const interval = setInterval(() => {
-            if (match?.status?.short === 'LIVE' || match?.status?.id === 2) {
-                fetchMatchDetails();
-            }
-        }, 60000);
-
-        return () => clearInterval(interval);
-
-    }, [matchId]);
 
     // --- RENDER: LOADING ---
     if (loading) {
@@ -164,18 +84,50 @@ export default function MatchPage() {
                         className={styles.motionWrapper}
                     >
                         {/* 1. Cabeçalho com Placar e Times */}
-                        <MatchHeader match={match} />
+                        <MatchHeader match={match} isLive={isLive} />
 
-                        {/* 2. Menu de Abas (Visão Geral, Estatísticas, H2H...) */}
+                        {/* 2. Filter Toggle (for Goals, Corners, Cards tabs) */}
+                        {['goals', 'corners', 'cards'].includes(activeTab) && (
+                            <div className={styles.filterContainer}>
+                                <FaFilter className={styles.filterIcon} />
+                                <div className={styles.filterToggle}>
+                                    <button
+                                        className={`${styles.filterBtn} ${filterCondition === 'ALL' ? styles.active : ''}`}
+                                        onClick={() => setFilterCondition('ALL')}
+                                    >
+                                        Geral
+                                    </button>
+                                    <button
+                                        className={`${styles.filterBtn} ${filterCondition === 'HOME' ? styles.active : ''}`}
+                                        onClick={() => setFilterCondition('HOME')}
+                                    >
+                                        Casa
+                                    </button>
+                                    <button
+                                        className={`${styles.filterBtn} ${filterCondition === 'AWAY' ? styles.active : ''}`}
+                                        onClick={() => setFilterCondition('AWAY')}
+                                    >
+                                        Fora
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* 3. Menu de Abas */}
                         <StatsTabs
                             activeTab={activeTab}
                             setActiveTab={setActiveTab}
-                            matchStatus={match.status?.short || 'NS'}
+                            matchStatus={match.matchInfo?.state || 'NS'}
                         />
 
-                        {/* 3. Conteúdo Dinâmico (Scrollável) */}
+                        {/* 4. Conteúdo Dinâmico */}
                         <div className={styles.scrollableContent}>
-                            <MatchContent activeTab={activeTab} match={match} />
+                            <MatchContent
+                                activeTab={activeTab}
+                                match={match}
+                                filterCondition={filterCondition}
+                                isLive={isLive}
+                            />
                         </div>
 
                     </motion.div>

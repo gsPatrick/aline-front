@@ -1,0 +1,170 @@
+.container {
+    width: 100%;
+}
+
+.title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+}
+
+.cell {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.cell:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cellLabel {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cellValue {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.cellStats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.statFor {
+    color: #00d4ff;
+    font-weight: 600;
+}
+
+.statSep {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.statAgainst {
+    color: #ff3366;
+    font-weight: 600;
+}
+
+/* Intensity Colors */
+.intensity1 {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.intensity1 .cellValue {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.intensity2 {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 204, 0.05));
+    border-color: rgba(0, 212, 255, 0.2);
+}
+
+.intensity2 .cellValue {
+    color: #00d4ff;
+}
+
+.intensity3 {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 204, 0.1));
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.intensity3 .cellValue {
+    color: #00d4ff;
+}
+
+.intensity4 {
+    background: linear-gradient(135deg, rgba(255, 170, 0, 0.2), rgba(255, 136, 0, 0.1));
+    border-color: rgba(255, 170, 0, 0.3);
+}
+
+.intensity4 .cellValue {
+    color: #ffaa00;
+}
+
+.intensity5 {
+    background: linear-gradient(135deg, rgba(255, 51, 102, 0.3), rgba(204, 0, 51, 0.15));
+    border-color: rgba(255, 51, 102, 0.4);
+}
+
+.intensity5 .cellValue {
+    color: #ff3366;
+}
+
+/* Special Intervals (37-HT, 87-FT) */
+.specialRow {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.specialCell {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.specialCell:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.specialLabel {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.specialValue {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #00ff88;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 0.5rem;
+    }
+
+    .cell {
+        padding: 0.75rem;
+    }
+
+    .cellValue {
+        font-size: 1.25rem;
+    }
+
+    .specialRow {
+        flex-direction: column;
+    }
+}
