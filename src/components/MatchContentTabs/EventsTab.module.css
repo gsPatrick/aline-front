@@ -1,0 +1,190 @@
+.container {
+    width: 100%;
+}
+
+.emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    font-size: 0.875rem;
+    color: #9ca3af;
+}
+
+.filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filterPill {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterPill:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+.filterPill.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: #fff;
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 600px;
+    overflow-y: auto;
+    padding: 0 1rem;
+}
+
+.timelineItem {
+    display: grid;
+    grid-template-columns: 60px 40px 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+.timelineItem.home .eventContent {
+    text-align: left;
+}
+
+.timelineItem.away .eventContent {
+    text-align: right;
+}
+
+.minute {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #10b981;
+}
+
+.extraTime {
+    font-size: 0.625rem;
+    color: #6b7280;
+}
+
+.axis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.axis::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+}
+
+.eventIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    z-index: 1;
+}
+
+.eventGoal {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: #10b981;
+}
+
+.eventCorner {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: #f59e0b;
+}
+
+.eventYellow {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: #f59e0b;
+}
+
+.eventRed {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+}
+
+.eventSub {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+}
+
+.eventContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.eventType {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #e0e0e0;
+}
+
+.eventPlayer {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #10b981;
+}
+
+.eventRelated {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.eventResult {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #3b82f6;
+}
+
+.eventComment {
+    font-size: 0.75rem;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .timelineItem {
+        grid-template-columns: 50px 30px 1fr;
+        gap: 0.5rem;
+    }
+
+    .timeline {
+        padding: 0 0.5rem;
+    }
+}

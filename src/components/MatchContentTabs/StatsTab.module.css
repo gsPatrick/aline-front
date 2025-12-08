@@ -1,0 +1,121 @@
+.container {
+    width: 100%;
+}
+
+.emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    font-size: 0.875rem;
+    color: #9ca3af;
+}
+
+.filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+}
+
+.filterButton {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+.filterButton.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: #fff;
+}
+
+.teamHeaders {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+
+.teamName {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    text-align: center;
+}
+
+.statsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.statRow {
+    display: grid;
+    grid-template-columns: 60px 1fr 60px;
+    align-items: center;
+    gap: 1rem;
+}
+
+.statValueLeft,
+.statValueRight {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    text-align: center;
+}
+
+.statBarContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.statLabel {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-align: center;
+    font-weight: 600;
+}
+
+.statBar {
+    display: flex;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.statBarHome {
+    background: linear-gradient(90deg, #10b981, #059669);
+    transition: width 0.3s ease;
+}
+
+.statBarAway {
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    transition: width 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .statRow {
+        grid-template-columns: 50px 1fr 50px;
+        gap: 0.5rem;
+    }
+
+    .teamHeaders {
+        gap: 1rem;
+    }
+}
