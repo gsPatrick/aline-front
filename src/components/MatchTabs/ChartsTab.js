@@ -1,45 +1,60 @@
 'use client';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { FaChartBar } from 'react-icons/fa';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { FaChartBar, FaClock } from 'react-icons/fa';
 import styles from './ChartsTab.module.css';
 
-export default function ChartsTab({ data }) {
-    if (!data) {
+export default function ChartsTab({ generalStatsAnalysis, matchState }) {
+    if (!generalStatsAnalysis) {
         return <div className={styles.emptyState}>Dados de gráficos não disponíveis</div>;
     }
 
-    const { dangerousAttacks, shotsOnTarget, shotsOffTarget, possession } = data;
+    // Show placeholder for NS (Not Started) matches
+    if (matchState === 'NS') {
+        return (
+            <div className={styles.placeholder}>
+                <FaClock className={styles.placeholderIcon} />
+                <h3>Gráfico disponível após o início da partida</h3>
+                <p>Os dados estatísticos serão exibidos quando o jogo começar</p>
+            </div>
+        );
+    }
+
+    const { home, away } = generalStatsAnalysis;
 
     const charts = [
         {
             title: 'Ataques Perigosos',
-            data: dangerousAttacks,
+            data: [
+                { team: 'Casa', value: home?.shots?.total || 0 },
+                { team: 'Fora', value: away?.shots?.total || 0 }
+            ],
             color: '#ff3333'
         },
         {
             title: 'Remates à Baliza',
-            data: shotsOnTarget,
+            data: [
+                { team: 'Casa', value: home?.shots?.onGoal || 0 },
+                { team: 'Fora', value: away?.shots?.onGoal || 0 }
+            ],
             color: '#00ff88'
         },
         {
             title: 'Remates Fora',
-            data: shotsOffTarget,
+            data: [
+                { team: 'Casa', value: home?.shots?.offGoal || 0 },
+                { team: 'Fora', value: away?.shots?.offGoal || 0 }
+            ],
             color: '#ffd700'
         },
         {
             title: 'Posse de Bola (%)',
-            data: possession,
+            data: [
+                { team: 'Casa', value: home?.control?.possession || 0 },
+                { team: 'Fora', value: away?.control?.possession || 0 }
+            ],
             color: '#00d4ff'
         }
     ];
-
-    const prepareChartData = (chartData) => {
-        if (!chartData) return [];
-        return [
-            { team: 'Casa', value: chartData.home || 0 },
-            { team: 'Fora', value: chartData.away || 0 }
-        ];
-    };
 
     return (
         <div className={styles.container}>
@@ -51,7 +66,7 @@ export default function ChartsTab({ data }) {
                             {chart.title}
                         </h3>
                         <ResponsiveContainer width="100%" height={250}>
-                            <BarChart data={prepareChartData(chart.data)}>
+                            <BarChart data={chart.data}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                                 <XAxis
                                     dataKey="team"

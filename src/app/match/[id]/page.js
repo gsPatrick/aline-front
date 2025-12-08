@@ -76,7 +76,11 @@ export default function MatchPage() {
     }
 
     // Extract data from match object
-    const { goalAnalysis, cornerAnalysis, cardAnalysis, chartsAnalysis, squad, h2h, history, matchInfo } = match;
+    const { goalAnalysis, goalMarkets, cornerAnalysis, cardAnalysis, chartsAnalysis, generalStatsAnalysis, squad, h2h, history, matchInfo } = match;
+
+    // Extract team names
+    const homeTeam = matchInfo?.home_team?.name || 'Casa';
+    const awayTeam = matchInfo?.away_team?.name || 'Fora';
 
     return (
         <div className={styles.pageWrapper}>
@@ -121,19 +125,22 @@ export default function MatchPage() {
 
                                     {activeTab === 'goals' && (
                                         <GoalsTab
-                                            data={goalAnalysis}
-                                            filterCondition={filterCondition}
-                                            onFilterChange={setFilterCondition}
+                                            goalAnalysis={goalAnalysis}
+                                            goalMarkets={goalMarkets}
+                                            homeTeam={homeTeam}
+                                            awayTeam={awayTeam}
                                         />
                                     )}
 
                                     {activeTab === 'corners' && (
                                         <CornersTab
-                                            data={cornerAnalysis}
+                                            homeData={cornerAnalysis?.home}
+                                            awayData={cornerAnalysis?.away}
+                                            homeTeam={homeTeam}
+                                            awayTeam={awayTeam}
                                             chartsData={chartsAnalysis}
-                                            filterCondition={filterCondition}
                                             isLive={isLive}
-                                            currentMinute={matchInfo?.currentMinute || 90}
+                                            currentMinute={matchInfo?.minute}
                                         />
                                     )}
 
@@ -146,7 +153,8 @@ export default function MatchPage() {
 
                                     {activeTab === 'charts' && (
                                         <ChartsTab
-                                            data={chartsAnalysis}
+                                            generalStatsAnalysis={generalStatsAnalysis}
+                                            matchState={matchInfo?.state}
                                         />
                                     )}
 

@@ -1,0 +1,125 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-card, #2a2a2a);
+    border-radius: 12px;
+}
+
+.emptyState {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.875rem;
+}
+
+.raceItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.raceLabel {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary, #e0e0e0);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.barContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.teamName {
+    min-width: 120px;
+    font-size: 0.875rem;
+    color: var(--text-secondary, #a0a0a0);
+    font-weight: 500;
+}
+
+.barWrapper {
+    flex: 1;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 0.75rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.homeBar {
+    background: linear-gradient(90deg, rgba(0, 255, 136, 0.3), rgba(0, 255, 136, 0.6));
+    border: 1px solid rgba(0, 255, 136, 0.4);
+}
+
+.awayBar {
+    background: linear-gradient(90deg, rgba(0, 212, 255, 0.3), rgba(0, 212, 255, 0.6));
+    border: 1px solid rgba(0, 212, 255, 0.4);
+}
+
+.bar.winning {
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+}
+
+.awayBar.winning {
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+}
+
+.barValue {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.winnerBadge {
+    align-self: center;
+    padding: 0.375rem 0.75rem;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-green, #00ff88);
+    margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .teamName {
+        min-width: 80px;
+        font-size: 0.75rem;
+    }
+
+    .barWrapper {
+        height: 28px;
+    }
+
+    .barValue {
+        font-size: 0.625rem;
+    }
+
+    .raceLabel {
+        font-size: 0.75rem;
+    }
+}

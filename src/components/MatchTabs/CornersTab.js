@@ -1,81 +1,77 @@
 'use client';
-import TimelineGraph from '../shared/TimelineGraph';
-import HeatmapTable from '../shared/HeatmapTable';
-import MarketsTable from '../shared/MarketsTable';
-import { FaFlag, FaChartArea } from 'react-icons/fa';
+import RaceChart from '../shared/RaceChart';
+import CornerIntervalsHeatmap from '../shared/CornerIntervalsHeatmap';
+import StatCard from '../shared/StatCard';
+import { FaFlag, FaChartLine, FaClock } from 'react-icons/fa';
 import styles from './CornersTab.module.css';
 
-export default function CornersTab({ data, chartsData, filterCondition, isLive, currentMinute }) {
-    if (!data) {
+export default function CornersTab({ homeData, awayData, homeTeam, awayTeam, chartsData, isLive, currentMinute }) {
+    if (!homeData || !awayData) {
         return <div className={styles.emptyState}>Dados de cantos não disponíveis</div>;
     }
 
-    const { races, intervals, markets, pressureTimeline } = data;
-
     return (
         <div className={styles.container}>
-            {/* Pressure Timeline Graph */}
-            {(pressureTimeline || chartsData?.pressureIndex) && (
-                <div className={styles.section}>
-                    <TimelineGraph
-                        data={pressureTimeline || chartsData?.pressureIndex || []}
-                        homeKey="home"
-                        awayKey="away"
-                        xAxisKey="minute"
-                        currentMinute={currentMinute}
-                        isLive={isLive}
-                        title="Gráfico de Pressão (Timeline)"
-                    />
-                </div>
-            )}
+            {/* Average Stats Cards */}
+            <div className={styles.statsGrid}>
+                <StatCard
+                    title="Média de Cantos - Casa"
+                    value={homeData.avgTotal || '0.0'}
+                    subtitle={`${homeData.avgFor || '0.0'} a favor • ${homeData.avgAgainst || '0.0'} contra`}
+                    icon={FaChartLine}
+                    color="primary"
+                />
+                <StatCard
+                    title="Média de Cantos - Fora"
+                    value={awayData.avgTotal || '0.0'}
+                    subtitle={`${awayData.avgFor || '0.0'} a favor • ${awayData.avgAgainst || '0.0'} contra`}
+                    icon={FaChartLine}
+                    color="secondary"
+                />
+                <StatCard
+                    title="Over 8.5 Cantos - Casa"
+                    value={`${homeData.trends?.over85 || '0'}%`}
+                    subtitle="Probabilidade histórica"
+                    icon={FaFlag}
+                    color={parseInt(homeData.trends?.over85 || '0') >= 70 ? 'success' : 'warning'}
+                />
+                <StatCard
+                    title="Over 8.5 Cantos - Fora"
+                    value={`${awayData.trends?.over85 || '0'}%`}
+                    subtitle="Probabilidade histórica"
+                    icon={FaFlag}
+                    color={parseInt(awayData.trends?.over85 || '0') >= 70 ? 'success' : 'warning'}
+                />
+            </div>
 
-            {/* Races */}
-            {races && (
+            {/* Corner Races */}
+            {homeData.races && awayData.races && (
                 <div className={styles.section}>
                     <h3 className={styles.sectionTitle}>
                         <FaFlag className={styles.icon} />
                         Corridas de Cantos
                     </h3>
-                    {races.available ? (
-                        <div className={styles.racesGrid}>
-                            {Object.entries(races.data || {}).map(([key, value]) => (
-                                <div key={key} className={styles.raceCard}>
-                                    <div className={styles.raceLabel}>Primeiro a {key}</div>
-                                    <div className={styles.raceValue}>
-                                        {value || 'Não atingido'}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className={styles.noData}>
-                            Sem dados para esta liga
-                        </div>
-                    )}
-                </div>
-            )}
-
-            {/* Intervals Heatmap */}
-            {intervals && (
-                <div className={styles.section}>
-                    <HeatmapTable
-                        intervals={intervals}
-                        title="Intervalos de Cantos"
-                        type="corners"
+                    <RaceChart
+                        homeRaces={homeData.races}
+                        awayRaces={awayData.races}
+                        homeTeam={homeTeam || 'Casa'}
+                        awayTeam={awayTeam || 'Fora'}
                     />
                 </div>
             )}
 
-            {/* Markets */}
-            {markets && (
+            {/* Corner Intervals Heatmap */}
+            {homeData.intervals && awayData.intervals && (
                 <div className={styles.section}>
                     <h3 className={styles.sectionTitle}>
-                        <FaChartArea className={styles.icon} />
-                        Mercados de Cantos
+                        <FaClock className={styles.icon} />
+                        Intervalos de Tempo
                     </h3>
-                    <MarketsTable
-                        markets={markets}
-                        type="corners"
+                    <CornerIntervalsHeatmap
+                        homeIntervals={homeData.intervals}
+                        awayIntervals={awayData.intervals}
+                        homeTeam={homeTeam || 'Casa'}
+                        awayTeam={awayTeam || 'Fora'}
                     />
                 </div>
             )}

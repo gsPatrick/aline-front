@@ -1,0 +1,162 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.emptyState {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary, #a0a0a0);
+    font-size: 0.875rem;
+}
+
+.teamSection {
+    background: var(--bg-card, #2a2a2a);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.teamTitle {
+    color: var(--text-primary, #e0e0e0);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 0.75rem;
+}
+
+.cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    min-height: 90px;
+}
+
+.cell:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
+}
+
+.cell.high {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: rgba(0, 255, 136, 0.4);
+}
+
+.cell.medium {
+    background: rgba(255, 193, 7, 0.15);
+    border-color: rgba(255, 193, 7, 0.3);
+}
+
+.cell.low {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.intervalLabel {
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--text-secondary, #a0a0a0);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.avgValue {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary, #e0e0e0);
+    margin-bottom: 0.125rem;
+}
+
+.frequency {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-green, #00ff88);
+    margin-bottom: 0.125rem;
+}
+
+.against {
+    font-size: 0.625rem;
+    color: var(--text-secondary, #a0a0a0);
+}
+
+/* Special Intervals Section */
+.specialSection {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.specialTitle {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary, #e0e0e0);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.specialGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.specialCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+}
+
+.specialLabel {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary, #e0e0e0);
+}
+
+.specialValue {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #ffc107;
+}
+
+.specialValue.highPressure {
+    color: var(--accent-green, #00ff88);
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+    }
+
+    .cell {
+        min-height: 80px;
+        padding: 0.5rem;
+    }
+
+    .avgValue {
+        font-size: 1rem;
+    }
+
+    .specialGrid {
+        grid-template-columns: 1fr;
+    }
+}
