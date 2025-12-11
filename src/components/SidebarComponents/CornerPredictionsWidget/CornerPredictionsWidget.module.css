@@ -1,0 +1,135 @@
+.container {
+    background: #23262d;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.header {
+    color: #e0e0e0;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid #444;
+    margin-bottom: 1rem;
+    padding-bottom: 5px;
+}
+
+.tab {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 5px;
+}
+
+.tab.active {
+    color: #fff;
+    border-color: #0091ea;
+}
+
+.predictionVal {
+    background: #0091ea;
+    color: #fff;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-left: 4px;
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.tableHead {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    font-size: 0.75rem;
+    color: #ccc;
+    text-align: center;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    font-size: 0.85rem;
+    color: #e0e0e0;
+    text-align: center;
+    align-items: center;
+    border-bottom: 1px solid #2f2f2f;
+    padding: 4px 0;
+}
+
+.label {
+    text-align: left;
+}
+
+.badge {
+    padding: 2px 0;
+    border-radius: 4px;
+    font-weight: 700;
+    color: #fff;
+    font-size: 0.8rem;
+}
+
+.high {
+    background: #00c853;
+}
+
+.med {
+    background: #ffb300;
+}
+
+.low {
+    background: #ff5252;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #444;
+    padding-top: 1rem;
+}
+
+.market {
+    color: #fff;
+    font-weight: 500;
+}
+
+.odds {
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+.oddRow {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.btnBad {
+    background: #ff5252;
+    border: none;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+}

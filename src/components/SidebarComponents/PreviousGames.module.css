@@ -1,0 +1,198 @@
+.container {
+    margin-bottom: 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.tabs {
+    display: flex;
+    gap: 5px;
+}
+
+.tab {
+    background: #333;
+    border: none;
+    color: #888;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab.active {
+    background: #00d4ff;
+    color: #000;
+    font-weight: bold;
+}
+
+.sectionTitle {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+.gamesList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.colHeader {
+    display: grid;
+    grid-template-columns: 60px 1fr 30px 40px 60px 30px 30px 20px;
+    font-size: 0.7rem;
+    color: #888;
+    padding: 0 5px;
+}
+
+/* Row Layout */
+.gameRow {
+    display: grid;
+    grid-template-columns: 60px 1fr 30px 40px 60px 30px 30px 20px;
+    align-items: center;
+    background: #1e1e1e;
+    padding: 8px 5px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.dateCol {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.date {
+    color: #fff;
+    font-weight: bold;
+}
+
+.leagueBadge {
+    background: #111;
+    border: 1px solid #333;
+    color: #888;
+    padding: 1px 4px;
+    border-radius: 3px;
+    width: fit-content;
+    font-size: 0.65rem;
+}
+
+.matchCol {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.teamLine {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.teamName {
+    color: #fff;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rank {
+    color: #888;
+    font-size: 0.7rem;
+}
+
+.oddBadge {
+    background: #ff5252;
+    color: #fff;
+    font-size: 0.65rem;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+/* Result Box */
+.resultCol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resultBadge {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-weight: bold;
+    color: #fff;
+    font-size: 0.7rem;
+}
+
+.win {
+    background-color: #00c853;
+}
+
+.draw {
+    background-color: #ff9800;
+}
+
+.loss {
+    background-color: #d50000;
+}
+
+.statsCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ccc;
+    font-size: 0.7rem;
+}
+
+.chartCol {
+    color: #888;
+    display: flex;
+    justify-content: center;
+}
+
+.showMoreBtn {
+    width: 100%;
+    background: #00d4ff;
+    color: #000;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .gameRow {
+        grid-template-columns: 50px 1fr 20px 30px;
+        /* Simplifica no mobile */
+    }
+
+    .statsCol:nth-child(n+6),
+    .colHeader div:nth-child(n+5) {
+        display: none;
+        /* Esconde colunas menos importantes no mobile */
+    }
+}

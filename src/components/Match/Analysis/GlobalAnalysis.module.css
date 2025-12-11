@@ -1,0 +1,42 @@
+.container {
+    width: 100%;
+}
+
+.tabsHeader {
+    display: flex;
+    background-color: #151515;
+    border-bottom: 1px solid #333;
+    padding: 0 1rem;
+}
+
+.tabBtn {
+    background: none;
+    border: none;
+    color: #888;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-top: 3px solid transparent;
+}
+
+.tabBtn:hover {
+    color: #ccc;
+}
+
+.tabBtn.active {
+    background-color: #1a1a1a;
+    /* Fundo ativo igual ao container */
+    color: #fff;
+    border-top-color: #00d4ff;
+}
+
+.content {
+    padding: 0;
+}
+
+.placeholder {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+}

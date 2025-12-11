@@ -1,233 +1,179 @@
 'use client';
 import { useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { FaFlag, FaClock, FaChartArea, FaExclamationTriangle } from 'react-icons/fa';
-import StatCard from '@/components/shared/StatCard';
-import HeatmapTable from '@/components/shared/HeatmapTable';
 import styles from './CornersAnalysis.module.css';
 
-export default function CornersAnalysis({ data, chartsData, filterCondition = 'ALL', isLive = false, currentMinute = 90 }) {
-    const [activeTeam, setActiveTeam] = useState('home');
+// Badge Percentual Colorido
+const PercentBadge = ({ val }) => {
+    let color = styles.low;
+    const num = parseInt(val);
+    if (num >= 70) color = styles.high;
+    else if (num >= 50) color = styles.med;
+    return <span className={`${styles.badge} ${color}`}>{val}%</span>;
+};
 
-    if (!data) {
-        return (
-            <div className={styles.emptyState}>
-                <FaFlag className={styles.emptyIcon} />
-                <p>Análise de escanteios não disponível</p>
-            </div>
-        );
-    }
+export default function CornersAnalysis({ homeTeam = "Mirassol", awayTeam = "Flamengo" }) {
 
-    const { home, away } = data;
-    const currentData = filterCondition === 'HOME' ? home : filterCondition === 'AWAY' ? away : null;
+    // Dados Mockados Idênticos à Imagem
+    const totalCorners = [
+        { label: 'Over 2.5', homeM: '100%', homeS: '60%', awayM: '70%', awayS: '90%' },
+        { label: 'Over 3.5', homeM: '90%', homeS: '60%', awayM: '60%', awayS: '50%' },
+        { label: 'Over 4.5', homeM: '70%', homeS: '50%', awayM: '50%', awayS: '30%' },
+        { label: 'Over 5.5', homeM: '60%', homeS: '40%', awayM: '30%', awayS: '10%' },
+        { label: 'Over 6.5', homeM: '50%', homeS: '40%', awayM: '30%', awayS: '10%' },
+    ];
 
-    // If ALL, show both teams side by side
-    if (filterCondition === 'ALL') {
-        return (
-            <div className={styles.container}>
-                {/* Timeline Chart (Full Width) */}
-                {chartsData?.timeline && (
-                    <div className={styles.chartSection}>
-                        <h4 className={styles.sectionTitle}>
-                            <FaChartArea className={styles.titleIcon} />
-                            Linha do Tempo de Pressão
-                        </h4>
-                        <TimelineChart data={chartsData.timeline} isLive={isLive} currentMinute={currentMinute} />
-                    </div>
-                )}
+    const intervals = [
+        { period: "0-10'", pctH: 60, pctA: 60, hM: 0.9, hS: 0.5, aM: 0.3, aS: 0.7, fav: 0.6, cont: 0.6, med: 60 },
+        { period: "11-20'", pctH: 70, pctA: 90, hM: 0.9, hS: 0.2, aM: 0.5, aS: 0.9, fav: 0.7, cont: 0.55, med: 80 },
+        { period: "37-HT", pctH: 80, pctA: 70, hM: 1.2, hS: 0.9, aM: 0.3, aS: 0.5, fav: 0.75, cont: 0.7, med: 75 },
+        { period: "75-FT", pctH: 100, pctA: 80, hM: 1.2, hS: 1.6, aM: 0.6, aS: 0.9, fav: 0.9, cont: 1.25, med: 90 },
+        { period: "80-FT", pctH: 100, pctA: 80, hM: 0.9, hS: 1.2, aM: 0.4, aS: 0.9, fav: 0.65, cont: 1.05, med: 90 },
+        { period: "87-FT", pctH: 70, pctA: 50, hM: 0.7, hS: 0.7, aM: 0.3, aS: 0.7, fav: 0.5, cont: 0.7, med: 60 },
+    ];
 
-                <div className={styles.teamToggle}>
-                    <button
-                        className={`${styles.toggleBtn} ${activeTeam === 'home' ? styles.active : ''}`}
-                        onClick={() => setActiveTeam('home')}
-                    >
-                        Casa
-                    </button>
-                    <button
-                        className={`${styles.toggleBtn} ${activeTeam === 'away' ? styles.active : ''}`}
-                        onClick={() => setActiveTeam('away')}
-                    >
-                        Fora
-                    </button>
-                </div>
+    const races = [
+        { label: 'Race 3', homeW: '80%', homeL: '20%', awayW: '40%', awayL: '60%' },
+        { label: 'Race 5', homeW: '60%', homeL: '30%', awayW: '50%', awayL: '20%' },
+        { label: 'Race 7', homeW: '50%', homeL: '30%', awayW: '30%', awayL: '10%' },
+        { label: 'Race 9', homeW: '20%', homeL: '20%', awayW: '20%', awayL: '10%' },
+    ];
 
-                <TeamCornersAnalysis data={activeTeam === 'home' ? home : away} />
-            </div>
-        );
-    }
-
-    // Single team view
     return (
         <div className={styles.container}>
-            {chartsData?.timeline && (
-                <div className={styles.chartSection}>
-                    <h4 className={styles.sectionTitle}>
-                        <FaChartArea className={styles.titleIcon} />
-                        Linha do Tempo de Pressão
-                    </h4>
-                    <TimelineChart data={chartsData.timeline} isLive={isLive} currentMinute={currentMinute} />
-                </div>
-            )}
-            <TeamCornersAnalysis data={currentData} />
-        </div>
-    );
-}
+            <h3 className={styles.sectionTitle}>Análise Detalhada</h3>
 
-function TimelineChart({ data, isLive, currentMinute }) {
-    if (!data || data.length === 0) return null;
+            <div className={styles.gridTop}>
 
-    // Filter data up to current minute if live
-    const chartData = isLive ? data.filter(d => d.minute <= currentMinute) : data;
+                {/* COLUNA ESQUERDA: RESUMO & TOTAIS */}
+                <div className={styles.card}>
+                    {/* Header Interno */}
+                    <div className={styles.tabsHeader}>
+                        <span className={styles.tabTitle}>Cantos Análise</span>
+                        <div className={styles.tabBtns}>
+                            <button className={`${styles.btn} ${styles.active}`}>Terminado</button>
+                            <button className={styles.btn}>1ª Parte</button>
+                            <button className={styles.btn}>2ª Parte</button>
+                        </div>
+                    </div>
 
-    return (
-        <div className={styles.chartContainer}>
-            <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                    <XAxis
-                        dataKey="minute"
-                        stroke="rgba(255,255,255,0.5)"
-                        label={{ value: 'Minuto', position: 'insideBottom', offset: -5, fill: 'rgba(255,255,255,0.7)' }}
-                    />
-                    <YAxis
-                        stroke="rgba(255,255,255,0.5)"
-                        label={{ value: 'Pressão', angle: -90, position: 'insideLeft', fill: 'rgba(255,255,255,0.7)' }}
-                    />
-                    <Tooltip
-                        contentStyle={{
-                            background: 'rgba(0, 0, 0, 0.9)',
-                            border: '1px solid rgba(255,255,255,0.2)',
-                            borderRadius: '8px',
-                            color: 'white'
-                        }}
-                    />
-                    <Legend />
-                    <Line
-                        type="monotone"
-                        dataKey="home"
-                        stroke="#00d4ff"
-                        strokeWidth={2}
-                        dot={{ fill: '#00d4ff', r: 3 }}
-                        name="Casa"
-                    />
-                    <Line
-                        type="monotone"
-                        dataKey="away"
-                        stroke="#ff3366"
-                        strokeWidth={2}
-                        dot={{ fill: '#ff3366', r: 3 }}
-                        name="Fora"
-                    />
-                </LineChart>
-            </ResponsiveContainer>
-        </div>
-    );
-}
+                    {/* Times */}
+                    <div className={styles.teamsRow}>
+                        <div className={styles.team}>
+                            <img src="https://cdn.sportmonks.com/images/soccer/teams/22/3030.png" alt="" />
+                            <span>{homeTeam}</span>
+                        </div>
+                        <div className={styles.team}>
+                            <span>{awayTeam}</span>
+                            <img src="https://cdn.sportmonks.com/images/soccer/teams/19/3027.png" alt="" />
+                        </div>
+                    </div>
 
-function TeamCornersAnalysis({ data }) {
-    if (!data) return null;
+                    {/* Médias */}
+                    <div className={styles.statsTable}>
+                        <div className={styles.statRow}><span>6.5</span><span className={styles.statLabel}>Média a favor</span><span>5.2</span></div>
+                        <div className={styles.statRow}><span>5.5</span><span className={styles.statLabel}>Média contra</span><span>4.5</span></div>
+                        <div className={styles.statRow}><span>12</span><span className={styles.statLabel}>Média total</span><span>9.7</span></div>
+                    </div>
 
-    const hasRaces = data.races !== null && data.races !== undefined;
+                    {/* Calculadora */}
+                    <div className={styles.calcArea}>
+                        <h4>Calculadora de cantos</h4>
+                        <div className={styles.sliderRow}><label>Minutos</label><div className={styles.slider}></div><span>0</span></div>
+                        <div className={styles.sliderRow}><label>Cantos</label><div className={styles.slider}></div><span>0</span></div>
+                        <div className={styles.calcResult}>
+                            <span className={styles.blueBadge}>Previsão HT: 5</span>
+                            <span className={styles.blueBadge}>Previsão FT: 10.85</span>
+                        </div>
+                    </div>
 
-    return (
-        <>
-            {/* Stats Cards */}
-            <div className={styles.statsGrid}>
-                <StatCard
-                    title="Média de Escanteios"
-                    value={data.avgFor}
-                    subtitle="A favor por jogo"
-                    icon={FaFlag}
-                    color="primary"
-                />
-                <StatCard
-                    title="Média Contra"
-                    value={data.avgAgainst}
-                    subtitle="Contra por jogo"
-                    icon={FaFlag}
-                    color="danger"
-                />
-                <StatCard
-                    title="Total Médio"
-                    value={data.avgTotal}
-                    subtitle="Por partida"
-                    icon={FaFlag}
-                    color="success"
-                />
-                <StatCard
-                    title="Over 8.5"
-                    value={`${data.trends?.over85 || 0}%`}
-                    subtitle="Mais de 8.5 escanteios"
-                    icon={FaClock}
-                    color={parseFloat(data.trends?.over85 || 0) >= 50 ? 'success' : 'warning'}
-                />
-            </div>
-
-            {/* Corner Races */}
-            {hasRaces ? (
-                <div className={styles.section}>
-                    <h4 className={styles.sectionTitle}>
-                        <FaFlag className={styles.titleIcon} />
-                        Corridas de Escanteios
-                    </h4>
-                    <div className={styles.racesGrid}>
-                        <RaceCard race="3" percentage={data.races.race3} />
-                        <RaceCard race="5" percentage={data.races.race5} />
-                        <RaceCard race="7" percentage={data.races.race7} />
-                        <RaceCard race="9" percentage={data.races.race9} />
+                    {/* Tabela Totais */}
+                    <div className={styles.totalTable}>
+                        <div className={styles.totalHeader}>
+                            <span>Total Cantos</span>
+                            <div className={styles.dualHead}><span>Marcados</span><span>Sofridos</span></div>
+                            <div className={styles.dualHead}><span>Marcados</span><span>Sofridos</span></div>
+                        </div>
+                        {totalCorners.map((row, i) => (
+                            <div key={i} className={styles.totalRow}>
+                                <div className={styles.dualVal}><PercentBadge val={row.homeM} /><PercentBadge val={row.homeS} /></div>
+                                <span className={styles.rowLabel}>{row.label}</span>
+                                <div className={styles.dualVal}><PercentBadge val={row.awayM} /><PercentBadge val={row.awayS} /></div>
+                            </div>
+                        ))}
                     </div>
                 </div>
-            ) : (
-                <div className={styles.fallbackCard}>
-                    <FaExclamationTriangle className={styles.fallbackIcon} />
-                    <div className={styles.fallbackText}>
-                        <strong>Corridas de Escanteios não disponíveis</strong>
-                        <p>Dados de eventos minuto a minuto não estão disponíveis para esta liga.</p>
+
+                {/* COLUNA DIREITA: INTERVALOS & HANDICAP */}
+                <div className={styles.rightContent}>
+                    {/* Tabela de Intervalos */}
+                    <div className={styles.card}>
+                        <h4 className={styles.cardHeaderSmall}>Cantos Por Intervalo</h4>
+                        <div className={styles.teamsSmall}>
+                            <img src="https://cdn.sportmonks.com/images/soccer/teams/22/3030.png" width="20" /> {homeTeam}
+                            <span style={{ flex: 1 }}></span>
+                            {awayTeam} <img src="https://cdn.sportmonks.com/images/soccer/teams/19/3027.png" width="20" />
+                        </div>
+                        <div className={styles.intervalScroll}>
+                            <table className={styles.intervalTable}>
+                                <thead>
+                                    <tr>
+                                        <th>Marcados</th><th>Sofridos</th><th>%</th><th>Período</th><th>%</th><th>Marcados</th><th>Sofridos</th><th>Favor</th><th>Contra</th><th>Média</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {intervals.map((row, i) => (
+                                        <tr key={i}>
+                                            <td>{row.hM}</td><td>{row.hS}</td><td><PercentBadge val={row.pctH + '%'} /></td>
+                                            <td className={styles.period}>{row.period}</td>
+                                            <td><PercentBadge val={row.pctA + '%'} /></td><td>{row.aM}</td><td>{row.aS}</td>
+                                            <td>{row.fav}</td><td>{row.cont}</td><td><PercentBadge val={row.med + '%'} /></td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        <button className={styles.moreBtn}>Mostrar Mais Estatísticas</button>
+                    </div>
+
+                    {/* Handicap (Mock Visual) */}
+                    <div className={styles.card}>
+                        <div className={styles.handicapHeader}>
+                            <span>Handicap Cantos</span>
+                            <span>Vencer Derrota</span>
+                        </div>
+                        {/* Exemplo de uma linha para visual */}
+                        <div className={styles.handicapRow}>
+                            <div className={styles.dualVal}><PercentBadge val="40%" /><PercentBadge val="60%" /></div>
+                            <span>-2.5</span>
+                            <div className={styles.dualVal}><PercentBadge val="30%" /><PercentBadge val="70%" /></div>
+                        </div>
                     </div>
                 </div>
-            )}
+            </div>
 
-            {/* Intervals Heatmap */}
-            {data.intervals && (
-                <div className={styles.section}>
-                    <HeatmapTable
-                        intervals={data.intervals}
-                        title="Distribuição de Escanteios por Intervalo"
-                        type="corners"
-                    />
+            {/* SEÇÃO INFERIOR: RACES */}
+            <div className={styles.card}>
+                <div className={styles.racesTitle}>Races</div>
+                <div className={styles.teamsRow}>
+                    <div className={styles.team}><img src="https://cdn.sportmonks.com/images/soccer/teams/22/3030.png" width="20" /> {homeTeam}</div>
+                    <span>vs</span>
+                    <div className={styles.team}>{awayTeam} <img src="https://cdn.sportmonks.com/images/soccer/teams/19/3027.png" width="20" /></div>
                 </div>
-            )}
-        </>
-    );
-}
-
-function RaceCard({ race, percentage }) {
-    const pct = parseFloat(percentage);
-    const getColor = () => {
-        if (pct >= 60) return '#00ff88';
-        if (pct >= 40) return '#ffaa00';
-        return '#ff3366';
-    };
-
-    return (
-        <div className={styles.raceCard}>
-            <div className={styles.raceHeader}>
-                <FaFlag className={styles.raceIcon} />
-                <span className={styles.raceTitle}>Race to {race}</span>
+                <div className={styles.raceList}>
+                    <div className={styles.raceHeaderRow}>
+                        <div className={styles.dualLabel}><span>Vitórias</span><span>Derrotas</span></div>
+                        <div></div>
+                        <div className={styles.dualLabel}><span>Vitórias</span><span>Derrotas</span></div>
+                    </div>
+                    {races.map((r, i) => (
+                        <div key={i} className={styles.raceRow}>
+                            <div className={styles.dualVal}><PercentBadge val={r.homeW} /><PercentBadge val={r.homeL} /></div>
+                            <span className={styles.raceLabel}>{r.label}</span>
+                            <div className={styles.dualVal}><PercentBadge val={r.awayW} /><PercentBadge val={r.awayL} /></div>
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div className={styles.raceValue} style={{ color: getColor() }}>
-                {percentage}%
-            </div>
-            <div className={styles.raceBar}>
-                <div
-                    className={styles.raceBarFill}
-                    style={{
-                        width: `${percentage}%`,
-                        background: `linear-gradient(90deg, ${getColor()}, ${getColor()}aa)`
-                    }}
-                />
-            </div>
-            <div className={styles.raceLabel}>Probabilidade de vencer</div>
         </div>
     );
 }

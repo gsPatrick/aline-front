@@ -1,0 +1,288 @@
+.container {
+    width: 100%;
+    padding: 1rem;
+}
+
+.empty {
+    text-align: center;
+    color: #9ca3af;
+    padding: 2rem;
+}
+
+/* Tab Selector */
+.tabSelector {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.75rem;
+}
+
+.teamTab {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: transparent;
+    color: #9ca3af;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.teamTab:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.activeTab {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-color: transparent;
+    color: #fff;
+}
+
+/* Section Title */
+.sectionTitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+/* Score Wrapper */
+.scoreWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.dateSmall {
+    font-size: 0.65rem;
+    color: #6b7280;
+}
+
+/* Stat Cells */
+.statCell {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    width: 30px;
+    min-width: 30px;
+}
+
+.statCellYellow {
+    font-size: 0.75rem;
+    color: #fbbf24;
+    font-weight: 600;
+    width: 30px;
+    min-width: 30px;
+}
+
+.redCardHeader,
+.yellowCardHeader {
+    font-size: 0.625rem;
+    width: 30px;
+    min-width: 30px;
+}
+
+/* Summary Header */
+.summaryHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.teamSummary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.teamLogoSummary {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.teamNameSummary {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    text-align: center;
+    max-width: 100px;
+}
+
+.h2hStats {
+    display: flex;
+    gap: 2rem;
+}
+
+.statBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.statValue {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.statLabel {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+}
+
+/* Table */
+.tableWrapper {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.table thead {
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.table th {
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.table td {
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Result Badge */
+.resultCell {
+    width: 50px;
+}
+
+.resultBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: #fff;
+}
+
+.win {
+    background: #10b981;
+}
+
+.loss {
+    background: #ef4444;
+}
+
+.draw {
+    background: #6b7280;
+}
+
+/* League Logo */
+.leagueCell {
+    width: 40px;
+}
+
+.leagueLogo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Team Cells */
+.teamCell {
+    width: 50px;
+}
+
+.teamLogo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+/* Score Cell */
+.scoreCell {
+    min-width: 80px;
+}
+
+.score {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+/* Date Cell */
+.dateCell {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .summaryHeader {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .h2hStats {
+        order: -1;
+        gap: 1.5rem;
+    }
+
+    .teamSummary {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .table {
+        font-size: 0.75rem;
+    }
+
+    .resultBadge {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
+
+    .teamLogo {
+        width: 24px;
+        height: 24px;
+    }
+}

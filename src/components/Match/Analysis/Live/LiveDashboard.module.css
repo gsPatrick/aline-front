@@ -1,0 +1,196 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.section {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.title {
+    color: #e0e0e0;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Gráfico de Pressão */
+.graphContainer {
+    position: relative;
+    height: 150px;
+    background: #111;
+    border-radius: 8px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.graphTimeline {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+.centerLine {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+}
+
+.barsContainer {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    width: 100%;
+    justify-content: space-between;
+    height: 100%;
+    z-index: 1;
+}
+
+.barWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.bar {
+    width: 4px;
+    border-radius: 2px;
+    opacity: 0.8;
+}
+
+.timeMarkers {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.65rem;
+    color: #666;
+    pointer-events: none;
+}
+
+.eventIcon {
+    position: absolute;
+    top: 10px;
+    font-size: 0.8rem;
+}
+
+/* Pitch Zones */
+.pitchHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.teamSide {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.attackBadge {
+    background: #00d4ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+.pitchContainer {
+    display: flex;
+    height: 200px;
+    border: 2px solid #444;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.halfPitch {
+    flex: 1;
+    position: relative;
+    background: #1a5c3a;
+    /* Verde gramado base */
+    overflow: hidden;
+}
+
+/* Mock de Heatmap com gradiente radial */
+.pitchBgLeft {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 70% 50%, rgba(255, 0, 0, 0.4), transparent 60%);
+}
+
+.pitchBgRight {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(0, 0, 255, 0.4), transparent 60%);
+}
+
+.pitchDivider {
+    width: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    height: 100%;
+    z-index: 2;
+}
+
+.overlayData {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px;
+    z-index: 3;
+}
+
+.zoneVal {
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.arrow {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+}
+
+.barWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Centraliza verticalmente */
+    height: 100%;
+    width: 4px;
+    /* Largura fixa da barra */
+    position: relative;
+}
+
+.bar {
+    width: 100%;
+    border-radius: 2px;
+    opacity: 0.9;
+    /* A posição é controlada pelo JS via margin-top/bottom ou flex-alignment */
+}
+
+.barZero {
+    height: 2px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+}

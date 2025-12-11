@@ -1,0 +1,76 @@
+.container {
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 1rem;
+    color: #e0e0e0;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.card {
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+}
+
+.high {
+    background-color: rgba(0, 255, 136, 0.05);
+    /* Fundo verde muito sutil */
+    border-color: rgba(0, 255, 136, 0.3);
+}
+
+.high .label {
+    color: #00ff88;
+}
+
+.warn {
+    background-color: rgba(255, 170, 0, 0.05);
+    border-color: rgba(255, 170, 0, 0.3);
+}
+
+.warn .label {
+    color: #ffaa00;
+}
+
+.label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.sub {
+    font-size: 0.65rem;
+    color: #888;
+}
+
+/* Barra laranja inferior no card de aviso */
+.barWarn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #ffaa00;
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

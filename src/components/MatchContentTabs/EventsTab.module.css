@@ -1,190 +1,218 @@
 .container {
     width: 100%;
+    background-color: #121418;
+    /* Fundo bem escuro como na imagem */
+    padding: 1.5rem;
+    border-radius: 8px;
 }
 
-.emptyState {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 1rem;
-    font-size: 0.875rem;
-    color: #9ca3af;
-}
-
-.filters {
+/* --- FILTROS --- */
+.filtersWrapper {
     display: flex;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     flex-wrap: wrap;
-    justify-content: center;
 }
 
-.filterPill {
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.filterBtn {
+    background-color: #333;
+    color: #aaa;
+    border: none;
+    padding: 6px 16px;
     border-radius: 20px;
-    color: #9ca3af;
-    font-size: 0.75rem;
-    font-weight: 600;
+    /* Formato pílula */
+    font-size: 0.85rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s;
+    font-weight: 500;
 }
 
-.filterPill:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #e0e0e0;
-}
-
-.filterPill.active {
-    background: #3b82f6;
-    border-color: #3b82f6;
+.filterBtn:hover {
+    background-color: #444;
     color: #fff;
 }
 
-.timeline {
+.filterBtn.active {
+    background-color: #0091ea;
+    /* Azul da imagem */
+    color: #fff;
+}
+
+/* --- HEADER DO PLACAR --- */
+.matchStatusHeader {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    max-height: 600px;
-    overflow-y: auto;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
     padding: 0 1rem;
 }
 
-.timelineItem {
-    display: grid;
-    grid-template-columns: 60px 40px 1fr;
-    gap: 1rem;
-    align-items: start;
+.teamSide,
+.teamSideRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
 }
 
-.timelineItem.home .eventContent {
-    text-align: left;
+.teamSideRight {
+    justify-content: flex-end;
 }
 
-.timelineItem.away .eventContent {
+.logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.teamName {
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+.scoreCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+}
+
+.statusLabel {
+    font-size: 0.8rem;
+    color: #ccc;
+    margin-bottom: 2px;
+}
+
+.finalScore {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+
+/* --- TIMELINE --- */
+.timelineList {
+    display: flex;
+    flex-direction: column;
+}
+
+.eventRow {
+    display: flex;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+}
+
+.homeSide {
+    justify-content: flex-start;
+    color: #fff;
+}
+
+.awaySide {
+    justify-content: flex-end;
+    color: #fff;
     text-align: right;
 }
 
 .minute {
+    color: #fff;
+    font-weight: 600;
+    min-width: 30px;
+}
+
+.homeSide .minute {
+    text-align: left;
+}
+
+.awaySide .minute {
+    text-align: right;
+}
+
+.player {
+    font-weight: 400;
+    color: #e0e0e0;
+}
+
+.neutralSide {
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: #10b981;
-}
-
-.extraTime {
-    font-size: 0.625rem;
-    color: #6b7280;
-}
-
-.axis {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
+    gap: 8px;
+    color: #aaa;
+    font-size: 0.9rem;
+    padding: 0 1rem;
 }
 
-.axis::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 0;
-}
-
-.eventIcon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+.icon {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    z-index: 1;
 }
 
-.eventGoal {
-    background: rgba(16, 185, 129, 0.2);
-    border-color: #10b981;
+/* Cores dos ícones baseadas na imagem (Verde p/ Casa, Vermelho p/ Fora nos gols) */
+.iconHome {
+    color: #00c853;
 }
 
-.eventCorner {
-    background: rgba(245, 158, 11, 0.2);
-    border-color: #f59e0b;
+/* Bola Verde */
+.iconAway {
+    color: #ff5252;
 }
 
-.eventYellow {
-    background: rgba(245, 158, 11, 0.2);
-    border-color: #f59e0b;
+/* Bola Vermelha */
+
+/* --- INTERVALO --- */
+.intervalRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 1.5rem 0;
 }
 
-.eventRed {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: #ef4444;
+.intervalLine {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    flex: 1;
 }
 
-.eventSub {
-    background: rgba(59, 130, 246, 0.2);
-    border-color: #3b82f6;
-}
-
-.eventContent {
+.intervalContent {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    align-items: center;
+    color: #fff;
+    font-size: 0.9rem;
 }
 
-.eventType {
-    font-size: 0.75rem;
+.intervalScore {
     font-weight: 700;
-    color: #e0e0e0;
+    font-size: 1rem;
 }
 
-.eventPlayer {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #10b981;
+.emptyState {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-style: italic;
 }
 
-.eventRelated {
-    font-size: 0.75rem;
-    color: #9ca3af;
-}
-
-.eventResult {
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: #3b82f6;
-}
-
-.eventComment {
-    font-size: 0.75rem;
-    color: #6b7280;
-    line-height: 1.4;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-    .timelineItem {
-        grid-template-columns: 50px 30px 1fr;
-        gap: 0.5rem;
+    .teamName {
+        display: none;
     }
 
-    .timeline {
-        padding: 0 0.5rem;
+    /* Esconde nome dos times no mobile se apertado */
+    .matchStatusHeader {
+        padding: 0;
     }
 }

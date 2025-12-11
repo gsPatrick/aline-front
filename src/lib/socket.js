@@ -1,11 +1,11 @@
-        import { io } from "socket.io-client";
+import { io } from "socket.io-client";
 
-    // URL Base do servidor (sem o /api)
-    const SOCKET_URL = 'https://sistema-grande-api.zjbwih.easypanel.host';
+// URL Base do servidor (sem o /api)
+const SOCKET_URL = 'http://localhost:3333';
 
-    let socket;
+let socket;
 
-    export const initSocket = () => {
+export const initSocket = () => {
     if (socket) return socket;
 
     let token = null;
@@ -15,7 +15,7 @@
 
     socket = io(SOCKET_URL, {
         auth: {
-        token: token // Envia o token para autenticação no socket.js do backend
+            token: token // Envia o token para autenticação no socket.js do backend
         },
         transports: ['websocket'],
         autoConnect: true,
@@ -30,13 +30,13 @@
     });
 
     return socket;
-    };
+};
 
-    export const getSocket = () => {
+export const getSocket = () => {
     if (!socket) return initSocket();
     return socket;
-    };
+};
 
-    export const disconnectSocket = () => {
+export const disconnectSocket = () => {
     if (socket) socket.disconnect();
-    };
+};

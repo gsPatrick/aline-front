@@ -1,0 +1,95 @@
+.container {
+    width: 100%;
+}
+
+.subTabsNav {
+    display: flex;
+    gap: 0.5rem;
+    background: #1a1a1a;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.subTabBtn {
+    background: transparent;
+    border: none;
+    color: #a0a0a0;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.subTabBtn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.subTabBtn.active {
+    background: #00d4ff;
+    color: #000;
+}
+
+/* Conteúdo */
+.subTabContent {
+    background: transparent;
+    min-height: 400px;
+}
+
+.subTabTitle {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #00d4ff;
+    padding-left: 10px;
+}
+
+/* Odds List */
+.oddsContainer {
+    background: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.oddsList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.oddRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    color: #e0e0e0;
+}
+
+.oddNum {
+    font-weight: 700;
+    color: #00d4ff;
+}
+
+.noData {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .subTabsNav {
+        padding-bottom: 10px;
+    }
+}

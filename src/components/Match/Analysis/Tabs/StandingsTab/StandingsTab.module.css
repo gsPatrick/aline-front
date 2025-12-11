@@ -1,0 +1,231 @@
+.container {
+    width: 100%;
+    background-color: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+/* Top Bar */
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.filters {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filterBtn {
+    background-color: #333;
+    border: none;
+    color: #aaa;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filterBtn.active {
+    background-color: #00d4ff;
+    color: #000;
+}
+
+.breadcrumb {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Table */
+.tableContainer {
+    overflow-x: auto;
+    background-color: #23262d;
+    /* Fundo interno exato da imagem */
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    color: #e0e0e0;
+}
+
+.table th {
+    text-align: center;
+    padding: 10px;
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 1px solid #333;
+}
+
+.table th.thMain {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.table th.thForm {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.table td {
+    padding: 8px 5px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Linhas com Destaque (Transparência) */
+.rowHome {
+    background-color: rgba(27, 94, 32, 0.45);
+    /* Verde escuro translúcido */
+}
+
+.rowAway {
+    background-color: rgba(183, 28, 28, 0.45);
+    /* Vermelho escuro translúcido */
+}
+
+/* Coluna Time (Main) */
+.tdMain {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+}
+
+.posBadge {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fff;
+    background-color: #444;
+}
+
+.zoneLibertadores {
+    background-color: #00c853;
+}
+
+.zoneQualifiers {
+    background-color: #aeea00;
+    color: #000;
+}
+
+.zoneSulamericana {
+    background-color: #0091ea;
+}
+
+.zoneRelegation {
+    background-color: #ff5252;
+}
+
+.teamWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.teamLogo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.teamName {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.tdPoints {
+    font-weight: 700;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* Coluna Forma */
+.tdForm {
+    text-align: right;
+}
+
+.formFlex {
+    display: flex;
+    justify-content: flex-end;
+    gap: 3px;
+}
+
+.formBox {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.win {
+    background-color: #00c853;
+}
+
+.draw {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.loss {
+    background-color: #ff5252;
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #ccc;
+}
+
+.dot {
+    width: 24px;
+    height: 8px;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+
+    .table th:nth-child(n+3):nth-last-child(n+3),
+    .table td:nth-child(n+3):nth-last-child(n+3) {
+        display: none;
+        /* Oculta colunas do meio no mobile */
+    }
+}

@@ -1,0 +1,212 @@
+.container {
+    background-color: #23262d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #333;
+    font-family: 'Roboto', sans-serif;
+    /* Fonte mais limpa */
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.title {
+    color: #e0e0e0;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.toggleGroup {
+    display: flex;
+    background-color: #333;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.toggleBtn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.activeToggle {
+    background-color: #0091ea;
+    /* Azul */
+    color: #fff;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 15px;
+    border-bottom: 1px solid #444;
+    margin-bottom: 1rem;
+}
+
+.tab {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    padding-bottom: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.activeTab {
+    color: #fff;
+    border-bottom-color: #0091ea;
+}
+
+.badge {
+    background-color: #0091ea;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 1px 5px;
+    border-radius: 4px;
+}
+
+/* Table */
+.table {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.tableHeader {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    padding-right: 5px;
+}
+
+.tableBody {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tableRow {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #2f2f2f;
+}
+
+.rowLabel {
+    text-align: left;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    padding-left: 5px;
+}
+
+.rowVal {
+    color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.gameValContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.gameBadge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+.high {
+    background-color: #00c853;
+}
+
+/* Verde */
+.med {
+    background-color: #ffb300;
+    color: #000;
+}
+
+/* Amarelo */
+.low {
+    background-color: #ff5252;
+}
+
+/* Vermelho */
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #444;
+}
+
+.marketLabel {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.footerMiddle {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.oddRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    font-size: 0.85rem;
+    color: #e0e0e0;
+}
+
+.oddVal {
+    font-weight: 700;
+}
+
+.footerRight {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.btnNoValue,
+.btnValue {
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    min-width: 80px;
+}
+
+.btnNoValue {
+    background-color: #ff5252;
+}
+
+.btnValue {
+    background-color: #00c853;
+}

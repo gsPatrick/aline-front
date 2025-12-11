@@ -2,7 +2,8 @@
 import styles from './StandingsTab.module.css';
 
 export default function StandingsTab({ match }) {
-    const standings = match?.league?.standings;
+    // Check both locations just in case, but usually it's at root now
+    const standings = match?.standings || match?.league?.standings;
     const matchInfo = match?.matchInfo;
 
     if (!standings || standings.length === 0) {

@@ -1,0 +1,88 @@
+.container {
+    background-color: #23262d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #333;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+.title {
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.tabBtn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+}
+
+.active {
+    color: #fff;
+    border-bottom-color: #0091ea;
+}
+
+.teamsHeader {
+    display: flex;
+    justify-content: space-between;
+    color: #e0e0e0;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    padding: 0 5px;
+}
+
+.categoryTitle {
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    background-color: #2f2f2f;
+    padding: 4px;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 5px;
+    border-bottom: 1px solid #2f2f2f;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    text-align: left;
+}
+
+.value {
+    text-align: right;
+    font-weight: 500;
+}

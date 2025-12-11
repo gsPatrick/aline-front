@@ -1,0 +1,114 @@
+/* Container Principal estilo "Big Card" */
+.bigCard {
+    background-color: #1a1a1a;
+    /* Fundo escuro como na imagem */
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+/* Header: Tabs e Times */
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1rem;
+}
+
+.tabsContainer {
+    display: flex;
+    gap: 10px;
+}
+
+.tabBtn {
+    background-color: #2b2b2b;
+    color: #a0a0a0;
+    border: 1px solid #444;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.tabBtn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.tabBtn.active {
+    background-color: #00d4ff;
+    /* Azul Ciano */
+    color: #000;
+    border-color: #00d4ff;
+    font-weight: 700;
+}
+
+.teamsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teamInfoLeft,
+.teamInfoRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.teamInfoLeft img,
+.teamInfoRight img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.teamName {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Seções (Posse, Ataques...) */
+.section {
+    margin-bottom: 2rem;
+}
+
+.sectionTitle {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    /* Linha sutil abaixo do título, se necessário, ou apenas espaçamento */
+}
+
+.statsGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    /* Espaçamento vertical entre as barras */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .bigCard {
+        padding: 1rem;
+    }
+
+    .header {
+        align-items: center;
+    }
+
+    .teamsHeader {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+}

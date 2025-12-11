@@ -1,0 +1,144 @@
+.sidebarWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.headerCard,
+.sectionCard {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Header Styles */
+.leagueRow {
+    font-size: 0.8rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.scoreBoard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teamCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 30%;
+}
+
+.bigLogo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.teamName {
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+}
+
+.scoreCol {
+    text-align: center;
+}
+
+.scoreMain {
+    font-size: 2rem;
+    font-weight: 800;
+    display: block;
+    line-height: 1;
+    color: #fff;
+}
+
+.date,
+.status {
+    font-size: 0.7rem;
+    color: #aaa;
+    display: block;
+}
+
+/* Quem vence / Over Under */
+.sectionTitle {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    margin-bottom: 0.8rem;
+    text-align: center;
+}
+
+.probBarContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.probBar {
+    display: flex;
+    height: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #333;
+}
+
+.probHome {
+    background: #00c853;
+    color: #000;
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.probDraw {
+    background: #ffc107;
+    color: #000;
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.probAway {
+    background: #d50000;
+}
+
+.overUnderBar {
+    text-align: center;
+}
+
+.overTitle {
+    font-size: 0.75rem;
+    color: #ccc;
+    margin-bottom: 4px;
+}
+
+.ouBar {
+    height: 16px;
+    background: #333;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.probGreen {
+    background: #00c853;
+    color: #000;
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

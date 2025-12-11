@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // URL Hardcoded conforme solicitado
-const BASE_URL = 'https://sistema-grande-api.zjbwih.easypanel.host/api';
+const BASE_URL = 'http://localhost:3333/api';
 
 const api = axios.create({
   baseURL: BASE_URL,

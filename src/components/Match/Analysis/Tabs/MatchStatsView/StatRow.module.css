@@ -1,0 +1,93 @@
+.rowWrapper {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.barLabel {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #a0a0a0;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.barContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 12px;
+    /* Altura da barra */
+}
+
+.sideLeft,
+.sideRight {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.sideLeft {
+    justify-content: flex-end;
+    /* Texto na esquerda, track na direita do container */
+    gap: 10px;
+}
+
+.sideRight {
+    justify-content: flex-start;
+    /* Track na esquerda, texto na direita */
+    gap: 10px;
+}
+
+/* Valores numéricos */
+.valLeft,
+.valRight {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    min-width: 25px;
+}
+
+.valLeft {
+    text-align: left;
+}
+
+.valRight {
+    text-align: right;
+}
+
+/* Trilho cinza de fundo */
+.track {
+    flex: 1;
+    height: 8px;
+    /* Barra ligeiramente mais fina que o container */
+    background-color: #333;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+/* Preenchimento Colorido */
+.fillHome {
+    height: 100%;
+    background-color: #00c853;
+    /* Verde vibrante */
+    border-radius: 4px;
+    /* Animação opcional */
+    transition: width 0.5s ease-out;
+}
+
+.fillAway {
+    height: 100%;
+    background-color: #ff5252;
+    /* Vermelho vibrante */
+    border-radius: 4px;
+    transition: width 0.5s ease-out;
+}
+
+/* Espaço central entre as barras */
+.gap {
+    width: 10px;
+}

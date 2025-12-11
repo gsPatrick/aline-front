@@ -1,0 +1,63 @@
+.container {
+    background: #23262d;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    color: #e0e0e0;
+    margin-bottom: 1rem;
+}
+
+.toggles span {
+    margin-left: 10px;
+    color: #aaa;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    font-size: 0.9rem;
+}
+
+.toggles .active {
+    color: #fff;
+    border-color: #0091ea;
+}
+
+.teams {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.sectionHeader {
+    background: #333;
+    color: #ccc;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 4px;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 40px 40px;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    padding: 6px 0;
+    border-bottom: 1px solid #2f2f2f;
+    text-align: right;
+}
+
+.row span:first-child {
+    text-align: left;
+}

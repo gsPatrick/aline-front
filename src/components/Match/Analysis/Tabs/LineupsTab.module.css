@@ -1,0 +1,397 @@
+.container {
+    width: 100%;
+    background-color: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 8px;
+    color: #e0e0e0;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.teamHeaderLeft {
+    text-align: left;
+}
+
+.teamHeaderRight {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.teamTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.colorDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.insight {
+    color: #ccc;
+    margin-bottom: 2px;
+    font-size: 0.75rem;
+}
+
+/* PITCH (CAMPO) */
+.pitchWrapper {
+    width: 100%;
+    overflow-x: auto;
+    /* Scroll se tela muito pequena */
+    margin-bottom: 2rem;
+    background: #23262d;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.pitch {
+    position: relative;
+    width: 100%;
+    min-width: 600px;
+    /* Garante tamanho mínimo para o campo */
+    height: 400px;
+    background-color: #1a5c3a;
+    /* Verde gramado */
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Linhas do Campo */
+.lineHalf {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateX(-50%);
+}
+
+.lineCircle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.lineBoxLeft {
+    position: absolute;
+    left: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 15%;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-left: none;
+}
+
+.lineBoxRight {
+    position: absolute;
+    right: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 15%;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-right: none;
+}
+
+/* Jogadores no Campo */
+.teamFormationLeft,
+.teamFormationRight {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 2;
+    /* Acima das linhas */
+    padding: 10px;
+}
+
+.colGK,
+.colLine {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    align-items: center;
+}
+
+.pitchPlayer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+    text-align: center;
+}
+
+.playerAvatarContainer {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px;
+}
+
+.playerAvatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background-color: #333;
+    object-fit: cover;
+}
+
+.ratingBadge {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #fff;
+    padding: 1px 4px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.ratingGreen {
+    background-color: #00c853;
+}
+
+.ratingOrange {
+    background-color: #ff9800;
+}
+
+.ratingRed {
+    background-color: #ef5350;
+}
+
+.ratingGray {
+    background-color: #666;
+}
+
+.playerInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+
+.playerNumber {
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 700;
+    margin-bottom: 1px;
+}
+
+.playerName {
+    font-size: 0.7rem;
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* LISTAS INFERIORES (Subs e Ausências) */
+.listsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.listSection {
+    width: 100%;
+}
+
+.listTitle {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.listGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    /* Linha divisória vertical no meio */
+    position: relative;
+}
+
+.listGrid::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.listCol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* Linha de Substituição */
+.subRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subLeft {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.avatarSmall {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #333;
+    overflow: hidden;
+}
+
+.avatarSmall img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.subInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.subNameRow {
+    font-size: 0.85rem;
+    color: #e0e0e0;
+}
+
+.subNumber {
+    font-weight: 700;
+    color: #aaa;
+}
+
+.subName {
+    font-weight: 500;
+}
+
+.subAction {
+    font-size: 0.7rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.iconSwap {
+    font-size: 0.6rem;
+    color: #aaa;
+}
+
+.subRating {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+
+/* Linha de Ausência */
+.missingRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.5rem 0;
+}
+
+.avatarSmallGray {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+}
+
+.missingName {
+    flex: 1;
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+.iconPlus {
+    color: #fff;
+    font-size: 0.8rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .pitch {
+        min-width: 100%;
+        /* Permite encolher no mobile */
+        height: 600px;
+        /* Mais alto */
+        flex-direction: column;
+        /* Vertical no mobile */
+        justify-content: center;
+    }
+
+    .teamFormationLeft,
+    .teamFormationRight {
+        flex-direction: column;
+        /* Times um em cima do outro */
+        height: 50%;
+    }
+
+    .colGK,
+    .colLine {
+        flex-direction: row;
+        /* Linhas viram fileiras horizontais */
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    /* Ajuste da linha do meio para vertical */
+    .lineHalf {
+        width: 100%;
+        height: 2px;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+    }
+
+    .listGrid {
+        grid-template-columns: 1fr;
+        /* Coluna única no mobile */
+        gap: 1rem;
+    }
+
+    .listGrid::after {
+        display: none;
+    }
+}
