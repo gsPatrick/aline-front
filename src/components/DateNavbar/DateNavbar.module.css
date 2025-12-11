@@ -1,0 +1,91 @@
+.navbar {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0 20px;
+}
+
+.dateList {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.dateList::-webkit-scrollbar {
+    display: none;
+}
+
+.dateItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    min-width: 60px;
+}
+
+.dateItem:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.dateItem.active {
+    border-bottom-color: #00d4ff;
+}
+
+.dateItem.today .dayName {
+    color: #00d4ff;
+    font-weight: 700;
+}
+
+.dayName {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 2px;
+}
+
+.dateItem.active .dayName {
+    color: #00d4ff;
+}
+
+.dayNumber {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.dateItem.active .dayNumber {
+    color: #00d4ff;
+    font-weight: 600;
+}
+
+/* Dark Mode */
+.navbar {
+    background: #0f1419;
+    border-bottom-color: #2a3441;
+}
+
+.dayName {
+    color: #9ca3af;
+}
+
+.dayNumber {
+    color: #e5e7eb;
+}
+
+.dateItem:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.dateItem.today .dayName {
+    color: #00d4ff;
+}
+
+.dateItem.active .dayName,
+.dateItem.active .dayNumber {
+    color: #00d4ff;
+}

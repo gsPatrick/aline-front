@@ -2,12 +2,19 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion'; // Animações
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import TeamHeader from "@/components/TeamHeader/TeamHeader";
 import SquadList from "@/components/SquadList/SquadList";
-import TeamDashboard from "@/components/TeamDashboard/TeamDashboard"; // Novo Componente
+import {
+    TeamStatsHeader,
+    NextMatchCard,
+    LiveMatchCard,
+    CompetitionsList,
+    CornerProPredictions,
+    TopPlayersTable,
+    MatchesHistory
+} from "@/components/TeamPage";
 import styles from './page.module.css';
 import { teamService } from '@/lib/api';
 import { FaSpinner, FaCalendarAlt, FaUsers, FaChevronLeft, FaChevronRight, FaExclamationTriangle, FaChartPie } from 'react-icons/fa';
@@ -283,6 +290,15 @@ export default function TeamPage() {
     }
 
     // 3. Renderização da Página
+    // Prepare matches data for MatchesHistory component - use latest_matches from stats
+    const matchesData = {
+        previous: statsData?.latest_matches || scheduleData.results || [],
+        upcoming: scheduleData.upcoming || []
+    };
+
+    // Use competitions from statsData (already computed in backend)
+    const competitions = statsData?.competitions || [];
+
     return (
         <div className={styles.pageWrapper}>
             <Header />
@@ -296,95 +312,110 @@ export default function TeamPage() {
                         animate="visible"
                         variants={contentVariants}
                     >
-                        {/* Banner com Logo e Nome do Time */}
-                        <TeamHeader team={teamInfo} />
+                        {/* Team Stats Header with Radar Chart */}
+                        <TeamStatsHeader
+                            team={teamInfo}
+                            stats={statsData}
+                            recentMatches={scheduleData.results}
+                        />
 
-                        <div className={styles.contentContainer}>
-                            {/* Navegação de Abas */}
-                            <div className={styles.tabs}>
-                                <button
-                                    className={`${styles.tab} ${activeTab === 'dashboard' ? styles.active : ''}`}
-                                    onClick={() => setActiveTab('dashboard')}
-                                >
-                                    <FaChartPie /> Dashboard
-                                </button>
-                                <button
-                                    className={`${styles.tab} ${activeTab === 'matches' ? styles.active : ''}`}
-                                    onClick={() => setActiveTab('matches')}
-                                >
-                                    <FaCalendarAlt /> Jogos
-                                </button>
-                                <button
-                                    className={`${styles.tab} ${activeTab === 'squad' ? styles.active : ''}`}
-                                    onClick={() => setActiveTab('squad')}
-                                >
-                                    <FaUsers /> Elenco
-                                </button>
+                        {/* Main 2-Column Layout */}
+                        <div className={styles.twoColumnLayout}>
+                            {/* Left Sidebar */}
+                            <div className={styles.leftColumn}>
+                                {/* Live Match Card - shows if there's a match in progress */}
+                                <LiveMatchCard
+                                    match={statsData?.live_match}
+                                    teamId={id}
+                                />
+
+                                <NextMatchCard
+                                    match={statsData?.next_match || scheduleData.upcoming?.[0]}
+                                    teamId={id}
+                                />
+
+                                <CompetitionsList
+                                    competitions={competitions}
+                                    teamId={id}
+                                />
+
+                                <CornerProPredictions
+                                    stats={statsData?.predictions}
+                                    competitions={competitions}
+                                />
+
+                                <TopPlayersTable
+                                    players={squadData}
+                                />
                             </div>
 
-                            {/* Conteúdo das Abas */}
-                            <div className={styles.tabContent}>
-                                <AnimatePresence mode="wait">
-                                    {/* ABA 1: DASHBOARD (NOVO) */}
-                                    {activeTab === 'dashboard' && (
-                                        <motion.div
-                                            key="dashboard"
-                                            variants={tabVariants}
-                                            initial="hidden"
-                                            animate="visible"
-                                            exit="exit"
-                                        >
-                                            <TeamDashboard
-                                                stats={statsData?.radar_data}
-                                                matches={statsData?.latest_matches}
-                                                nextMatch={statsData?.next_match}
-                                                upcomingMatches={statsData?.upcoming_matches}
-                                                teamInfo={teamInfo}
-                                            />
-                                        </motion.div>
-                                    )}
+                            {/* Right Main Content */}
+                            <div className={styles.rightColumn}>
+                                {/* Navegação de Abas */}
+                                <div className={styles.tabs}>
+                                    <button
+                                        className={`${styles.tab} ${activeTab === 'dashboard' ? styles.active : ''}`}
+                                        onClick={() => setActiveTab('dashboard')}
+                                    >
+                                        <FaChartPie /> Estatísticas
+                                    </button>
+                                    <button
+                                        className={`${styles.tab} ${activeTab === 'squad' ? styles.active : ''}`}
+                                        onClick={() => setActiveTab('squad')}
+                                    >
+                                        <FaUsers /> Elenco
+                                    </button>
+                                </div>
 
-                                    {/* ABA 2: JOGOS (Resultados e Calendário) */}
-                                    {activeTab === 'matches' && (
-                                        <motion.div
-                                            key="matches"
-                                            variants={tabVariants}
-                                            initial="hidden"
-                                            animate="visible"
-                                            exit="exit"
-                                            className={styles.matchesGrid}
-                                        >
-                                            {/* Coluna da Esquerda: Últimos Resultados */}
-                                            <GroupedMatchList
-                                                matches={scheduleData.results}
-                                                title="Últimos Resultados"
-                                                mainTeamId={id}
-                                                emptyMessage="Nenhum resultado recente encontrado."
-                                            />
+                                {/* Conteúdo das Abas */}
+                                <div className={styles.tabContent}>
+                                    <AnimatePresence mode="wait">
+                                        {/* ABA 1: MATCHES + INFO */}
+                                        {activeTab === 'dashboard' && (
+                                            <motion.div
+                                                key="dashboard"
+                                                variants={tabVariants}
+                                                initial="hidden"
+                                                animate="visible"
+                                                exit="exit"
+                                            >
+                                                <div className={styles.dashboardGrid}>
+                                                    <MatchesHistory
+                                                        matches={matchesData}
+                                                        teamId={id}
+                                                    />
 
-                                            {/* Coluna da Direita: Próximos Jogos */}
-                                            <GroupedMatchList
-                                                matches={scheduleData.upcoming}
-                                                title="Próximos Jogos"
-                                                mainTeamId={id}
-                                                emptyMessage="Sem jogos agendados no momento."
-                                            />
-                                        </motion.div>
-                                    )}
+                                                    <div className={styles.sideCards}>
+                                                        {/* Estilos de Jogo */}
+                                                        <div className={styles.infoCard}>
+                                                            <h4>Estilos de jogo</h4>
+                                                            <p className={styles.noDataText}>Sem Dados</p>
+                                                        </div>
 
-                                    {/* ABA 3: ELENCO (Jogadores e Stats) */}
-                                    {activeTab === 'squad' && (
-                                        <motion.div
-                                            key="squad"
-                                            variants={tabVariants}
-                                            initial="hidden"
-                                            animate="visible"
-                                            exit="exit"
-                                        >
-                                            <SquadList squad={squadData} />
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
+                                                        {/* Forças e Fraquezas */}
+                                                        <div className={styles.infoCard}>
+                                                            <h4>Forças e fraquezas</h4>
+                                                            <p className={styles.noDataText}>Sem Dados</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        )}
+
+                                        {/* ABA 2: ELENCO */}
+                                        {activeTab === 'squad' && (
+                                            <motion.div
+                                                key="squad"
+                                                variants={tabVariants}
+                                                initial="hidden"
+                                                animate="visible"
+                                                exit="exit"
+                                            >
+                                                <SquadList squad={squadData} competitions={competitions} />
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
                             </div>
                         </div>
                     </motion.div>

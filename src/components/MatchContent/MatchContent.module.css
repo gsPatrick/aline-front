@@ -1,10 +1,11 @@
+/* MatchContent.module.css - Premium UI/UX Polish */
+
 .contentGrid {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    /* Conteúdo principal flexível, Sidebar fixa */
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
     width: 100%;
-    align-items: start;
+    padding: 1.5rem;
 }
 
 /* Coluna Principal */
@@ -15,6 +16,19 @@
 
 .tabPanel {
     width: 100%;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Coluna Lateral */
@@ -24,134 +38,177 @@
     gap: 1.5rem;
 }
 
-/* Card Genérico da Sidebar */
+/* Card Genérico da Sidebar - Premium Style */
 .card {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 1.25rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
 
 .cardTitle {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.95rem;
+    gap: 10px;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #e0e0e0;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     text-transform: uppercase;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 0.5rem;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.875rem;
+}
+
+.cardTitle svg,
+.cardTitle span:first-child {
+    color: #00d4ff;
+    font-size: 1rem;
 }
 
 /* Detalhes do Jogo */
 .leagueInfoRow {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
 }
 
 .miniLeagueLogo {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
 }
 
 .leagueNameSide {
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     color: #fff;
     font-weight: 600;
 }
 
 .infoText {
-    color: #aaa;
+    color: #888;
     font-size: 0.85rem;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    line-height: 1.5;
 }
 
 .weatherBox {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     color: #ccc;
     font-size: 0.85rem;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 6px;
-    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .weatherIcon {
-    color: #ffeb3b;
+    color: #ffd93d;
+    font-size: 1.25rem;
 }
 
-/* Odds Widget */
+/* Odds Widget - Premium Grid */
 .oddsContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
 }
 
 .oddBox {
-    background: #2b2b2b;
-    border-radius: 6px;
-    padding: 8px;
+    background: linear-gradient(135deg, #252525 0%, #1e1e1e 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 14px 10px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.oddBox:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+    background: linear-gradient(135deg, #2a2a2a 0%, #222 100%);
+    transform: translateY(-2px);
 }
 
 .oddLabel {
-    font-size: 0.75rem;
-    color: #888;
+    font-size: 0.7rem;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
 }
 
 .oddValue {
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #fff;
+    font-variant-numeric: tabular-nums;
 }
 
 /* Probabilidade Mini Widget */
 .miniPred {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.miniPred:last-child {
+    margin-bottom: 0;
 }
 
 .miniHeader {
     display: flex;
     justify-content: space-between;
     font-size: 0.8rem;
-    color: #ccc;
+    color: #888;
 }
 
 .miniVal {
     font-weight: 700;
     color: #fff;
+    font-variant-numeric: tabular-nums;
 }
 
 .miniTrack {
-    background: #333;
-    height: 6px;
-    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    height: 8px;
+    border-radius: 4px;
     overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .miniBar {
     height: 100%;
-    border-radius: 3px;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* --- PLACEHOLDER STYLES --- */
 .placeholderContainer {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 3rem;
+    background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 4rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,14 +218,13 @@
 }
 
 .placeholderIcon {
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: #333;
-    /* Cor escura sutil */
     margin-bottom: 1.5rem;
-    background: #111;
+    background: rgba(0, 0, 0, 0.3);
     padding: 1.5rem;
     border-radius: 50%;
-    border: 2px solid #222;
+    border: 2px solid rgba(255, 255, 255, 0.05);
 }
 
 .placeholderTitle {
@@ -179,49 +235,172 @@
 }
 
 .placeholderMessage {
-    color: #888;
+    color: #777;
     font-size: 0.95rem;
-    max-width: 300px;
+    max-width: 320px;
     margin-bottom: 2rem;
+    line-height: 1.6;
 }
 
 .placeholderBtn {
     background: transparent;
-    border: 1px solid #444;
-    color: #aaa;
-    padding: 0.6rem 1.5rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    cursor: default;
-    transition: all 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #999;
+    padding: 0.875rem 2.5rem;
+    border-radius: 25px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
 }
 
 .placeholderBtn:hover {
     border-color: #00d4ff;
     color: #00d4ff;
+    background: rgba(0, 212, 255, 0.05);
 }
 
 .emptyState {
     text-align: center;
     padding: 3rem;
-    color: #888;
-    background: #1a1a1a;
-    border-radius: 12px;
+    color: #666;
+    background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Responsividade */
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Large Laptop */
+@media (max-width: 1440px) {
+    .contentGrid {
+        grid-template-columns: 1fr 300px;
+        gap: 1.5rem;
+    }
+}
+
+/* Laptop */
+@media (max-width: 1200px) {
+    .contentGrid {
+        grid-template-columns: 1fr 280px;
+        gap: 1.25rem;
+        padding: 1.25rem;
+    }
+
+    .sideColumn {
+        gap: 1.25rem;
+    }
+}
+
+/* Tablet */
 @media (max-width: 1024px) {
     .contentGrid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
 
     .sideColumn {
         flex-direction: row;
         flex-wrap: wrap;
+        order: 1;
+        /* Side cards come after main content */
+        gap: 1rem;
     }
 
     .card {
         flex: 1;
-        min-width: 250px;
+        min-width: 280px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .contentGrid {
+        padding: 0.875rem;
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 1.25rem;
+        border-radius: 12px;
+    }
+
+    .cardTitle {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .sideColumn {
+        flex-direction: column;
+        gap: 0.875rem;
+    }
+
+    .card {
+        min-width: auto;
+    }
+
+    .oddsContainer {
+        gap: 10px;
+    }
+
+    .oddBox {
+        padding: 12px 8px;
+        border-radius: 10px;
+    }
+
+    .oddValue {
+        font-size: 1.125rem;
+    }
+
+    .placeholderContainer {
+        padding: 3rem 1.5rem;
+        min-height: 300px;
+        border-radius: 12px;
+    }
+
+    .placeholderIcon {
+        font-size: 2.5rem;
+        padding: 1.25rem;
+    }
+
+    .placeholderTitle {
+        font-size: 1.25rem;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .contentGrid {
+        padding: 0.625rem;
+        gap: 0.75rem;
+    }
+
+    .card {
+        padding: 1rem;
+        border-radius: 10px;
+    }
+
+    .cardTitle {
+        font-size: 0.8rem;
+        gap: 8px;
+    }
+
+    .sideColumn {
+        gap: 0.625rem;
+    }
+
+    .oddBox {
+        padding: 10px 6px;
+    }
+
+    .oddValue {
+        font-size: 1rem;
+    }
+
+    .oddLabel {
+        font-size: 0.65rem;
     }
 }

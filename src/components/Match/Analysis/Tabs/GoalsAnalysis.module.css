@@ -1,42 +1,59 @@
+/* GoalsAnalysis.module.css - Premium UI/UX Polish */
+
 .container {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     width: 100%;
 }
 
 .card {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
+    background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
     padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
 
 .cardTitle {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     color: #e0e0e0;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     text-transform: uppercase;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 0.5rem;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.875rem;
+}
+
+.cardTitle svg {
+    color: #00d4ff;
 }
 
 .topGrid {
     display: grid;
-    grid-template-columns: 35% 65%;
-    /* Tabela de intervalo ganha mais espaço */
-    gap: 1.5rem;
+    grid-template-columns: 35% 1fr;
+    gap: 2rem;
 }
 
 /* Médias */
 .averagesGrid {
     display: flex;
     justify-content: space-around;
+    padding: 0.5rem 0;
 }
 
 .teamCol {
@@ -44,156 +61,246 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 8px;
 }
 
 .miniLogo {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 8px;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
 }
 
 .statItem {
-    margin-top: 8px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
-    font-size: 0.8rem;
-    color: #aaa;
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .statItem strong {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: #fff;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    margin-top: 4px;
 }
 
 /* Tabela Intervalos Complexa */
 .intervalCard {
     width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
 .tableHeaderRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .tableTitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #ccc;
     font-weight: 600;
 }
 
 .teamLogos {
     font-size: 0.8rem;
-    color: #888;
+    color: #777;
 }
 
+/* Team Toggle Filter */
+.teamToggle {
+    display: flex;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 4px;
+    border-radius: 8px;
+}
+
+.toggleBtn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: #888;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toggleBtn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ccc;
+}
+
+.activeToggle {
+    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+    color: #fff !important;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+}
+
+/* Table scroll container with smooth scroll */
 .tableScroll {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    border-radius: 8px;
+}
+
+.tableScroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tableScroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.tableScroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.tableScroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .dataTable {
     width: 100%;
+    min-width: 700px;
+    /* Wide enough for 9 columns */
     border-collapse: collapse;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-align: center;
     color: #ddd;
 }
 
 .dataTable th {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 10px 8px;
     font-weight: 600;
-    border: 1px solid #333;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #aaa;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .dataTable td {
-    padding: 6px;
-    border: 1px solid #333;
+    padding: 8px 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-variant-numeric: tabular-nums;
+}
+
+.dataTable tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .percentBadge {
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 4px 8px;
+    border-radius: 6px;
     background: #333;
     font-size: 0.75rem;
+    font-weight: 600;
 }
 
 .high {
-    background: #00b894 !important;
-    /* Verde destaque */
-    color: #000;
+    background: linear-gradient(135deg, #00c853, #00a045) !important;
+    color: #fff;
     font-weight: 700;
 }
 
 .periodCell {
-    background: #2b2b2b;
+    background: rgba(255, 255, 255, 0.04);
     font-weight: 700;
 }
 
 .periodBadge {
     display: block;
-    font-size: 0.7rem;
-    color: #ffaa00;
+    font-size: 0.65rem;
+    color: #ffb300;
+    margin-top: 2px;
+    text-transform: uppercase;
 }
 
 /* Previsão de Resultado */
 .subText {
     font-size: 0.85rem;
-    color: #aaa;
-    margin-bottom: 1rem;
+    color: #888;
+    margin-bottom: 1.25rem;
 }
 
 .scoreSection {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 .scoreSection h4 {
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
 }
 
 .scoreGrid {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
 .scoreCard {
-    background: #2b2b2b;
-    border-radius: 8px;
-    padding: 8px 12px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #242424 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 10px 14px;
     text-align: center;
-    min-width: 60px;
+    min-width: 70px;
+    transition: border-color 0.2s ease;
+}
+
+.scoreCard:hover {
+    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .scoreTitle {
     display: block;
     font-size: 0.9rem;
     color: #fff;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    font-weight: 600;
 }
 
 .scoreBadge {
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 4px 10px;
+    border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 700;
     color: #000;
+    display: inline-block;
 }
 
 .scoreBadge.high {
-    background: #00b894;
+    background: linear-gradient(135deg, #00c853, #00a045);
+    color: #fff;
 }
 
 .scoreBadge.med {
-    background: #ffaa00;
+    background: linear-gradient(135deg, #ffb300, #ff9500);
+    color: #000;
 }
 
 .scoreBadge.low {
-    background: #ff7675;
+    background: linear-gradient(135deg, #ff5252, #e04444);
+    color: #fff;
 }
 
 /* Pílulas (Pills) */
@@ -201,117 +308,258 @@
 .pillsGrid {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .pillsGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* Duas colunas para economizar espaço vertical */
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .pillRow {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.pillRow:last-child {
+    border-bottom: none;
 }
 
 .pillHome,
 .pillAway {
-    padding: 4px 8px;
-    border-radius: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 700;
-    min-width: 50px;
+    min-width: 60px;
     text-align: center;
     color: #fff;
 }
 
 .pillHome {
-    background-color: #00b894;
+    background: linear-gradient(135deg, #00c853, #00a045);
 }
 
 .pillAway {
-    background-color: #ff7675;
+    background: linear-gradient(135deg, #ff5252, #e04444);
 }
 
 .pillLabel {
     flex: 1;
     text-align: center;
-    font-size: 0.85rem;
-    color: #ccc;
+    font-size: 0.8rem;
+    color: #aaa;
 }
 
 /* xG Section */
 .xgGrid {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
 .xgRow {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
 }
 
 .xgBarContainer {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .xgTrack {
     flex: 1;
-    height: 8px;
-    background: #333;
-    border-radius: 4px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .xgFillHome {
-    background: #ffaa00;
+    background: linear-gradient(90deg, #ffb300, #ff9500);
     height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
 }
 
 .xgFillAway {
-    background: #00d4ff;
+    background: linear-gradient(90deg, #00d4ff, #0091ea);
     height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
 }
 
 .xgFillHomeDef {
-    background: #00bcd4;
+    background: linear-gradient(90deg, #00bcd4, #0097a7);
     height: 100%;
+    border-radius: 5px;
 }
 
 .xgFillAwayDef {
-    background: #ff5722;
+    background: linear-gradient(90deg, #ff5722, #e64a19);
     height: 100%;
+    border-radius: 5px;
 }
 
 .xgSummary {
     display: flex;
     justify-content: space-around;
-    padding: 1rem;
+    padding: 1.25rem;
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .trendBox {
-    background: #0091ea;
-    padding: 4px 10px;
-    border-radius: 4px;
+    background: linear-gradient(135deg, #0091ea, #0077c2);
+    padding: 6px 14px;
+    border-radius: 6px;
     font-weight: 700;
     color: #fff;
+    font-size: 0.85rem;
 }
 
-/* Responsive */
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Laptop */
+@media (max-width: 1200px) {
+    .topGrid {
+        grid-template-columns: 40% 1fr;
+        gap: 1.5rem;
+    }
+
+    .pillsGrid {
+        gap: 1.5rem;
+    }
+}
+
+/* Tablet */
 @media (max-width: 1024px) {
 
     .topGrid,
     .pillsGrid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .card {
+        padding: 1.25rem;
+        border-radius: 14px;
+    }
+
+    .container {
+        gap: 1.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .container {
+        gap: 1.25rem;
+    }
+
+    .card {
+        padding: 1.125rem;
+        border-radius: 12px;
+    }
+
+    .cardTitle {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .averagesGrid {
+        gap: 1rem;
+    }
+
+    .miniLogo {
+        width: 36px;
+        height: 36px;
+    }
+
+    .statItem strong {
+        font-size: 1.125rem;
+    }
+
+    .dataTable {
+        font-size: 0.75rem;
+    }
+
+    .scoreGrid {
+        gap: 8px;
+    }
+
+    .scoreCard {
+        min-width: 60px;
+        padding: 8px 10px;
+    }
+
+    .pillRow {
+        gap: 8px;
+    }
+
+    .pillHome,
+    .pillAway {
+        min-width: 50px;
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .container {
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 1rem;
+        border-radius: 10px;
+    }
+
+    .cardTitle {
+        font-size: 0.8rem;
+    }
+
+    .topGrid {
+        gap: 1rem;
+    }
+
+    .miniLogo {
+        width: 32px;
+        height: 32px;
+    }
+
+    .statItem {
+        font-size: 0.7rem;
+    }
+
+    .statItem strong {
+        font-size: 1rem;
+    }
+
+    .dataTable th {
+        padding: 8px 4px;
+        font-size: 0.65rem;
+    }
+
+    .dataTable td {
+        padding: 6px 4px;
+        font-size: 0.7rem;
+    }
+
+    .pillsGrid {
+        gap: 1rem;
     }
 }

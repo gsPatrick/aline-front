@@ -1,5 +1,7 @@
 {
-  "/match/[id]/page": "app/match/[id]/page.js",
+  "/leagues/[id]/page": "app/leagues/[id]/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/match/[id]/page": "app/match/[id]/page.js",
+  "/team/[id]/page": "app/team/[id]/page.js"
 }

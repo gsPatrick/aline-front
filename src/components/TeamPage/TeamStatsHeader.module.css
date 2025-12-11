@@ -1,0 +1,292 @@
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr auto;
+    gap: 24px;
+    background: #1a1f26;
+    border: 1px solid #2a3441;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+}
+
+/* Team Section */
+.teamSection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.teamInfo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logoWrapper {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logoPlaceholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2a3441 0%, #1a1f26 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #00d4ff;
+}
+
+.nameSection {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nameRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.teamName {
+    font-size: 24px;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin: 0;
+}
+
+.favoriteBtn {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.favoriteBtn:hover {
+    color: #f59e0b;
+}
+
+.favoriteBtn svg {
+    color: inherit;
+}
+
+.country {
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+/* Form Section */
+.formSection {
+    margin-top: 8px;
+}
+
+.formBadges {
+    display: flex;
+    gap: 8px;
+}
+
+.formItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.opponentLogo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #2a3441;
+}
+
+.opponentLogo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.opponentPlaceholder {
+    width: 100%;
+    height: 100%;
+    background: #2a3441;
+}
+
+.resultBadge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+}
+
+.resultV {
+    background: #10b981;
+}
+
+.resultE {
+    background: #f59e0b;
+}
+
+.resultD {
+    background: #ef4444;
+}
+
+/* Stats Section */
+.statsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 20px;
+    border-left: 1px solid #2a3441;
+    border-right: 1px solid #2a3441;
+}
+
+.filterRow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.filterOption {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.filterOption input {
+    accent-color: #00d4ff;
+}
+
+.filterOption input:checked+span {
+    color: #e5e7eb;
+}
+
+.avgGoals {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.avgLabel {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.avgValue {
+    background: #00d4ff;
+    color: #0f1419;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* W-D-L Row */
+.wdlRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wdlBadges {
+    display: flex;
+    gap: 8px;
+}
+
+.wdlBadge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.wdlWin {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.wdlDraw {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+.wdlLoss {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.goalsIcons {
+    display: flex;
+    gap: 16px;
+}
+
+.goalItem {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #e5e7eb;
+}
+
+.goalIcon {
+    color: #10b981;
+}
+
+.goalIconRed {
+    color: #ef4444;
+}
+
+.goalIconYellow {
+    color: #f59e0b;
+}
+
+/* Radar Section */
+.radarSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .header {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .statsSection {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid #2a3441;
+        border-bottom: 1px solid #2a3441;
+        padding: 20px 0;
+    }
+
+    .radarSection {
+        justify-content: flex-start;
+    }
+}

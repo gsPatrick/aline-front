@@ -2,16 +2,51 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react'; // Add imports
 import Header from '@/components/Header/Header';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import { useLeagueDetails } from '@/hooks/useLeagueDetails';
-import { FaSpinner, FaExclamationTriangle, FaTrophy, FaShieldAlt, FaStar, FaFrown } from 'react-icons/fa';
+import { leagueService } from '@/lib/api'; // Import service
+import { FaSpinner, FaExclamationTriangle } from 'react-icons/fa';
+import {
+    LeagueStandingsTable,
+    TeamStatisticsTable,
+    LeagueGeneralStats,
+    LeagueFixtures,
+    TeamOfWeek
+} from '@/components/LeaguePage';
 import styles from './page.module.css';
 
 export default function LeagueDetailsPage() {
     const params = useParams();
     const leagueId = params?.id;
     const { data, loading, error } = useLeagueDetails(leagueId);
+
+    // State for round filter
+    const [selectedRoundId, setSelectedRoundId] = useState(null);
+    const [fixtures, setFixtures] = useState([]);
+    const [loadingFixtures, setLoadingFixtures] = useState(false);
+
+    // Initial load effect
+    useEffect(() => {
+        if (data && data.currentRoundId) {
+            setSelectedRoundId(data.currentRoundId);
+            setFixtures(data.currentRound || []);
+        }
+    }, [data]);
+
+    const handleRoundChange = async (roundId) => {
+        try {
+            setSelectedRoundId(roundId);
+            setLoadingFixtures(true);
+            const newFixtures = await leagueService.getRoundFixtures(leagueId, roundId);
+            setFixtures(newFixtures || []);
+        } catch (err) {
+            console.error("Error fetching round fixtures:", err);
+        } finally {
+            setLoadingFixtures(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -48,7 +83,49 @@ export default function LeagueDetailsPage() {
         );
     }
 
-    const { leagueInfo, leagueInsights, currentRound, standings, topPlayers, teamStatsTable } = data;
+    const { leagueInfo, standings, currentRound, rounds, topPlayers, teamOfWeek, leagueStats, teamStatsTable } = data;
+
+    // Prepare standings data for new component
+    const standingsData = standings?.map(team => ({
+        id: team.team_id,
+        name: team.team_name,
+        logo: team.team_logo,
+        points: team.points,
+        won: team.stats?.w || 0,
+        draw: team.stats?.d || 0,
+        lost: team.stats?.l || 0,
+        goals_for: parseInt(team.stats?.goals?.split(':')[0] || 0),
+        goals_against: parseInt(team.stats?.goals?.split(':')[1] || 0),
+        form: team.form,
+        home: team.home,
+        away: team.away,
+    })) || [];
+
+    // Map TOTW players - API returns array directly or {players: []} as fallback
+    let teamOfWeekPlayers = [];
+    const totwData = Array.isArray(teamOfWeek) ? teamOfWeek : teamOfWeek?.players || [];
+
+    if (totwData.length > 0) {
+        teamOfWeekPlayers = totwData.map(item => ({
+            player_name: item.player?.common_name || item.player?.name || item.player_name,
+            team_logo: item.team?.image_path || item.team_logo,
+            team_name: item.team?.name || item.team_name,
+            rating: item.rating,
+            jersey_number: item.formation_position || item.player?.jersey_number || 0,
+            position: item.formation_position,
+            image_path: item.player?.image_path,
+            type: 'totw'
+        }));
+    } else {
+        // Fallback to Top Players if TOTW not available
+        teamOfWeekPlayers = topPlayers?.ratings?.map(p => ({
+            player_name: p.player_name,
+            team_logo: p.team_logo,
+            team_name: p.team_name,
+            rating: p.rating,
+            jersey_number: 0
+        })).slice(0, 11) || [];
+    }
 
     return (
         <div className={styles.pageWrapper}>
@@ -57,286 +134,114 @@ export default function LeagueDetailsPage() {
                 <Sidebar />
                 <main className={styles.mainContent}>
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
                         className={styles.container}
                     >
                         {/* League Header */}
                         <header className={styles.leagueHeader}>
-                            <img src={leagueInfo.logo} alt={leagueInfo.name} className={styles.leagueLogo} />
+                            {leagueInfo?.logo && (
+                                <img src={leagueInfo.logo} alt={leagueInfo.name} className={styles.leagueLogo} />
+                            )}
                             <div className={styles.leagueHeaderInfo}>
-                                <h1 className={styles.leagueName}>{leagueInfo.name}</h1>
+                                <h1 className={styles.leagueName}>{leagueInfo?.name}</h1>
                                 <div className={styles.leagueMeta}>
-                                    <img src={leagueInfo.country_flag} alt={leagueInfo.country} className={styles.countryFlag} />
-                                    <span>{leagueInfo.country}</span>
+                                    {leagueInfo?.country_flag && (
+                                        <img src={leagueInfo.country_flag} alt="" className={styles.countryFlag} />
+                                    )}
+                                    <span>{leagueInfo?.country}</span>
                                     <span className={styles.separator}>•</span>
-                                    <span>{leagueInfo.season}</span>
+                                    <span>{leagueInfo?.season}</span>
                                 </div>
                             </div>
                         </header>
 
-                        {/* League Insights Cards */}
-                        {leagueInsights && (
-                            <div className={styles.insightsGrid}>
-                                <InsightCard
-                                    icon={FaTrophy}
-                                    title="Melhor Ataque"
-                                    team={leagueInsights.bestAttack.team}
-                                    value={`${leagueInsights.bestAttack.value} gols`}
-                                    color="green"
+                        {/* Two Column Layout */}
+                        <div className={styles.twoColumnLayout}>
+                            {/* Left Sidebar */}
+                            <div className={styles.leftColumn}>
+                                {/* Fixtures */}
+                                <LeagueFixtures
+                                    fixtures={fixtures}
+                                    rounds={rounds || []}
+                                    selectedRoundId={selectedRoundId}
+                                    onRoundChange={handleRoundChange}
+                                    loading={loadingFixtures}
                                 />
-                                <InsightCard
-                                    icon={FaShieldAlt}
-                                    title="Melhor Defesa"
-                                    team={leagueInsights.bestDefense.team}
-                                    value={`${leagueInsights.bestDefense.value} gols sofridos`}
-                                    color="blue"
+
+                                {/* Team of the Week */}
+                                <TeamOfWeek
+                                    players={teamOfWeekPlayers}
+                                    round={currentRound?.name || 'Jornada Atual'}
                                 />
-                                <InsightCard
-                                    icon={FaStar}
-                                    title="Mais Vitórias"
-                                    team={leagueInsights.mostWins.team}
-                                    value={`${leagueInsights.mostWins.value} vitórias`}
-                                    color="green"
+
+                                {/* Top Players - Only showing scorers now as pure ratings might be redundant with TOTW */}
+                                {topPlayers && (
+                                    <div className={styles.topPlayersSection}>
+                                        <h3 className={styles.sideTitle}>JOGADORES EM DESTAQUE</h3>
+                                        <div className={styles.topPlayersGrid}>
+                                            <div className={styles.topPlayersList}>
+                                                <span className={styles.listTitle}>Top Golos</span>
+                                                {topPlayers.scorers?.slice(0, 5).map((p, i) => (
+                                                    <div key={i} className={styles.topPlayerItem}>
+                                                        <span className={styles.rank}>{i + 1}.</span>
+                                                        {p.team_logo && <img src={p.team_logo} alt="" className={styles.miniLogo} />}
+                                                        <span className={styles.pName}>{p.player_name}</span>
+                                                        <span className={styles.pStat}>{p.goals}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Right Main Content */}
+                            <div className={styles.rightColumn}>
+                                {/* Standings Table */}
+                                <LeagueStandingsTable standings={standingsData} />
+
+                                {/* League General Stats */}
+                                <LeagueGeneralStats
+                                    stats={leagueStats || {}}
+                                    teams={standingsData}
+                                    loading={!leagueStats}
                                 />
-                                <InsightCard
-                                    icon={FaFrown}
-                                    title="Mais Derrotas"
-                                    team={leagueInsights.mostLosses.team}
-                                    value={`${leagueInsights.mostLosses.value} derrotas`}
-                                    color="red"
+
+                                {/* Team Statistics Table */}
+                                <TeamStatisticsTable
+                                    teams={teamStatsTable?.map(t => ({
+                                        id: t.team_id,
+                                        name: t.team,
+                                        logo: t.team_logo,
+                                        stats: {
+                                            over05ht: t.over05ht || 0,
+                                            over05ft: t.over05ft || 0,
+                                            over15ft: t.over15ft || 0,
+                                            over25ft: t.over25ft || 0,
+                                            btts: t.btts || 0,
+                                            cleanSheet: t.cleanSheet || 0,
+                                            failedToScore: t.failedToScore || 0,
+                                            avgFor: t.avgGoals,
+                                            avgAgainst: t.avgAgainst,
+                                            avgTotal: t.avgTotal,
+                                            // Corner stats
+                                            over75corners: t.over75corners || 0,
+                                            over85corners: t.over85corners || 0,
+                                            over95corners: t.over95corners || 0,
+                                            over105corners: t.over105corners || 0,
+                                            avgCorners: t.avgCorners || 0,
+                                        },
+                                        homeStats: t.homeStats || {},
+                                        awayStats: t.awayStats || {}
+                                    })) || []}
                                 />
                             </div>
-                        )}
-
-                        {/* Current Round Fixtures */}
-                        {currentRound && currentRound.fixtures && currentRound.fixtures.length > 0 && (
-                            <section className={styles.section}>
-                                <h2 className={styles.sectionTitle}>{currentRound.name}</h2>
-                                <div className={styles.fixturesGrid}>
-                                    {currentRound.fixtures.map(fixture => (
-                                        <FixtureCard key={fixture.id} fixture={fixture} />
-                                    ))}
-                                </div>
-                            </section>
-                        )}
-
-                        {/* Standings Table */}
-                        {standings && standings.length > 0 && (
-                            <section className={styles.section}>
-                                <h2 className={styles.sectionTitle}>Classificação</h2>
-                                <StandingsTable standings={standings} />
-                            </section>
-                        )}
-
-                        {/* Top Players */}
-                        {topPlayers && (
-                            <section className={styles.section}>
-                                <h2 className={styles.sectionTitle}>Destaques</h2>
-                                <div className={styles.topPlayersGrid}>
-                                    <TopPlayersList title="Artilheiros" players={topPlayers.scorers} stat="goals" />
-                                    <TopPlayersList title="Assistências" players={topPlayers.assists} stat="assists" />
-                                    <TopPlayersList title="Avaliação" players={topPlayers.ratings} stat="rating" />
-                                </div>
-                            </section>
-                        )}
-
-                        {/* Team Stats Table */}
-                        {teamStatsTable && teamStatsTable.length > 0 && (
-                            <section className={styles.section}>
-                                <h2 className={styles.sectionTitle}>Estatísticas Detalhadas</h2>
-                                <TeamStatsTable stats={teamStatsTable} />
-                            </section>
-                        )}
+                        </div>
                     </motion.div>
                 </main>
             </div>
-        </div>
-    );
-}
-
-// Insight Card Component
-function InsightCard({ icon: Icon, title, team, value, color }) {
-    const colorClass = color === 'green' ? styles.cardGreen : color === 'blue' ? styles.cardBlue : styles.cardRed;
-
-    return (
-        <div className={`${styles.insightCard} ${colorClass}`}>
-            <Icon className={styles.insightIcon} />
-            <div className={styles.insightContent}>
-                <span className={styles.insightTitle}>{title}</span>
-                <span className={styles.insightTeam}>{team}</span>
-                <span className={styles.insightValue}>{value}</span>
-            </div>
-        </div>
-    );
-}
-
-// Fixture Card Component
-function FixtureCard({ fixture }) {
-    const getStatusColor = (status) => {
-        switch (status) {
-            case 'LIVE': return styles.statusLive;
-            case 'HT': return styles.statusHT;
-            case 'FT': return styles.statusFT;
-            default: return styles.statusNS;
-        }
-    };
-
-    return (
-        <Link href={`/match/${fixture.id}`} className={styles.fixtureCard}>
-            <div className={styles.fixtureTeams}>
-                <div className={styles.fixtureTeam}>
-                    <img src={fixture.home_team.logo} alt={fixture.home_team.name} className={styles.teamLogo} />
-                    <span className={styles.teamName}>{fixture.home_team.name}</span>
-                </div>
-                <div className={styles.fixtureScore}>
-                    <span className={styles.score}>{fixture.score || 'vs'}</span>
-                    <span className={`${styles.status} ${getStatusColor(fixture.status)}`}>{fixture.status}</span>
-                </div>
-                <div className={styles.fixtureTeam}>
-                    <span className={styles.teamName}>{fixture.away_team.name}</span>
-                    <img src={fixture.away_team.logo} alt={fixture.away_team.name} className={styles.teamLogo} />
-                </div>
-            </div>
-            <div className={styles.fixtureTime}>
-                {new Date(fixture.starting_at).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}
-            </div>
-        </Link>
-    );
-}
-
-// Standings Table Component
-function StandingsTable({ standings }) {
-    const getStatusColor = (status) => {
-        if (status?.includes('Champions League')) return styles.zoneChampions;
-        if (status?.includes('Europa League')) return styles.zoneEuropa;
-        if (status?.includes('Relegation')) return styles.zoneRelegation;
-        return '';
-    };
-
-    return (
-        <div className={styles.tableContainer}>
-            <table className={styles.standingsTable}>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Time</th>
-                        <th>P</th>
-                        <th>J</th>
-                        <th>V</th>
-                        <th>E</th>
-                        <th>D</th>
-                        <th>GP</th>
-                        <th>GC</th>
-                        <th>SG</th>
-                        <th>Pts</th>
-                        <th>Forma</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {standings.map(team => {
-                        const [gf, gc] = team.stats.goals.split(':');
-                        const sg = parseInt(gf) - parseInt(gc);
-
-                        return (
-                            <tr key={team.position} className={getStatusColor(team.status)}>
-                                <td className={styles.position}>{team.position}</td>
-                                <td className={styles.teamCell}>
-                                    <img src={team.team_logo} alt={team.team_name} className={styles.teamLogoSmall} />
-                                    <span>{team.team_name}</span>
-                                </td>
-                                <td>{team.stats.p}</td>
-                                <td>{team.stats.p}</td>
-                                <td>{team.stats.w}</td>
-                                <td>{team.stats.d}</td>
-                                <td>{team.stats.l}</td>
-                                <td>{gf}</td>
-                                <td>{gc}</td>
-                                <td>{sg > 0 ? `+${sg}` : sg}</td>
-                                <td className={styles.points}>{team.points}</td>
-                                <td><FormIndicator form={team.form} /></td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </div>
-    );
-}
-
-// Form Indicator Component
-function FormIndicator({ form }) {
-    if (!form) return null;
-
-    const results = form.split('-');
-
-    return (
-        <div className={styles.formContainer}>
-            {results.map((result, i) => (
-                <span key={i} className={`${styles.formBadge} ${styles[`form${result}`]}`}>
-                    {result}
-                </span>
-            ))}
-        </div>
-    );
-}
-
-// Top Players List Component
-function TopPlayersList({ title, players, stat }) {
-    if (!players || players.length === 0) return null;
-
-    return (
-        <div className={styles.topPlayersCard}>
-            <h3 className={styles.topPlayersTitle}>{title}</h3>
-            <div className={styles.playersList}>
-                {players.map((player, idx) => (
-                    <div key={idx} className={styles.playerItem}>
-                        <div className={styles.playerRank}>{idx + 1}</div>
-                        <img src={player.team_logo} alt={player.team_name} className={styles.playerTeamLogo} />
-                        <div className={styles.playerInfo}>
-                            <span className={styles.playerName}>{player.player_name}</span>
-                            <span className={styles.playerTeam}>{player.team_name}</span>
-                        </div>
-                        <span className={styles.playerStat}>{player[stat]}</span>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-// Team Stats Table Component
-function TeamStatsTable({ stats }) {
-    return (
-        <div className={styles.tableContainer}>
-            <table className={styles.statsTable}>
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Over 0.5 HT</th>
-                        <th>Over 2.5 FT</th>
-                        <th>BTTS</th>
-                        <th>Média Gols</th>
-                        <th>Média Cantos</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {stats.map((team, idx) => (
-                        <tr key={idx}>
-                            <td className={styles.teamCell}>
-                                <img src={team.team_logo} alt={team.team} className={styles.teamLogoSmall} />
-                                <span>{team.team}</span>
-                            </td>
-                            <td>{team.over05HT}%</td>
-                            <td>{team.over25FT}%</td>
-                            <td>{team.btts}%</td>
-                            <td>{team.avgGoals}</td>
-                            <td>{team.avgCorners}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
         </div>
     );
 }

@@ -1,82 +1,175 @@
+/* MatchSidebar.module.css - Premium UI/UX Polish */
+
 .sidebarWrapper {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .headerCard,
 .sectionCard {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 0;
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+.headerCard:hover,
+.sectionCard:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
 
 /* Header Styles */
 .leagueRow {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #888;
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin-bottom: 10px;
+    gap: 10px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
 }
 
+.leagueRow img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* Scoreboard - Premium Center Layout */
 .scoreBoard {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.75rem 0;
 }
 
 .teamCol {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    width: 30%;
+    gap: 10px;
+    width: 28%;
+    min-width: 0;
 }
 
 .bigLogo {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+    transition: transform 0.2s ease;
+}
+
+.headerCard:hover .bigLogo {
+    transform: scale(1.05);
 }
 
 .teamName {
-    font-size: 0.9rem;
-    font-weight: bold;
+    font-size: 0.85rem;
+    font-weight: 700;
     text-align: center;
     color: #fff;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .scoreCol {
     text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
 }
 
 .scoreMain {
-    font-size: 2rem;
-    font-weight: 800;
+    font-size: 2.5rem;
+    font-weight: 900;
     display: block;
     line-height: 1;
     color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.05em;
+    font-variant-numeric: tabular-nums;
 }
 
-.date,
-.status {
+.date {
     font-size: 0.7rem;
-    color: #aaa;
+    color: #777;
     display: block;
+    margin-bottom: 4px;
 }
 
-/* Quem vence / Over Under */
+.status {
+    font-size: 0.75rem;
+    color: #888;
+    display: block;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    margin-top: 4px;
+}
+
+/* Section Title */
 .sectionTitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #e0e0e0;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
+/* Details Card */
+.detailsTitle {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.5rem;
+}
+
+.detailItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    color: #999;
+    font-size: 0.8rem;
+}
+
+.detailItem span {
+    color: #ccc;
+}
+
+.detailIcon {
+    flex-shrink: 0;
+    border-radius: 4px;
+}
+
+/* Probability Bar Container */
 .probBarContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -85,60 +178,216 @@
 
 .probBar {
     display: flex;
-    height: 16px;
-    border-radius: 8px;
+    height: 22px;
+    border-radius: 11px;
     overflow: hidden;
-    background: #333;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .probHome {
-    background: #00c853;
-    color: #000;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
     font-size: 0.7rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
+    font-weight: 700;
+    min-width: 32px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .probDraw {
-    background: #ffc107;
+    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
     color: #000;
     font-size: 0.7rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
+    font-weight: 700;
+    min-width: 32px;
 }
 
 .probAway {
-    background: #d50000;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #fff;
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    min-width: 32px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
+/* Over/Under Bar */
 .overUnderBar {
     text-align: center;
 }
 
 .overTitle {
-    font-size: 0.75rem;
-    color: #ccc;
-    margin-bottom: 4px;
+    font-size: 0.7rem;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .ouBar {
-    height: 16px;
-    background: #333;
-    border-radius: 8px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 11px;
     overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .probGreen {
-    background: #00c853;
-    color: #000;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
     font-size: 0.7rem;
-    font-weight: bold;
+    font-weight: 700;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* When sidebar is stacked on tablet */
+@media (max-width: 1200px) {
+    .sidebarWrapper {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+    }
+
+    .headerCard {
+        flex: 1;
+        min-width: 300px;
+        max-width: 100%;
+    }
+
+    .sectionCard {
+        flex: 1;
+        min-width: 280px;
+    }
+}
+
+/* Tablet Portrait */
+@media (max-width: 1024px) {
+
+    .headerCard,
+    .sectionCard {
+        border-radius: 14px;
+        padding: 1.25rem;
+    }
+
+    .sidebarWrapper {
+        gap: 1rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .sidebarWrapper {
+        flex-direction: column;
+        gap: 0.875rem;
+    }
+
+    .headerCard,
+    .sectionCard {
+        min-width: auto;
+        padding: 1.25rem;
+        border-radius: 12px;
+    }
+
+    /* Score as protagonist on mobile */
+    .scoreBoard {
+        padding: 0.5rem 0;
+    }
+
+    .scoreMain {
+        font-size: 2.75rem;
+        text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .bigLogo {
+        width: 44px;
+        height: 44px;
+    }
+
+    .teamName {
+        font-size: 0.75rem;
+    }
+
+    .teamCol {
+        width: 26%;
+        gap: 8px;
+    }
+
+    .probBar {
+        height: 20px;
+    }
+
+    .ouBar {
+        height: 20px;
+    }
+
+    .leagueRow {
+        font-size: 0.7rem;
+        margin-bottom: 12px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+    .headerCard,
+    .sectionCard {
+        padding: 1rem;
+        border-radius: 10px;
+    }
+
+    .sidebarWrapper {
+        gap: 0.625rem;
+    }
+
+    .probBarContainer {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Make score even more prominent on small screens */
+    .scoreMain {
+        font-size: 2.5rem;
+    }
+
+    .bigLogo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .teamName {
+        font-size: 0.7rem;
+        -webkit-line-clamp: 1;
+    }
+
+    .teamCol {
+        width: 24%;
+        gap: 6px;
+    }
+
+    .date {
+        font-size: 0.65rem;
+    }
+
+    .status {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+    }
 }

@@ -11,7 +11,7 @@ const PercentBadge = ({ val }) => {
     return <span className={`${styles.badge} ${color}`}>{val}%</span>;
 };
 
-export default function CornersAnalysis({ homeTeam = "Home", awayTeam = "Away", data: propData, odds }) {
+export default function CornersAnalysis({ homeTeam = "Home", awayTeam = "Away", homeLogo, awayLogo, data: propData, odds }) {
     const [activeTab, setActiveTab] = useState('ft'); // ft, ht, 2ht
     const [calcMin, setCalcMin] = useState(90);
     const [calcCorners, setCalcCorners] = useState(9);
@@ -197,9 +197,9 @@ export default function CornersAnalysis({ homeTeam = "Home", awayTeam = "Away", 
                 <div className={styles.card}>
                     <h4 className={styles.cardHeaderSmall}>Cantos Por Intervalo</h4>
                     <div className={styles.teamsSmall}>
-                        <img src="https://cdn.sportmonks.com/images/soccer/teams/22/3030.png" width="20" /> {homeTeam}
+                        {homeLogo && <img src={homeLogo} width="20" alt="" onError={(e) => e.target.style.display = 'none'} />} {homeTeam}
                         <span style={{ flex: 1 }}></span>
-                        {awayTeam} <img src="https://cdn.sportmonks.com/images/soccer/teams/19/3027.png" width="20" />
+                        {awayTeam} {awayLogo && <img src={awayLogo} width="20" alt="" onError={(e) => e.target.style.display = 'none'} />}
                     </div>
                     <div className={styles.intervalScroll}>
                         <table className={styles.intervalTable}>
@@ -220,7 +220,7 @@ export default function CornersAnalysis({ homeTeam = "Home", awayTeam = "Away", 
                             </tbody>
                         </table>
                     </div>
-                    <button className={styles.moreBtn}>Mostrar Mais Estatísticas</button>
+                    {/* Button removed as requested */}
                 </div>
 
                 {/* Handicap */}

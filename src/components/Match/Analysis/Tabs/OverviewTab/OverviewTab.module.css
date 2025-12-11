@@ -1,42 +1,71 @@
+/* OverviewTab.module.css - Premium UI/UX Polish */
+
 .container {
     width: 100%;
 }
 
 .subTabsNav {
     display: flex;
-    gap: 0.5rem;
-    background: #1a1a1a;
-    padding: 0.5rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 0.625rem;
+    background: linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%);
+    padding: 0.75rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     overflow-x: auto;
-    margin-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1.5rem;
+    scrollbar-width: none;
+    position: relative;
+}
+
+.subTabsNav::-webkit-scrollbar {
+    display: none;
+}
+
+/* Fade indicator for scroll */
+.subTabsNav::after {
+    content: '';
+    position: sticky;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background: linear-gradient(to right, transparent, rgba(26, 26, 26, 0.9));
+    pointer-events: none;
+    flex-shrink: 0;
 }
 
 .subTabBtn {
     background: transparent;
     border: none;
-    color: #a0a0a0;
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
+    color: #888;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     white-space: nowrap;
-    transition: all 0.2s;
+    transition: all 0.25s ease;
+    min-height: 44px;
+    /* Better touch target */
 }
 
 .subTabBtn:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.05);
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .subTabBtn.active {
-    background: #00d4ff;
+    background: linear-gradient(135deg, #00d4ff, #0091ea);
     color: #000;
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.25);
+}
+
+.subTabBtn svg {
+    font-size: 1rem;
 }
 
 /* Conteúdo */
@@ -46,50 +75,174 @@
 }
 
 .subTabTitle {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     color: #fff;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
     border-left: 4px solid #00d4ff;
-    padding-left: 10px;
+    padding-left: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
 }
 
 /* Odds List */
 .oddsContainer {
-    background: #1a1a1a;
-    padding: 1.5rem;
-    border-radius: 12px;
-    border: 1px solid #333;
+    background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
+    padding: 1.75rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.03) inset;
 }
 
 .oddsList {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.875rem;
 }
 
 .oddRow {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1.125rem;
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 8px;
+    border-radius: 10px;
     color: #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: all 0.2s ease;
+}
+
+.oddRow:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 .oddNum {
     font-weight: 700;
     color: #00d4ff;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.1rem;
 }
 
 .noData {
-    color: #888;
+    color: #666;
     font-style: italic;
     text-align: center;
-    padding: 2rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .subTabsNav {
+        padding: 0.625rem;
+        margin-bottom: 1.25rem;
+        border-radius: 10px;
+    }
+
+    .subTabBtn {
+        padding: 0.625rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .oddsContainer {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
     .subTabsNav {
-        padding-bottom: 10px;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        gap: 0.5rem;
+        border-radius: 8px;
+    }
+
+    .subTabBtn {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.75rem;
+        min-height: 40px;
+        border-radius: 6px;
+    }
+
+    .subTabBtn svg {
+        font-size: 0.9rem;
+    }
+
+    .subTabContent {
+        min-height: 300px;
+    }
+
+    .subTabTitle {
+        font-size: 1rem;
+        margin-bottom: 1.25rem;
+        padding-left: 12px;
+    }
+
+    .oddsContainer {
+        padding: 1.25rem;
+        border-radius: 10px;
+    }
+
+    .oddRow {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .oddNum {
+        font-size: 1rem;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .subTabsNav {
+        padding: 0.375rem;
+        gap: 0.375rem;
+    }
+
+    .subTabBtn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.7rem;
+        min-height: 36px;
+        gap: 6px;
+    }
+
+    .subTabBtn svg {
+        font-size: 0.8rem;
+    }
+
+    .subTabContent {
+        min-height: 250px;
+    }
+
+    .subTabTitle {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .oddsContainer {
+        padding: 1rem;
+    }
+
+    .oddRow {
+        padding: 0.875rem;
+    }
+
+    .oddNum {
+        font-size: 0.9rem;
+    }
+
+    .noData {
+        padding: 2rem;
+        font-size: 0.85rem;
     }
 }

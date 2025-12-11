@@ -72,6 +72,14 @@ export const leagueService = {
   getDetails: async (leagueId) => {
     const { data } = await api.get(`/leagues/${leagueId}/details`);
     return data;
+  },
+
+  // Retorna jogos de uma rodada específica
+  getRoundFixtures: async (leagueId, roundId) => {
+    // Note: The endpoint uses nested structure /leagues/:id/rounds/:roundId/fixtures
+    const { data } = await api.get(`/leagues/${leagueId}/rounds/${roundId}/fixtures`);
+    // Backend returns { success: true, data: fixtures[] }
+    return data.data || [];
   }
 };
 export const authService = {

@@ -1,0 +1,215 @@
+.container {
+    background: #0f1419;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #1a2332;
+    border-bottom: 1px solid #2a3441;
+}
+
+.title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin: 0;
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.roundSelect {
+    background: #0f1419;
+    color: #9ca3af;
+    border: 1px solid #2a3441;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+    outline: none;
+    cursor: pointer;
+}
+
+.roundSelect:hover {
+    border-color: #3b4654;
+    color: #e5e7eb;
+}
+
+.filters {
+    display: flex;
+    gap: 4px;
+}
+
+.filterBtn {
+    padding: 4px 10px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filterBtn:hover {
+    color: #e5e7eb;
+}
+
+.filterBtn.active {
+    background: #00d4ff;
+    color: #0f1419;
+}
+
+/* Fixtures List */
+.fixturesList {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.fixtureRow {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(42, 52, 65, 0.5);
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.fixtureRow:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.fixtureRow:last-child {
+    border-bottom: none;
+}
+
+.timeCol {
+    width: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.date {
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.time {
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+.live {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.liveDot {
+    width: 6px;
+    height: 6px;
+    background: #ef4444;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.finished {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.teamsCol {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.teamLine {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.teamLogo {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.teamName {
+    font-size: 12px;
+    color: #e5e7eb;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.scoreCol {
+    width: 30px;
+    flex-shrink: 0;
+}
+
+.scores {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #e5e7eb;
+}
+
+.scoreLive {
+    color: #ef4444;
+}
+
+.empty {
+    padding: 30px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+/* Scrollbar */
+.fixturesList::-webkit-scrollbar {
+    width: 4px;
+}
+
+.fixturesList::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.fixturesList::-webkit-scrollbar-thumb {
+    background: #2a3441;
+    border-radius: 2px;
+}

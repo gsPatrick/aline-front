@@ -1,0 +1,114 @@
+.container {
+    background: #0f1419;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin: 0 0 16px 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sectionTitle {
+    font-size: 12px;
+    font-weight: 700;
+    color: #9ca3af;
+    margin: 0 0 8px 0;
+}
+
+.statRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(42, 52, 65, 0.5);
+}
+
+.label {
+    width: 120px;
+    font-size: 12px;
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+.teamLink {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    text-decoration: none;
+    color: #e5e7eb;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.teamLink:hover {
+    color: #00d4ff;
+}
+
+.teamLogo {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.value {
+    font-size: 12px;
+    color: #10b981;
+    font-weight: 600;
+}
+
+/* Stats Grid */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.statBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(42, 52, 65, 0.3);
+    border-radius: 4px;
+}
+
+.statLabel {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.statPercent {
+    font-size: 13px;
+    font-weight: 700;
+    color: #00d4ff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.empty {
+    padding: 30px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+}

@@ -238,323 +238,1221 @@
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/Sidebar/Sidebar.module.css ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************/
 .Sidebar_sidebar__86IlD {
-  width: 280px;
-  height: calc(100vh - 70px);
-  /* Altura menos header */
+  width: 220px;
+  min-width: 220px;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  height: 100vh;
   position: -webkit-sticky;
   position: sticky;
-  top: 70px;
-  background: rgba(11, 14, 20, 0.6);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  top: 0;
   display: flex;
   flex-direction: column;
-  z-index: 40;
 }
 
 .Sidebar_scrollContainer__ok2wL {
   flex: 1 1;
   overflow-y: auto;
-  padding: 1.5rem 1rem;
+  padding: 16px 0;
 }
 
-/* Custom Scrollbar */
-.Sidebar_scrollContainer__ok2wL::-webkit-scrollbar {
-  width: 4px;
+/* Header */
+.Sidebar_header__sgdt7 {
+  padding: 0 16px;
+  margin-bottom: 12px;
 }
 
-.Sidebar_scrollContainer__ok2wL::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-
-.Sidebar_section__GtWJr {
-  margin-bottom: 2rem;
-}
-
-.Sidebar_sectionHeader__ffAhr {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 0.5rem 0.8rem 0.5rem;
-  cursor: pointer;
-  color: #94a3b8;
-  transition: color 0.2s;
-}
-
-.Sidebar_sectionHeader__ffAhr:hover {
-  color: #ffffff;
-}
-
-.Sidebar_sectionTitle__s0c_b {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 700;
+.Sidebar_headerLabel__oajTq {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
 }
 
-.Sidebar_fireIcon__I7_hN {
-  color: #ff9100;
-  filter: drop-shadow(0 0 5px rgba(255, 145, 0, 0.6));
+/* Search */
+.Sidebar_searchBox__iRjkN {
+  padding: 0 12px;
+  margin-bottom: 12px;
 }
 
-.Sidebar_liveDot__aN6zd {
-  width: 6px;
-  height: 6px;
-  background-color: #ff3333;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #ff3333;
-  animation: Sidebar_pulseRed___qIbU 1.5s infinite;
+.Sidebar_searchInput__WYfLT {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #f9fafb;
+  font-size: 13px;
+  color: #374151;
 }
 
-.Sidebar_toggleIcon__wP2Av {
-  font-size: 0.8rem;
-  opacity: 0.5;
+.Sidebar_searchInput__WYfLT:focus {
+  outline: none;
+  border-color: #00d4ff;
+  background: #fff;
 }
 
+.Sidebar_searchInput__WYfLT::placeholder {
+  color: #9ca3af;
+}
+
+/* League List */
 .Sidebar_leagueList__2f7wI {
   list-style: none;
-  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .Sidebar_leagueItem__irLxf {
-  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.6rem 0.75rem;
-  margin-bottom: 2px;
-  border-radius: 6px;
-  color: #94a3b8;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  padding: 10px 16px;
   text-decoration: none;
+  color: #374151;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
 }
 
 .Sidebar_leagueItem__irLxf:hover {
-  background: rgba(255, 255, 255, 0.03);
-  color: #ffffff;
+  background: #f3f4f6;
 }
 
 .Sidebar_leagueItem__irLxf.Sidebar_active__vqrO1 {
-  background: rgba(28, 57, 249, 0.1);
-  color: var(--color-primary);
-  font-weight: 600;
-}
-
-.Sidebar_leagueItem__irLxf.Sidebar_active__vqrO1 .Sidebar_flagPlaceholder__U6znR {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 5px var(--color-primary-glow);
+  background: rgba(0, 212, 255, 0.08);
+  border-left-color: #00d4ff;
+  color: #0ea5e9;
 }
 
 .Sidebar_leagueInfo__R30_v {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 10px;
+  flex: 1 1;
+  min-width: 0;
 }
 
-.Sidebar_flagPlaceholder__U6znR {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: linear-gradient(90deg, transparent, rgba(28, 57, 249, 0.2), transparent);
-  transition: border-color 0.3s;
-}
-
-.Sidebar_matchCount__BtcQI {
-  font-size: 0.75rem;
-  font-weight: 700;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.Sidebar_activeGlow__gAP19 {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--color-primary);
-  box-shadow: 2px 0 10px var(--color-primary-glow);
-  border-radius: 0 4px 4px 0;
-}
-
-/* Pro Card */
-.Sidebar_proCard__oeN0Y {
-  margin-top: 2rem;
-  position: relative;
-  background: linear-gradient(135deg, #1a1f2e 0%, #0f1219 100%);
-  border: 1px solid rgba(28, 57, 249, 0.3);
-  border-radius: 12px;
-  padding: 1.5rem;
-  overflow: hidden;
-}
-
-.Sidebar_proContent__dPfWz {
-  position: relative;
-  z-index: 2;
-}
-
-.Sidebar_proContent__dPfWz h3 {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 1.2rem;
-  margin-bottom: 0.25rem;
-  color: #fff;
-}
-
-.Sidebar_textGreen__33Xaw {
-  color: var(--color-primary);
-}
-
-.Sidebar_proContent__dPfWz p {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  margin-bottom: 1rem;
-}
-
-.Sidebar_proContent__dPfWz button {
-  width: 100%;
-  background: rgba(28, 57, 249, 0.1);
-  border: 1px solid var(--color-primary);
-  color: var(--color-primary);
-  padding: 0.5rem;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.Sidebar_proContent__dPfWz button:hover {
-  background: var(--color-primary);
-  color: #fff;
-  box-shadow: 0 0 15px var(--color-primary-glow);
-}
-
-.Sidebar_proBg__5JUhD {
-  position: absolute;
-  top: -20%;
-  right: -20%;
-  width: 100px;
-  height: 100px;
-  background: var(--color-primary);
-  filter: blur(50px);
-  opacity: 0.15;
-  z-index: 1;
-}
-
-@keyframes Sidebar_pulseRed___qIbU {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.4);
-  }
-
-  70% {
-    box-shadow: 0 0 0 4px rgba(255, 51, 51, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 51, 51, 0);
-  }
-}
-
-.Sidebar_flagIcon__j9Iyy {
+.Sidebar_leagueLogo__8h4WD {
   width: 20px;
   height: 20px;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
-.Sidebar_footerLogo__UvzTm {
-  width: 80px;
-  height: auto;
-  object-fit: contain;
-  opacity: 0.8;
-  transition: opacity 0.3s;
-}
-
-.Sidebar_loadingItem__ewd2u {
-  padding: 1rem;
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-.Sidebar_loadMoreContainer__oSjSS {
-  padding: 0.5rem;
-  display: flex;
-  justify-content: center;
-}
-
-.Sidebar_loadMoreBtn__lj_xL {
-  background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text-secondary);
-  padding: 0.4rem 1rem;
+.Sidebar_logoPlaceholder__XCBSi {
+  width: 20px;
+  height: 20px;
+  background: #e5e7eb;
   border-radius: 4px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s;
+  flex-shrink: 0;
 }
 
-.Sidebar_loadMoreBtn__lj_xL:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  background: rgba(28, 57, 249, 0.1);
+.Sidebar_leagueName__Tvpvj {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.Sidebar_paginationContainer__U9_OS {
+.Sidebar_leagueText__pEiMM {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 0.5rem;
-  margin-top: 0.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  overflow: hidden;
 }
 
-.Sidebar_pageBtn__xbMRA {
+.Sidebar_countryName__eu_Cp {
+  font-size: 10px;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Sidebar_loadingItem__ewd2u,
+.Sidebar_noResults__wcMAU {
+  padding: 20px 16px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+/* Scrollbar */
+.Sidebar_scrollContainer__ok2wL::-webkit-scrollbar {
+  width: 4px;
+}
+
+.Sidebar_scrollContainer__ok2wL::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.Sidebar_scrollContainer__ok2wL::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+/* Dark Mode Override */
+@media (prefers-color-scheme: dark) {
+  .Sidebar_sidebar__86IlD {
+    background: #0f1419;
+    border-right-color: #2a3441;
+  }
+
+  .Sidebar_headerLabel__oajTq {
+    color: #9ca3af;
+  }
+
+  .Sidebar_searchInput__WYfLT {
+    background: #1a2332;
+    border-color: #2a3441;
+    color: #e5e7eb;
+  }
+
+  .Sidebar_searchInput__WYfLT::placeholder {
+    color: #6b7280;
+  }
+
+  .Sidebar_leagueItem__irLxf {
+    color: #e5e7eb;
+  }
+
+  .Sidebar_leagueItem__irLxf:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .Sidebar_leagueItem__irLxf.Sidebar_active__vqrO1 {
+    background: rgba(0, 212, 255, 0.1);
+  }
+
+  .Sidebar_logoPlaceholder__XCBSi {
+    background: #2a3441;
+  }
+}
+
+/* Force Dark Mode (current app theme) */
+.Sidebar_sidebar__86IlD {
+  background: #0f1419;
+  border-right-color: #2a3441;
+}
+
+.Sidebar_headerLabel__oajTq {
+  color: #f87171;
+}
+
+.Sidebar_searchInput__WYfLT {
+  background: #1a2332;
+  border-color: #2a3441;
+  color: #e5e7eb;
+}
+
+.Sidebar_searchInput__WYfLT::placeholder {
+  color: #6b7280;
+}
+
+.Sidebar_searchInput__WYfLT:focus {
+  border-color: #00d4ff;
+  background: #1a2332;
+}
+
+.Sidebar_leagueItem__irLxf {
+  color: #e5e7eb;
+}
+
+.Sidebar_leagueItem__irLxf:hover {
   background: rgba(255, 255, 255, 0.05);
-  border: none;
-  color: var(--color-text-secondary);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
 }
 
-.Sidebar_pageBtn__xbMRA:hover:not(:disabled) {
-  background: var(--color-primary);
-  color: #fff;
+.Sidebar_leagueItem__irLxf.Sidebar_active__vqrO1 {
+  background: rgba(0, 212, 255, 0.1);
+  color: #00d4ff;
 }
 
-.Sidebar_pageBtn__xbMRA:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+.Sidebar_logoPlaceholder__XCBSi {
+  background: #2a3441;
 }
 
-.Sidebar_pageInfo__JMQsQ {
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  font-family: 'Rajdhani', sans-serif;
+.Sidebar_scrollContainer__ok2wL::-webkit-scrollbar-thumb {
+  background: #3a4451;
 }
 
-@media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 900px) {
   .Sidebar_sidebar__86IlD {
     display: none;
   }
+}
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/LeaguePage/LeagueStandingsTable.module.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+.LeagueStandingsTable_container__oXzBZ {
+    background: #0f1419;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.LeagueStandingsTable_header__Wwtrz {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: #1a2332;
+    border-bottom: 1px solid #2a3441;
+}
+
+.LeagueStandingsTable_title__TLWtG {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.LeagueStandingsTable_filters__taqNR {
+    display: flex;
+    gap: 4px;
+}
+
+.LeagueStandingsTable_filterBtn__6GTTv {
+    padding: 6px 14px;
+    border: 1px solid #2a3441;
+    border-radius: 4px;
+    background: transparent;
+    color: #9ca3af;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.LeagueStandingsTable_filterBtn__6GTTv:hover {
+    border-color: #00d4ff;
+    color: #00d4ff;
+}
+
+.LeagueStandingsTable_filterBtn__6GTTv.LeagueStandingsTable_active__k5gHI {
+    background: #00d4ff;
+    color: #0f1419;
+    border-color: #00d4ff;
+}
+
+/* Table */
+.LeagueStandingsTable_tableWrapper__hLmI_ {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.LeagueStandingsTable_table__fpXei {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+}
+
+.LeagueStandingsTable_table__fpXei th {
+    padding: 10px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    text-align: center;
+    background: rgba(42, 52, 65, 0.3);
+    border-bottom: 1px solid #2a3441;
+}
+
+.LeagueStandingsTable_thPos__8pELM {
+    width: 40px;
+}
+
+.LeagueStandingsTable_thTeam__Oruez {
+    text-align: left !important;
+    min-width: 150px;
+}
+
+.LeagueStandingsTable_thForm__fLsQ4 {
+    min-width: 100px;
+}
+
+.LeagueStandingsTable_table__fpXei tbody tr {
+    border-bottom: 1px solid rgba(42, 52, 65, 0.5);
+    transition: background 0.2s;
+}
+
+.LeagueStandingsTable_table__fpXei tbody tr:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.LeagueStandingsTable_table__fpXei td {
+    padding: 10px 8px;
+    font-size: 13px;
+    color: #e5e7eb;
+    text-align: center;
+}
+
+.LeagueStandingsTable_tdPos__QWTwZ {
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+.LeagueStandingsTable_tdTeam__1eh8g {
+    text-align: left !important;
+}
+
+.LeagueStandingsTable_teamLink__tv8fJ {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #e5e7eb;
+}
+
+.LeagueStandingsTable_teamLink__tv8fJ:hover {
+    color: #00d4ff;
+}
+
+.LeagueStandingsTable_teamLogo__t42rv {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.LeagueStandingsTable_tdPoints__eRLEL {
+    font-weight: 700;
+    color: #00d4ff;
+}
+
+.LeagueStandingsTable_tdWin__P7517 {
+    color: #10b981;
+}
+
+.LeagueStandingsTable_tdLoss__fpmid {
+    color: #ef4444;
+}
+
+.LeagueStandingsTable_positive__oUNW1 {
+    color: #10b981;
+}
+
+.LeagueStandingsTable_negative__9MqnE {
+    color: #ef4444;
+}
+
+/* Form Badges */
+.LeagueStandingsTable_tdForm__4OAWY {
+    text-align: center;
+}
+
+.LeagueStandingsTable_formList__gl8sN {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+}
+
+.LeagueStandingsTable_formBadge__R4p_5 {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.LeagueStandingsTable_win__862MQ {
+    background: #10b981;
+}
+
+.LeagueStandingsTable_draw__fJGwK {
+    background: #f59e0b;
+}
+
+.LeagueStandingsTable_loss__SfetT {
+    background: #ef4444;
+}
+
+/* Zone Colors */
+.LeagueStandingsTable_zoneChampions__1oWvc {
+    border-left: 3px solid #10b981;
+}
+
+.LeagueStandingsTable_zoneEuropa__Y_uLF {
+    border-left: 3px solid #3b82f6;
+}
+
+.LeagueStandingsTable_zoneConference__pm1gd {
+    border-left: 3px solid #8b5cf6;
+}
+
+.LeagueStandingsTable_zoneRelegation__x0a7K {
+    border-left: 3px solid #ef4444;
+}
+
+/* Legend */
+.LeagueStandingsTable_legend__hEBNE {
+    display: flex;
+    gap: 20px;
+    padding: 12px 20px;
+    background: rgba(42, 52, 65, 0.2);
+    border-top: 1px solid #2a3441;
+}
+
+.LeagueStandingsTable_legendItem__ejZRe {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.LeagueStandingsTable_legendDot__vZ09A {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+}
+
+.LeagueStandingsTable_legendDot__vZ09A.LeagueStandingsTable_zoneChampions__1oWvc {
+    background: #10b981;
+}
+
+.LeagueStandingsTable_legendDot__vZ09A.LeagueStandingsTable_zoneEuropa__Y_uLF {
+    background: #3b82f6;
+}
+
+.LeagueStandingsTable_legendDot__vZ09A.LeagueStandingsTable_zoneRelegation__x0a7K {
+    background: #ef4444;
+}
+
+.LeagueStandingsTable_empty__kZ0FJ {
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
+}
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/LeaguePage/TeamStatisticsTable.module.css ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************/
+.TeamStatisticsTable_container__aOIyz {
+    background: #0f1419;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.TeamStatisticsTable_header__ImWta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: #1a2332;
+    border-bottom: 1px solid #2a3441;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.TeamStatisticsTable_title__5IAEU {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin: 0;
+}
+
+.TeamStatisticsTable_tabs__x9w_s {
+    display: flex;
+    gap: 4px;
+    background: rgba(42, 52, 65, 0.5);
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.TeamStatisticsTable_tabBtn__T5eku {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #9ca3af;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.TeamStatisticsTable_tabBtn__T5eku:hover {
+    color: #e5e7eb;
+}
+
+.TeamStatisticsTable_tabBtn__T5eku.TeamStatisticsTable_active__lrTfx {
+    background: #00d4ff;
+    color: #0f1419;
+}
+
+.TeamStatisticsTable_filters__OVtOq {
+    display: flex;
+    gap: 4px;
+}
+
+.TeamStatisticsTable_filterBtn__3K1mH {
+    padding: 6px 14px;
+    border: 1px solid #2a3441;
+    border-radius: 4px;
+    background: transparent;
+    color: #9ca3af;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.TeamStatisticsTable_filterBtn__3K1mH:hover {
+    border-color: #00d4ff;
+    color: #00d4ff;
+}
+
+.TeamStatisticsTable_filterBtn__3K1mH.TeamStatisticsTable_active__lrTfx {
+    background: rgba(0, 212, 255, 0.15);
+    color: #00d4ff;
+    border-color: #00d4ff;
+}
+
+/* Table */
+.TeamStatisticsTable_tableWrapper__4ONpx {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.TeamStatisticsTable_table__Mf52M {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.TeamStatisticsTable_table__Mf52M th {
+    padding: 12px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    text-align: center;
+    background: rgba(42, 52, 65, 0.3);
+    border-bottom: 1px solid #2a3441;
+    white-space: nowrap;
+}
+
+.TeamStatisticsTable_thPos__jjwIJ {
+    width: 40px;
+}
+
+.TeamStatisticsTable_thTeam__yTevJ {
+    text-align: left !important;
+    min-width: 140px;
+}
+
+.TeamStatisticsTable_table__Mf52M tbody tr {
+    border-bottom: 1px solid rgba(42, 52, 65, 0.5);
+    transition: background 0.2s;
+}
+
+.TeamStatisticsTable_table__Mf52M tbody tr:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.TeamStatisticsTable_table__Mf52M td {
+    padding: 8px;
+    font-size: 12px;
+    color: #e5e7eb;
+    text-align: center;
+}
+
+.TeamStatisticsTable_tdPos__H79CH {
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+.TeamStatisticsTable_tdTeam__mIzah {
+    text-align: left !important;
+}
+
+.TeamStatisticsTable_teamLink__tf4qq {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #e5e7eb;
+}
+
+.TeamStatisticsTable_teamLink__tf4qq:hover {
+    color: #00d4ff;
+}
+
+.TeamStatisticsTable_teamLogo__oT_Az {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+/* Stat Cell */
+.TeamStatisticsTable_statCell__GH1as {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 70px;
+}
+
+.TeamStatisticsTable_statBar__e3Aq7 {
+    width: 100%;
+    height: 6px;
+    background: rgba(42, 52, 65, 0.8);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.TeamStatisticsTable_statFill__EYeXd {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.TeamStatisticsTable_statValue__r4V9h {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.TeamStatisticsTable_statOdds__aqZUY {
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.TeamStatisticsTable_tdAvg__g4_eE {
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.TeamStatisticsTable_empty__lfTb_ {
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/LeaguePage/LeagueGeneralStats.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+.LeagueGeneralStats_container__1xIrK {
+    background: #0f1419;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.LeagueGeneralStats_title__7Cwj5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin: 0 0 16px 0;
+}
+
+.LeagueGeneralStats_grid__srSGU {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 24px;
+    gap: 24px;
+}
+
+.LeagueGeneralStats_section__IeAtw {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.LeagueGeneralStats_sectionTitle__CZvqP {
+    font-size: 12px;
+    font-weight: 700;
+    color: #9ca3af;
+    margin: 0 0 8px 0;
+}
+
+.LeagueGeneralStats_statRow__j87Sc {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(42, 52, 65, 0.5);
+}
+
+.LeagueGeneralStats_label___fy_5 {
+    width: 120px;
+    font-size: 12px;
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+.LeagueGeneralStats_teamLink__0sKb1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1 1;
+    text-decoration: none;
+    color: #e5e7eb;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.LeagueGeneralStats_teamLink__0sKb1:hover {
+    color: #00d4ff;
+}
+
+.LeagueGeneralStats_teamLogo__RqoKA {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.LeagueGeneralStats_value__2WdoD {
+    font-size: 12px;
+    color: #10b981;
+    font-weight: 600;
+}
+
+/* Stats Grid */
+.LeagueGeneralStats_statsGrid__DTSNq {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 8px;
+    gap: 8px;
+}
+
+.LeagueGeneralStats_statBox__59mC_ {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(42, 52, 65, 0.3);
+    border-radius: 4px;
+}
+
+.LeagueGeneralStats_statLabel__xQZQf {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.LeagueGeneralStats_statPercent__SMMpe {
+    font-size: 13px;
+    font-weight: 700;
+    color: #00d4ff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .LeagueGeneralStats_grid__srSGU {
+        grid-template-columns: 1fr;
+    }
+}
+
+.LeagueGeneralStats_empty__1Zlko {
+    padding: 30px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+}
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/LeaguePage/LeagueFixtures.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+.LeagueFixtures_container__B4zgU {
+    background: #0f1419;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.LeagueFixtures_header__tb5Pd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #1a2332;
+    border-bottom: 1px solid #2a3441;
+}
+
+.LeagueFixtures_title__GTtPv {
+    font-size: 12px;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin: 0;
+}
+
+.LeagueFixtures_titleRow__ZdeeL {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.LeagueFixtures_roundSelect__TlXD8 {
+    background: #0f1419;
+    color: #9ca3af;
+    border: 1px solid #2a3441;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+    outline: none;
+    cursor: pointer;
+}
+
+.LeagueFixtures_roundSelect__TlXD8:hover {
+    border-color: #3b4654;
+    color: #e5e7eb;
+}
+
+.LeagueFixtures_filters__TLRV0 {
+    display: flex;
+    gap: 4px;
+}
+
+.LeagueFixtures_filterBtn___5Y93 {
+    padding: 4px 10px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.LeagueFixtures_filterBtn___5Y93:hover {
+    color: #e5e7eb;
+}
+
+.LeagueFixtures_filterBtn___5Y93.LeagueFixtures_active__NEzZO {
+    background: #00d4ff;
+    color: #0f1419;
+}
+
+/* Fixtures List */
+.LeagueFixtures_fixturesList__K7OeI {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.LeagueFixtures_fixtureRow__4hJFJ {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(42, 52, 65, 0.5);
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.LeagueFixtures_fixtureRow__4hJFJ:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.LeagueFixtures_fixtureRow__4hJFJ:last-child {
+    border-bottom: none;
+}
+
+.LeagueFixtures_timeCol__R4Ksg {
+    width: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.LeagueFixtures_date__Yz3Sf {
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.LeagueFixtures_time__7v24P {
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+.LeagueFixtures_live__wE_ya {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.LeagueFixtures_liveDot___RtyH {
+    width: 6px;
+    height: 6px;
+    background: #ef4444;
+    border-radius: 50%;
+    animation: LeagueFixtures_pulse__1VIng 1.5s infinite;
+}
+
+@keyframes LeagueFixtures_pulse__1VIng {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.LeagueFixtures_finished__9rItU {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.LeagueFixtures_teamsCol__6ij5c {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.LeagueFixtures_teamLine___uXI3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.LeagueFixtures_teamLogo__9eHyF {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.LeagueFixtures_teamName__XYyPA {
+    font-size: 12px;
+    color: #e5e7eb;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.LeagueFixtures_scoreCol__BMupe {
+    width: 30px;
+    flex-shrink: 0;
+}
+
+.LeagueFixtures_scores__2YuaI {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #e5e7eb;
+}
+
+.LeagueFixtures_scoreLive__hHiN9 {
+    color: #ef4444;
+}
+
+.LeagueFixtures_empty__ZC8Sx {
+    padding: 30px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+/* Scrollbar */
+.LeagueFixtures_fixturesList__K7OeI::-webkit-scrollbar {
+    width: 4px;
+}
+
+.LeagueFixtures_fixturesList__K7OeI::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.LeagueFixtures_fixturesList__K7OeI::-webkit-scrollbar-thumb {
+    background: #2a3441;
+    border-radius: 2px;
+}
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/components/LeaguePage/TeamOfWeek.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************/
+.TeamOfWeek_container__QAVRL {
+    background: #0f1419;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.TeamOfWeek_header__6iLk_ {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #1a2332;
+    border-bottom: 1px solid #2a3441;
+}
+
+.TeamOfWeek_title__A_uhu {
+    font-size: 12px;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin: 0;
+}
+
+.TeamOfWeek_round__I8nb8 {
+    font-size: 11px;
+    color: #00d4ff;
+    font-weight: 500;
+}
+
+/* Field */
+.TeamOfWeek_field__5s176 {
+    background: linear-gradient(180deg, #1a472a 0%, #2d5a3e 50%, #1a472a 100%);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 420px;
+    position: relative;
+}
+
+/* Field markings */
+.TeamOfWeek_field__5s176::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.TeamOfWeek_field__5s176::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+}
+
+.TeamOfWeek_row__zJKhf {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Player Card */
+.TeamOfWeek_playerCard__CVz65 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 60px;
+    max-width: 80px;
+}
+
+/* Team Logo */
+.TeamOfWeek_teamLogo__3PYES {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.TeamOfWeek_teamLogoImg__92bK1 {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.TeamOfWeek_teamLogoPlaceholder__8_mHr {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(42, 52, 65, 0.8);
+    border-radius: 50%;
+    font-size: 14px;
+}
+
+/* Player Info */
+.TeamOfWeek_playerInfo___TYin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.TeamOfWeek_playerNumber__TMBAC {
+    font-size: 9px;
+    color: #9ca3af;
+    display: none;
+}
+
+.TeamOfWeek_playerName__nQv_U {
+    font-size: 10px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Rating */
+.TeamOfWeek_rating__UmtLe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: #d4a033;
+    color: #0f1419;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.TeamOfWeek_star__Jqkfw {
+    font-size: 9px;
+    color: #0f1419;
+}
+
+.TeamOfWeek_ratingValue__2C8Tx {
+    font-weight: 700;
+}
+
+.TeamOfWeek_empty__GtJMS {
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 360px) {
+    .TeamOfWeek_playerCard__CVz65 {
+        min-width: 50px;
+    }
+
+    .TeamOfWeek_playerName__nQv_U {
+        font-size: 9px;
+        max-width: 50px;
+    }
+
+    .TeamOfWeek_teamLogoImg__92bK1,
+    .TeamOfWeek_teamLogoPlaceholder__8_mHr,
+    .TeamOfWeek_teamLogo__3PYES {
+        width: 24px;
+        height: 24px;
+    }
 }
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[7].use[3]!./src/app/leagues/[id]/page.module.css ***!
@@ -584,6 +1482,100 @@
 .page_container__LeZc9 {
   max-width: 1400px;
   margin: 0 auto;
+}
+
+/* Two Column Layout */
+.page_twoColumnLayout__Ik4X0 {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-gap: 24px;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.page_leftColumn__G1unr {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.page_rightColumn__NwKqE {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+/* Side sections */
+.page_sideTitle__WjpxF {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e5e7eb;
+  margin: 0 0 12px 0;
+  padding: 12px 16px;
+  background: #1a2332;
+  border-radius: 8px 8px 0 0;
+}
+
+.page_topPlayersSection__ECOC_ {
+  background: #0f1419;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.page_topPlayersGrid__kfZIz {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.page_topPlayersList__pM4WV {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.page_listTitle__Hsqc5 {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.page_topPlayerItem__VQBX_ {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.page_rank__Vs0q2 {
+  color: #6b7280;
+  font-size: 12px;
+  width: 18px;
+}
+
+.page_miniLogo__zK0Qk {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.page_pName__VKyDY {
+  flex: 1 1;
+  font-size: 12px;
+  color: #e5e7eb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.page_pStat__Qfp1h {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f59e0b;
 }
 
 /* Loading & Error States */

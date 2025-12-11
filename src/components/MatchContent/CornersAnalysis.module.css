@@ -1,12 +1,19 @@
+/* CornersAnalysis.module.css - Premium UI/UX Polish */
+
 .container {
     width: 100%;
     color: #e0e0e0;
+    padding: 0.5rem;
 }
 
 .sectionTitle {
     font-size: 1rem;
     margin-bottom: 1rem;
-    font-weight: 500;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .topGrid {
@@ -17,81 +24,99 @@
 }
 
 .card {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 1rem;
+    background: linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.25rem;
     margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Header Tabs */
 .tabsHeader {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .tabTitle {
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #fff;
 }
 
 .tabBtns {
     display: flex;
-    gap: 5px;
+    gap: 6px;
 }
 
 .btn {
-    background: none;
+    background: rgba(255, 255, 255, 0.05);
     border: none;
     color: #888;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 4px;
     cursor: pointer;
-    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
 }
 
 .btn.active {
+    background: rgba(0, 145, 234, 0.2);
     color: #0091ea;
-    border-color: #0091ea;
 }
 
 .teamsRow {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     align-items: center;
 }
 
 .team {
     display: flex;
     align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
 }
 
 .team img {
     width: 24px;
     height: 24px;
+    border-radius: 50%;
 }
 
 /* Stats Table */
 .statsTable {
     margin-bottom: 15px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 12px;
 }
 
 .statRow {
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
-    padding: 4px 0;
+    font-size: 0.875rem;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.statRow:last-child {
+    border-bottom: none;
 }
 
 .statLabel {
-    color: #ccc;
+    color: #999;
 }
 
 /* Calculadora */
@@ -100,24 +125,25 @@
 }
 
 .calcArea h4 {
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-bottom: 5px;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
 .sliderRow {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-size: 0.8rem;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .slider {
     flex: 1;
-    height: 4px;
-    background: #444;
-    border-radius: 2px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
     position: relative;
 }
 
@@ -125,68 +151,77 @@
     content: '';
     position: absolute;
     left: 0;
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     background: #0091ea;
     border-radius: 50%;
-    top: -3px;
+    top: -4px;
+    box-shadow: 0 2px 6px rgba(0, 145, 234, 0.4);
 }
 
 .calcResult {
     display: flex;
-    gap: 10px;
-    margin-top: 5px;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
 }
 
 .blueBadge {
-    background: #0081cb;
-    padding: 2px 8px;
-    border-radius: 10px;
+    background: linear-gradient(135deg, #0091ea, #0078c8);
+    padding: 4px 12px;
+    border-radius: 12px;
     font-size: 0.75rem;
     color: #fff;
+    font-weight: 600;
 }
 
 /* Totals Table */
 .totalHeader {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
-    color: #aaa;
-    margin-bottom: 5px;
+    font-size: 0.75rem;
+    color: #777;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .dualHead {
     display: flex;
-    gap: 5px;
-    width: 70px;
+    gap: 8px;
+    width: 80px;
     font-size: 0.7rem;
     justify-content: space-between;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .totalRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    padding: 4px 0;
 }
 
 .rowLabel {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
+    color: #ccc;
 }
 
 .dualVal {
     display: flex;
-    gap: 5px;
-    width: 80px;
+    gap: 8px;
+    width: 90px;
     justify-content: space-between;
 }
 
-/* Badges */
+/* Badges - Premium Style */
 .badge {
-    padding: 1px 0;
-    width: 38px;
+    padding: 3px 0;
+    width: 42px;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 700;
     color: #fff;
@@ -194,39 +229,64 @@
 }
 
 .high {
-    background: #00c853;
+    background: linear-gradient(135deg, #00c853, #00a843);
+    box-shadow: 0 2px 6px rgba(0, 200, 83, 0.3);
 }
 
 .med {
-    background: #ffb300;
+    background: linear-gradient(135deg, #ffb300, #e6a200);
     color: #000;
+    box-shadow: 0 2px 6px rgba(255, 179, 0, 0.3);
 }
 
 .low {
-    background: #ff5252;
+    background: linear-gradient(135deg, #ff5252, #e04444);
+    box-shadow: 0 2px 6px rgba(255, 82, 82, 0.3);
 }
 
-/* Interval Table */
+/* Interval Table - CRITICAL: Horizontal scroll for dense data */
 .cardHeaderSmall {
     font-size: 0.95rem;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #fff;
 }
 
 .teamsSmall {
     display: flex;
     font-size: 0.85rem;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
+/* IMPORTANT: Horizontal scroll wrapper for dense tables */
 .intervalScroll {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+    padding-bottom: 4px;
+}
+
+.intervalScroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.intervalScroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.intervalScroll::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
 }
 
 .intervalTable {
     width: 100%;
+    min-width: 500px;
+    /* Ensures table doesn't compress on mobile */
     border-collapse: collapse;
     font-size: 0.75rem;
     text-align: center;
@@ -234,74 +294,171 @@
 }
 
 .intervalTable th {
-    background: #2b2b2b;
-    padding: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 6px;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
 }
 
 .intervalTable td {
-    padding: 4px;
-    border-bottom: 1px solid #2f2f2f;
+    padding: 8px 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+}
+
+.intervalTable tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .period {
-    background: #333;
-    color: #fff;
-    font-weight: bold;
+    background: rgba(0, 212, 255, 0.1);
+    color: #00d4ff;
+    font-weight: 700;
 }
 
 .moreBtn {
     width: 100%;
-    background: #0081cb;
+    background: linear-gradient(135deg, #0091ea, #0078c8);
     color: #fff;
     border: none;
-    padding: 6px;
-    border-radius: 4px;
-    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 12px;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.moreBtn:hover {
+    background: linear-gradient(135deg, #00a0ff, #0088dd);
+    transform: translateY(-1px);
 }
 
 /* Races */
 .racesTitle {
     font-size: 1rem;
-    margin-bottom: 10px;
-    font-weight: 500;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #fff;
 }
 
 .raceList {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
 }
 
 .raceHeaderRow {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
-    color: #ccc;
+    font-size: 0.75rem;
+    color: #777;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 4px;
 }
 
 .raceRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #2f2f2f;
-    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 8px 0;
+}
+
+.raceRow:hover {
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .raceLabel {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-weight: 500;
+    color: #ccc;
 }
 
 .dualLabel {
-    width: 90px;
+    width: 100px;
     display: flex;
     justify-content: space-between;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
     .topGrid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .container {
+        padding: 0.25rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .card {
+        padding: 1rem;
+        border-radius: 10px;
+    }
+
+    .tabTitle {
+        font-size: 0.8rem;
+    }
+
+    .team {
+        font-size: 0.8rem;
+    }
+
+    .team img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .statRow {
+        font-size: 0.8rem;
+    }
+
+    .badge {
+        width: 38px;
+        font-size: 0.7rem;
+    }
+
+    /* Tables scroll horizontally on mobile */
+    .intervalTable {
+        min-width: 450px;
+    }
+
+    .intervalTable th,
+    .intervalTable td {
+        padding: 6px 4px;
+        font-size: 0.7rem;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .card {
+        padding: 0.875rem;
+    }
+
+    .tabsHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .teamsRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
     }
 }

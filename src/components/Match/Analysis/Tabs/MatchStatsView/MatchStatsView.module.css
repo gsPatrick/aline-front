@@ -1,114 +1,265 @@
+/* MatchStatsView.module.css - Premium UI/UX Polish */
+
 /* Container Principal estilo "Big Card" */
 .bigCard {
-    background-color: #1a1a1a;
-    /* Fundo escuro como na imagem */
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.35),
+        0 1px 0 rgba(255, 255, 255, 0.03) inset;
     margin-bottom: 2rem;
     width: 100%;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.bigCard:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.45),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
 
 /* Header: Tabs e Times */
 .header {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #333;
-    padding-bottom: 1rem;
+    gap: 1.75rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 1.25rem;
 }
 
 .tabsContainer {
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .tabBtn {
-    background-color: #2b2b2b;
-    color: #a0a0a0;
-    border: 1px solid #444;
-    padding: 6px 16px;
-    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #888;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 8px 20px;
+    border-radius: 24px;
     font-size: 0.85rem;
     cursor: pointer;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
 }
 
 .tabBtn:hover {
-    background-color: #333;
-    color: #fff;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ccc;
+    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .tabBtn.active {
-    background-color: #00d4ff;
-    /* Azul Ciano */
+    background: linear-gradient(135deg, #00d4ff, #0091ea);
     color: #000;
-    border-color: #00d4ff;
+    border-color: transparent;
     font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
 }
 
 .teamsHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 .teamInfoLeft,
 .teamInfoRight {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .teamInfoLeft img,
 .teamInfoRight img {
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .teamName {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: #fff;
 }
 
 /* Seções (Posse, Ataques...) */
 .section {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.section:last-child {
+    margin-bottom: 0;
 }
 
 .sectionTitle {
     color: #fff;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    /* Linha sutil abaixo do título, se necessário, ou apenas espaçamento */
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .statsGroup {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    /* Espaçamento vertical entre as barras */
+    gap: 0.875rem;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Laptop */
+@media (max-width: 1200px) {
     .bigCard {
-        padding: 1rem;
+        padding: 1.75rem;
     }
 
     .header {
-        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .bigCard {
+        padding: 1.5rem;
+        border-radius: 14px;
+    }
+
+    .header {
+        gap: 1.25rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .tabsContainer {
+        gap: 10px;
+    }
+
+    .tabBtn {
+        padding: 7px 16px;
+        font-size: 0.8rem;
+    }
+
+    .section {
+        margin-bottom: 2rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .bigCard {
+        padding: 1.25rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+    }
+
+    .header {
+        align-items: stretch;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+    }
+
+    .tabsContainer {
+        gap: 8px;
+        justify-content: flex-start;
+    }
+
+    .tabBtn {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+        border-radius: 20px;
     }
 
     .teamsHeader {
         width: 100%;
         font-size: 0.9rem;
+        gap: 12px;
+    }
+
+    .teamInfoLeft img,
+    .teamInfoRight img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .teamName {
+        font-size: 0.95rem;
+    }
+
+    .section {
+        margin-bottom: 1.5rem;
+    }
+
+    .sectionTitle {
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+    }
+
+    .statsGroup {
+        gap: 0.75rem;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .bigCard {
+        padding: 1rem;
+        border-radius: 10px;
+    }
+
+    .header {
+        gap: 0.875rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .tabsContainer {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+    }
+
+    .tabsContainer::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tabBtn {
+        padding: 5px 12px;
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+
+    .teamInfoLeft,
+    .teamInfoRight {
+        gap: 10px;
+    }
+
+    .teamInfoLeft img,
+    .teamInfoRight img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .teamName {
+        font-size: 0.85rem;
+    }
+
+    .sectionTitle {
+        font-size: 0.8rem;
     }
 }

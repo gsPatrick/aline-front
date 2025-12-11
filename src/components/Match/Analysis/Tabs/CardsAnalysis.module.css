@@ -1,3 +1,5 @@
+/* CardsAnalysis.module.css - Premium UI/UX Polish */
+
 .container {
     width: 100%;
     color: #e0e0e0;
@@ -5,22 +7,35 @@
 
 .mainTitle {
     font-size: 1rem;
-    margin-bottom: 1rem;
-    font-weight: 500;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: 40% 59%;
-    gap: 1%;
+    grid-template-columns: 40% 1fr;
+    gap: 2rem;
 }
 
 .card {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 1rem;
+    background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.25rem;
     margin-bottom: 1.5rem;
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
 
 /* Header */
@@ -29,28 +44,36 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.75rem;
 }
 
 .tabTitle {
-    font-size: 1rem;
-    color: #fff;
-    font-weight: 500;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .tabBtns {
     display: flex;
-    gap: 5px;
+    gap: 8px;
 }
 
 .btn {
     background: none;
     border: none;
-    color: #888;
+    color: #777;
     font-size: 0.8rem;
     cursor: pointer;
     border-bottom: 2px solid transparent;
+    padding: 4px 8px;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    color: #aaa;
 }
 
 .btn.active {
@@ -62,21 +85,23 @@
 .teamsRow {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     align-items: center;
 }
 
 .team {
     display: flex;
     align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
 }
 
 .team img {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
 }
 
 /* Averages Table */
@@ -87,58 +112,81 @@
 .avgRow {
     display: flex;
     justify-content: space-between;
-    padding: 6px 0;
-    font-size: 0.9rem;
+    padding: 8px 0;
+    font-size: 0.85rem;
     color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.avgRow:last-child {
+    border-bottom: none;
 }
 
 .avgLabel {
-    color: #ccc;
-    font-size: 0.85rem;
+    color: #888;
+    font-size: 0.8rem;
 }
 
-/* Totals Table */
+/* Totals Table - with horizontal scroll */
+.totalsTable {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
 .totalsHeader {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
-    color: #aaa;
-    margin-bottom: 5px;
+    font-size: 0.7rem;
+    color: #888;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    min-width: 400px;
 }
 
 .dualHead {
     display: flex;
-    gap: 5px;
-    width: 70px;
-    font-size: 0.7rem;
-    justify-content: space-between;
+    gap: 6px;
+    min-width: 120px;
+    font-size: 0.65rem;
+    justify-content: flex-end;
+    white-space: nowrap;
 }
 
 .totalRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    min-width: 400px;
+}
+
+.totalRow:last-child {
+    border-bottom: none;
 }
 
 .totalLabel {
-    font-size: 0.9rem;
-    color: #e0e0e0;
+    font-size: 0.85rem;
+    color: #ccc;
 }
 
 .dualVal {
     display: flex;
-    gap: 5px;
-    width: 80px;
-    justify-content: space-between;
+    gap: 6px;
+    min-width: 100px;
+    justify-content: flex-end;
 }
 
 /* Badges */
 .badge {
-    padding: 1px 0;
-    width: 38px;
+    padding: 3px 0;
+    width: 42px;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 700;
     color: #fff;
@@ -146,16 +194,16 @@
 }
 
 .high {
-    background: #00c853;
+    background: linear-gradient(135deg, #00c853, #00a045);
 }
 
 .med {
-    background: #ffb300;
+    background: linear-gradient(135deg, #ffb300, #ff9500);
     color: #000;
 }
 
 .low {
-    background: #ff5252;
+    background: linear-gradient(135deg, #ff5252, #e04444);
 }
 
 /* Right Column */
@@ -166,19 +214,43 @@
 
 .teamsSmall {
     display: flex;
-    font-size: 0.85rem;
-    margin-bottom: 10px;
+    font-size: 0.8rem;
+    margin-bottom: 12px;
     align-items: center;
-    gap: 5px;
-    color: #ccc;
+    gap: 8px;
+    color: #888;
 }
 
+/* Scroll container for interval table */
 .intervalScroll {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    border-radius: 8px;
+}
+
+.intervalScroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.intervalScroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.intervalScroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.intervalScroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .intervalTable {
     width: 100%;
+    min-width: 400px;
     border-collapse: collapse;
     font-size: 0.75rem;
     text-align: center;
@@ -186,64 +258,203 @@
 }
 
 .intervalTable th {
-    background: transparent;
-    padding: 4px;
-    font-weight: normal;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 8px 6px;
+    font-weight: 600;
     color: #aaa;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
 }
 
 .intervalTable td {
     padding: 6px;
-    border-bottom: 1px solid #2f2f2f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    font-variant-numeric: tabular-nums;
+}
+
+.intervalTable tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .period {
-    background: #333;
+    background: rgba(255, 255, 255, 0.06);
     color: #fff;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 /* Referee Stats */
 .refereeContent {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .refereeRowMain {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-bottom: 5px;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .refValBig {
-    font-size: 1.2rem;
+    font-size: 1.375rem;
     font-weight: 700;
     color: #00c853;
+    font-variant-numeric: tabular-nums;
 }
 
 .refereeList {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .refRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
-    color: #e0e0e0;
-    border-bottom: 1px solid #2f2f2f;
-    padding-bottom: 4px;
+    font-size: 0.85rem;
+    color: #ccc;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 8px 0;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+.refRow:last-child {
+    border-bottom: none;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Laptop */
+@media (max-width: 1200px) {
+    .grid {
+        gap: 1.5rem;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
     .grid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .card {
+        padding: 1.125rem;
+        border-radius: 12px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .grid {
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+    }
+
+    .cardHeader {
+        margin-bottom: 1rem;
+        padding-bottom: 0.625rem;
+    }
+
+    .tabTitle {
+        font-size: 0.85rem;
+    }
+
+    .team img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .team {
+        font-size: 0.8rem;
+    }
+
+    .avgRow {
+        font-size: 0.8rem;
+        padding: 6px 0;
+    }
+
+    .intervalTable {
+        font-size: 0.7rem;
+    }
+
+    .intervalTable th {
+        padding: 6px 4px;
+        font-size: 0.65rem;
+    }
+
+    .intervalTable td {
+        padding: 5px 4px;
+    }
+
+    .badge {
+        width: 38px;
+        font-size: 0.7rem;
+    }
+
+    .refValBig {
+        font-size: 1.25rem;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .card {
+        padding: 0.875rem;
+        border-radius: 8px;
+    }
+
+    .cardHeader {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .tabBtns {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .btn {
+        font-size: 0.75rem;
+        padding: 4px 6px;
+    }
+
+    .team {
+        font-size: 0.75rem;
+    }
+
+    .team img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .dualVal {
+        width: 80px;
+    }
+
+    .dualHead {
+        width: 70px;
+    }
+
+    .refereeRowMain {
+        font-size: 0.8rem;
+    }
+
+    .refRow {
+        font-size: 0.8rem;
     }
 }

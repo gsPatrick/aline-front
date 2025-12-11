@@ -1,36 +1,131 @@
 'use client';
 import { useState } from 'react';
 import StatRow from './StatRow';
+import PressureGraph from '../../../../shared/PressureGraph';
+import AttackHeatmap from '../../../../shared/AttackHeatmap';
+import TimeFilter from '../../../../shared/TimeFilter';
 import styles from './MatchStatsView.module.css';
 
-export default function MatchStatsView({ homeTeam, awayTeam, statsData }) {
+export default function MatchStatsView({ homeTeam, awayTeam, statsData, charts, events }) {
     const [activeTab, setActiveTab] = useState('fulltime'); // fulltime, ht, st
+    const [maxMinute, setMaxMinute] = useState(90);
+
+    // Handler to change period (used by both TimeFilter and Stats tabs)
+    const handlePeriodChange = (period) => {
+        setActiveTab(period);
+        if (period === 'ht') {
+            setMaxMinute(45);
+        } else if (period === 'st') {
+            setMaxMinute(90);
+        } else {
+            setMaxMinute(90);
+        }
+    };
 
     // Se não houver dados, usa um objeto vazio para não quebrar
     const currentStats = statsData?.[activeTab] || null;
+
+    // Calculate attack zones from stats (heuristic based on attacks and corners)
+    const calculateZones = (stats, isHome) => {
+        // Get dangerous attacks and corners which now vary by period
+        const attacks = isHome ?
+            (stats?.attacks?.dangerous?.home || 0) :
+            (stats?.attacks?.dangerous?.away || 0);
+        const corners = isHome ?
+            (stats?.attacks?.corners?.home || 0) :
+            (stats?.attacks?.corners?.away || 0);
+        const shots = isHome ?
+            (stats?.shots?.total?.home || 0) :
+            (stats?.shots?.total?.away || 0);
+
+        // Use a combination of metrics to estimate zone distribution
+        // More corners = more wing play (top/bottom), more shots = central presence (middle)
+        const total = attacks + corners + shots || 1;
+
+        // Calculate zone weights
+        const cornerWeight = corners / total;
+        const shotWeight = shots / total;
+
+        // Top zone: influenced by corners (wing play)
+        const top = Math.min(45, Math.max(25, Math.round(30 + cornerWeight * 20)));
+        // Middle zone: influenced by shots (central attacks)
+        const middle = Math.min(50, Math.max(30, Math.round(35 + shotWeight * 15)));
+        // Bottom zone: remainder to make 100%
+        const bottom = 100 - top - middle;
+
+        return { top, middle, bottom };
+    };
+
+    // Calculate attack presence percentage
+    const calculatePresence = (stats, isHome) => {
+        const homeDangerousAttacks = stats?.attacks?.dangerous?.home || 0;
+        const awayDangerousAttacks = stats?.attacks?.dangerous?.away || 0;
+        const total = homeDangerousAttacks + awayDangerousAttacks;
+
+        if (total === 0) return 50;
+
+        if (isHome) {
+            return Math.round((homeDangerousAttacks / total) * 100);
+        }
+        return Math.round((awayDangerousAttacks / total) * 100);
+    };
+
+    const homeZones = calculateZones(currentStats, true);
+    const awayZones = calculateZones(currentStats, false);
+    const homePresence = calculatePresence(currentStats, true);
+    const awayPresence = calculatePresence(currentStats, false);
 
     if (!currentStats) return <div style={{ padding: '20px', color: '#fff' }}>Dados de estatísticas indisponíveis.</div>;
 
     return (
         <div className={styles.bigCard}>
+            {/* NEW: Time Filter - controls all period-based components */}
+            <TimeFilter
+                period={activeTab}
+                onPeriodChange={handlePeriodChange}
+                maxMinute={maxMinute}
+                onMaxMinuteChange={setMaxMinute}
+            />
+
+            {/* NEW: Pressure Graph Section */}
+            <PressureGraph
+                timeline={charts?.timeline || []}
+                events={events || []}
+                homeTeam={homeTeam}
+                awayTeam={awayTeam}
+                period={activeTab}
+                maxMinute={maxMinute}
+            />
+
+            {/* NEW: Attack Heatmaps */}
+            <AttackHeatmap
+                homeTeam={homeTeam}
+                awayTeam={awayTeam}
+                homeZones={homeZones}
+                awayZones={awayZones}
+                homeAttackPresence={homePresence}
+                awayAttackPresence={awayPresence}
+                period={activeTab}
+            />
+
             {/* Header com Abas e Times */}
             <div className={styles.header}>
                 <div className={styles.tabsContainer}>
                     <button
                         className={`${styles.tabBtn} ${activeTab === 'fulltime' ? styles.active : ''}`}
-                        onClick={() => setActiveTab('fulltime')}
+                        onClick={() => handlePeriodChange('fulltime')}
                     >
                         Fim do Jogo
                     </button>
                     <button
                         className={`${styles.tabBtn} ${activeTab === 'ht' ? styles.active : ''}`}
-                        onClick={() => setActiveTab('ht')}
+                        onClick={() => handlePeriodChange('ht')}
                     >
                         1ª Parte
                     </button>
                     <button
                         className={`${styles.tabBtn} ${activeTab === 'st' ? styles.active : ''}`}
-                        onClick={() => setActiveTab('st')}
+                        onClick={() => handlePeriodChange('st')}
                     >
                         2ª Parte
                     </button>

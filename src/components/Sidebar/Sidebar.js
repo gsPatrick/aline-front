@@ -1,103 +1,103 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaAngleDown, FaAngleRight, FaAngleLeft, FaTrophy, FaFire } from 'react-icons/fa';
+import { FaAngleDown, FaAngleRight } from 'react-icons/fa';
 import { useLeagues } from '@/hooks/useLeagues';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const { leagues, loading, page, nextPage, prevPage } = useLeagues();
-  const [expanded, setExpanded] = useState({ 'Todas as Ligas': true });
+  const { leagues, loading } = useLeagues();
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const toggleSection = (category) => {
-    setExpanded(prev => ({ ...prev, [category]: !prev[category] }));
+  // Remove duplicates by ID and filter by search
+  const uniqueLeagues = useMemo(() => {
+    const seen = new Set();
+    const unique = [];
+
+    leagues.forEach(league => {
+      if (!seen.has(league.id)) {
+        seen.add(league.id);
+        unique.push(league);
+      }
+    });
+
+    // Filter by search
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      return unique.filter(l =>
+        l.name.toLowerCase().includes(query)
+      );
+    }
+
+    return unique;
+  }, [leagues, searchQuery]);
+
+  // Check if a league is active - exact match only
+  const isLeagueActive = (leagueId) => {
+    return pathname === `/leagues/${leagueId}`;
   };
-
-  // Agrupando ligas
-  const popularLeagues = leagues; // Mostra todas as ligas retornadas pela API
 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.scrollContainer}>
-
-        {/* Seção Dinâmica */}
-        <div className={styles.section}>
-          <div
-            className={styles.sectionHeader}
-            onClick={() => toggleSection('Todas as Ligas')}
-          >
-            <div className={styles.sectionTitle}>
-              <FaTrophy className={styles.fireIcon} />
-              <span>Ligas Disponíveis</span>
-            </div>
-            <span className={styles.toggleIcon}>
-              {expanded['Todas as Ligas'] ? <FaAngleDown /> : <FaAngleRight />}
-            </span>
-          </div>
-
-          <AnimatePresence>
-            {expanded['Todas as Ligas'] && (
-              <motion.ul
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                className={styles.leagueList}
-              >
-                {loading && popularLeagues.length === 0 ? (
-                  <li className={styles.loadingItem}>Carregando...</li>
-                ) : (
-                  popularLeagues.map((league) => {
-                    const isActive = pathname.includes(String(league.id));
-                    return (
-                      <li key={league.id}>
-                        <Link
-                          href={`/leagues/${league.id}`}
-                          className={`${styles.leagueItem} ${isActive ? styles.active : ''}`}
-                        >
-                          <div className={styles.leagueInfo}>
-                            {league.logo ? (
-                              <img src={league.logo} alt={league.name} className={styles.flagIcon} />
-                            ) : (
-                              <span className={styles.flagPlaceholder} />
-                            )}
-                            <span className={styles.name}>{league.name}</span>
-                          </div>
-                          {isActive && <motion.div layoutId="sidebarActive" className={styles.activeGlow} />}
-                        </Link>
-                      </li>
-                    );
-                  })
-                )}
-                {/* Paginação com Setas */}
-                <li className={styles.paginationContainer}>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); prevPage(); }}
-                    className={styles.pageBtn}
-                    disabled={page === 1 || loading}
-                  >
-                    <FaAngleLeft />
-                  </button>
-                  <span className={styles.pageInfo}>{page}</span>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); nextPage(); }}
-                    className={styles.pageBtn}
-                    disabled={loading}
-                  >
-                    <FaAngleRight />
-                  </button>
-                </li>
-                {loading && popularLeagues.length > 0 && (
-                  <li className={styles.loadingItem}>Carregando mais...</li>
-                )}
-              </motion.ul>
-            )}
-          </AnimatePresence>
+        {/* Header */}
+        <div className={styles.header}>
+          <span className={styles.headerLabel}>POPULAR LEAGUES</span>
         </div>
 
+        {/* Search */}
+        <div className={styles.searchBox}>
+          <input
+            type="text"
+            placeholder="Search leagues..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className={styles.searchInput}
+          />
+        </div>
 
+        {/* League List */}
+        <ul className={styles.leagueList}>
+          {loading && uniqueLeagues.length === 0 ? (
+            <li className={styles.loadingItem}>Loading...</li>
+          ) : (
+            uniqueLeagues.map((league) => {
+              const isActive = isLeagueActive(league.id);
+              return (
+                <li key={`league-${league.id}`}>
+                  <Link
+                    href={`/leagues/${league.id}`}
+                    className={`${styles.leagueItem} ${isActive ? styles.active : ''}`}
+                  >
+                    <div className={styles.leagueInfo}>
+                      {league.logo ? (
+                        <img
+                          src={league.logo}
+                          alt=""
+                          className={styles.leagueLogo}
+                        />
+                      ) : (
+                        <div className={styles.logoPlaceholder} />
+                      )}
+                      <div className={styles.leagueText}>
+                        <span className={styles.leagueName}>{league.name}</span>
+                        {league.country?.name && (
+                          <span className={styles.countryName}>{league.country.name}</span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              );
+            })
+          )}
+          {uniqueLeagues.length === 0 && !loading && (
+            <li className={styles.noResults}>No leagues found</li>
+          )}
+        </ul>
       </div>
     </aside>
   );

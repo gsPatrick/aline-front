@@ -1,26 +1,35 @@
+'use client';
+import { useState } from 'react';
 import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import DateNavbar from "@/components/DateNavbar/DateNavbar";
 import GamesList from "@/components/GamesList/GamesList";
 import styles from './page.module.css';
 
 export default function HomePage() {
-  const todayStr = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+
+  const [selectedDate, setSelectedDate] = useState(todayStr);
 
   return (
     <div className={styles.mainWrapper}>
       <Header />
-      
+
       <div className={styles.contentLayout}>
         <Sidebar />
-        
-        <main className={styles.mainContent}>
-          <div className={styles.contentHeader}>
-            <h1 className={styles.pageTitle}>Jogos <span className="text-green">em Destaque</span></h1>
-            <div className={styles.dateFilter}>Hoje, {todayStr}</div>
-          </div>
 
-          {/* Aqui definimos type="daily" para puxar todos os jogos */}
-          <GamesList type="daily" />
+        <main className={styles.mainContent}>
+          {/* Date Navigation */}
+          <DateNavbar
+            selectedDate={selectedDate}
+            onDateChange={setSelectedDate}
+          />
+
+          {/* Matches List */}
+          <div className={styles.matchesContainer}>
+            <GamesList type="daily" selectedDate={selectedDate} />
+          </div>
         </main>
       </div>
     </div>

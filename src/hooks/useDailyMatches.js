@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { matchService } from '@/lib/api';
 
-export function useDailyMatches() {
+export function useDailyMatches(selectedDate = null) {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,10 +10,17 @@ export function useDailyMatches() {
     const fetchDaily = async () => {
       try {
         setLoading(true);
-        const response = await matchService.getDaily();
+        let response;
 
-        // A API agora retorna: { success, date, total_leagues, total_fixtures, data: [...] }
-        // onde data é um array de objetos com: { league_id, league_name, country_name, country_flag, fixtures: [...] }
+        if (selectedDate) {
+          // Fetch matches for specific date
+          response = await matchService.getByDate(selectedDate);
+        } else {
+          // Fetch today's matches
+          response = await matchService.getDaily();
+        }
+
+        // A API retorna: { success, date, total_leagues, total_fixtures, data: [...] }
         setMatches(response?.data || []);
       } catch (err) {
         console.error(err);
@@ -24,7 +31,7 @@ export function useDailyMatches() {
     };
 
     fetchDaily();
-  }, []);
+  }, [selectedDate]);
 
   return { matches, loading, error };
 }

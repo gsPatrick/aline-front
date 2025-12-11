@@ -22,49 +22,92 @@ const ScoreCard = ({ score, prob, type = 'prob' }) => (
     </div>
 );
 
-// Tabela Genérica de Intervalos (Para Gols e Remates)
-const IntervalTable = ({ title, data, homeName, awayName }) => (
-    <div className={styles.intervalCard}>
-        <div className={styles.tableHeaderRow}>
-            {title && <h4 className={styles.tableTitle}>{title}</h4>}
-            <div className={styles.teamLogos}>
-                <span className={styles.teamSmall}>{homeName}</span>
-                <span className={styles.teamSmall}>{awayName}</span>
+// Tabela de Intervalos COM FILTRO DE TIME
+const IntervalTableWithFilter = ({ title, data, homeName, awayName, homeLogo, awayLogo }) => {
+    const [selectedTeam, setSelectedTeam] = useState('both'); // 'both', 'home', 'away'
+
+    // If no data, show empty state
+    if (!data || data.length === 0) {
+        return (
+            <div className={styles.intervalCard}>
+                <h4 className={styles.tableTitle}>{title}</h4>
+                <p style={{ color: '#666', textAlign: 'center', padding: '1rem' }}>Dados não disponíveis</p>
+            </div>
+        );
+    }
+
+    return (
+        <div className={styles.intervalCard}>
+            <div className={styles.tableHeaderRow}>
+                {title && <h4 className={styles.tableTitle}>{title}</h4>}
+                {/* Team Filter Toggle */}
+                <div className={styles.teamToggle}>
+                    <button
+                        className={`${styles.toggleBtn} ${selectedTeam === 'home' ? styles.activeToggle : ''}`}
+                        onClick={() => setSelectedTeam(prev => prev === 'home' ? 'both' : 'home')}
+                    >
+                        {homeLogo && <img src={homeLogo} alt="" style={{ width: 16, height: 16, marginRight: 4 }} />}
+                        {homeName}
+                    </button>
+                    <button
+                        className={`${styles.toggleBtn} ${selectedTeam === 'away' ? styles.activeToggle : ''}`}
+                        onClick={() => setSelectedTeam(prev => prev === 'away' ? 'both' : 'away')}
+                    >
+                        {awayLogo && <img src={awayLogo} alt="" style={{ width: 16, height: 16, marginRight: 4 }} />}
+                        {awayName}
+                    </button>
+                </div>
+            </div>
+            <div className={styles.tableScroll}>
+                <table className={styles.dataTable}>
+                    <thead>
+                        <tr>
+                            {(selectedTeam === 'both' || selectedTeam === 'home') && (
+                                <>
+                                    <th>Marcados</th><th>Sofridos</th><th>Total</th><th>%</th>
+                                </>
+                            )}
+                            <th>Período</th>
+                            {(selectedTeam === 'both' || selectedTeam === 'away') && (
+                                <>
+                                    <th>%</th><th>Marcados</th><th>Sofridos</th><th>Total</th>
+                                </>
+                            )}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((row, i) => (
+                            <tr key={i}>
+                                {(selectedTeam === 'both' || selectedTeam === 'home') && (
+                                    <>
+                                        <td>{row.home?.scored || 0}</td>
+                                        <td>{row.home?.conceded || 0}</td>
+                                        <td>{(row.home?.scored || 0) + (row.home?.conceded || 0)}</td>
+                                        <td><span className={`${styles.percentBadge} ${parseFloat(row.home?.pct || row.home?.frequency || 0) > 50 ? styles.high : ''}`}>{row.home?.pct || row.home?.frequency || 0}%</span></td>
+                                    </>
+                                )}
+                                <td className={styles.periodCell}>
+                                    {row.period}
+                                    <span className={styles.periodBadge}>{row.periodPct || 0}%</span>
+                                </td>
+                                {(selectedTeam === 'both' || selectedTeam === 'away') && (
+                                    <>
+                                        <td><span className={`${styles.percentBadge} ${parseFloat(row.away?.pct || row.away?.frequency || 0) > 50 ? styles.high : ''}`}>{row.away?.pct || row.away?.frequency || 0}%</span></td>
+                                        <td>{row.away?.scored || 0}</td>
+                                        <td>{row.away?.conceded || 0}</td>
+                                        <td>{(row.away?.scored || 0) + (row.away?.conceded || 0)}</td>
+                                    </>
+                                )}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div className={styles.tableScroll}>
-            <table className={styles.dataTable}>
-                <thead>
-                    <tr>
-                        <th>Marcados</th><th>Sofridos</th><th>Total</th><th>%</th>
-                        <th>Período</th>
-                        <th>%</th><th>Marcados</th><th>Sofridos</th><th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((row, i) => (
-                        <tr key={i}>
-                            <td>{row.home.scored}</td>
-                            <td>{row.home.conceded}</td>
-                            <td>{row.home.total}</td>
-                            <td><span className={`${styles.percentBadge} ${parseFloat(row.home.pct) > 50 ? styles.high : ''}`}>{row.home.pct}%</span></td>
-                            <td className={styles.periodCell}>
-                                {row.period}
-                                <span className={styles.periodBadge}>{row.periodPct}%</span>
-                            </td>
-                            <td><span className={`${styles.percentBadge} ${parseFloat(row.away.pct) > 50 ? styles.high : ''}`}>{row.away.pct}%</span></td>
-                            <td>{row.away.scored}</td>
-                            <td>{row.away.conceded}</td>
-                            <td>{row.away.total}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    </div>
-);
+    );
+};
 
-export default function GoalsAnalysis({ homeTeam = "Mirassol", awayTeam = "Flamengo", data: propData }) {
+export default function GoalsAnalysis({ homeTeam = "Time Casa", awayTeam = "Time Fora", homeLogo, awayLogo, data: propData }) {
 
     // DADOS MOCKADOS (Fallback)
     const mockData = {
@@ -141,36 +184,36 @@ export default function GoalsAnalysis({ homeTeam = "Mirassol", awayTeam = "Flame
         <div className={styles.container}>
 
             {/* 1. SEÇÃO PRINCIPAL (MÉDIAS e XG) */}
-            <div className={styles.topGrid}>
-                {/* Médias */}
-                <div className={styles.card}>
-                    <h3 className={styles.cardTitle}><FaFutbol /> Análise Detalhada</h3>
-                    <div className={styles.averagesGrid}>
-                        <div className={styles.teamCol}>
-                            <img src="https://cdn.sportmonks.com/images/soccer/teams/22/3030.png" className={styles.miniLogo} />
-                            <span>{homeTeam}</span>
-                            <div className={styles.statItem}><span>Média Gols</span><strong>{data.general.scored.home}</strong></div>
-                            <div className={styles.statItem}><span>Sofridos</span><strong>{data.general.conceded.home}</strong></div>
-                            <div className={styles.statItem}><span>BTTS</span><strong className={styles.highlight}>{data.general.btts.home}%</strong></div>
-                        </div>
-                        <div className={styles.teamCol}>
-                            <img src="https://cdn.sportmonks.com/images/soccer/teams/19/3027.png" className={styles.miniLogo} />
-                            <span>{awayTeam}</span>
-                            <div className={styles.statItem}><span>Média Gols</span><strong>{data.general.scored.away}</strong></div>
-                            <div className={styles.statItem}><span>Sofridos</span><strong>{data.general.conceded.away}</strong></div>
-                            <div className={styles.statItem}><span>BTTS</span><strong className={styles.highlight}>{data.general.btts.away}%</strong></div>
-                        </div>
+            <div className={styles.card}>
+                <h3 className={styles.cardTitle}><FaFutbol /> Análise Detalhada</h3>
+                <div className={styles.averagesGrid}>
+                    <div className={styles.teamCol}>
+                        {homeLogo && <img src={homeLogo} className={styles.miniLogo} alt="Home" onError={(e) => e.target.style.display = 'none'} />}
+                        <span>{homeTeam}</span>
+                        <div className={styles.statItem}><span>Média Gols</span><strong>{data.general.scored.home}</strong></div>
+                        <div className={styles.statItem}><span>Sofridos</span><strong>{data.general.conceded.home}</strong></div>
+                        <div className={styles.statItem}><span>BTTS</span><strong className={styles.highlight}>{data.general.btts.home}%</strong></div>
+                    </div>
+                    <div className={styles.teamCol}>
+                        {awayLogo && <img src={awayLogo} className={styles.miniLogo} alt="Away" onError={(e) => e.target.style.display = 'none'} />}
+                        <span>{awayTeam}</span>
+                        <div className={styles.statItem}><span>Média Gols</span><strong>{data.general.scored.away}</strong></div>
+                        <div className={styles.statItem}><span>Sofridos</span><strong>{data.general.conceded.away}</strong></div>
+                        <div className={styles.statItem}><span>BTTS</span><strong className={styles.highlight}>{data.general.btts.away}%</strong></div>
                     </div>
                 </div>
-
-                {/* Tabela Gols Por Intervalo (Imagem 1) */}
-                <IntervalTable
-                    title="Golos Por Intervalo"
-                    data={data.intervals.goals}
-                    homeName={homeTeam}
-                    awayName={awayTeam}
-                />
             </div>
+
+            {/* DEBUG: Log API data to console */}
+            {typeof window !== 'undefined' && console.log('[GoalsAnalysis] Data received:', propData ? 'API DATA' : 'MOCK DATA', data)}
+
+            {/* Tabela Gols Por Intervalo - COM FILTRO DE TIME */}
+            <IntervalTableWithFilter
+                title="Golos Por Intervalo"
+                data={data.intervals?.goals || []}
+                homeName={homeTeam}
+                awayName={awayTeam}
+            />
 
             {/* 2. PREVISÃO DE RESULTADO (IMAGEM 2) - NOVO! */}
             <div className={styles.card}>
@@ -251,9 +294,9 @@ export default function GoalsAnalysis({ homeTeam = "Mirassol", awayTeam = "Flame
             {/* 6. TABELAS DETALHADAS DE REMATES POR INTERVALO (IMAGEM 7) - NOVO! */}
             <div className={styles.card}>
                 <h3 className={styles.cardTitle}><FaTable /> Detalhes por Intervalo</h3>
-                <IntervalTable
+                <IntervalTableWithFilter
                     title="Remates Totais Intervalo"
-                    data={data.intervals.shotsTotal}
+                    data={data.intervals?.shotsTotal || []}
                     homeName={homeTeam}
                     awayName={awayTeam}
                 />

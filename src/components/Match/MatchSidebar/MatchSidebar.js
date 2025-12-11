@@ -67,6 +67,48 @@ export default function MatchSidebar({ match, activeTab }) {
                 </div>
             </div>
 
+            {/* DETALHES - Always visible below header */}
+            <div className={styles.sectionCard}>
+                <div className={styles.detailsTitle}>📍 Detalhes</div>
+                <div className={styles.detailItem}>
+                    {match.league?.logo && <img src={match.league?.logo} alt="" className={styles.detailIcon} style={{ width: 16, height: 16 }} />}
+                    <span>{match.league?.name || 'Liga não informada'}</span>
+                </div>
+                <div className={styles.detailItem}>
+                    <span>🏟️ {match.venue?.name || 'Estádio não informado'}</span>
+                </div>
+                {match.weather && (
+                    <div className={styles.detailItem}>
+                        <span>☀️ {match.weather?.condition || '-'}</span>
+                    </div>
+                )}
+            </div>
+
+            {/* PROBABILIDADE - Always visible below details */}
+            {match.predictions?.fulltime && (
+                <div className={styles.sectionCard}>
+                    <div className={styles.detailsTitle}>📊 Probabilidade</div>
+                    <div className={styles.probBarContainer}>
+                        <div className={styles.overUnderBar}>
+                            <div className={styles.overTitle}>Casa</div>
+                            <div className={styles.probBar}>
+                                <div className={styles.probHome} style={{ width: `${match.predictions.fulltime.home || 0}%` }}>
+                                    {match.predictions.fulltime.home || 0}%
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.overUnderBar}>
+                            <div className={styles.overTitle}>Fora</div>
+                            <div className={styles.probBar}>
+                                <div className={styles.probAway} style={{ width: `${match.predictions.fulltime.away || 0}%` }}>
+                                    {match.predictions.fulltime.away || 0}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* CONTEÚDO DINÂMICO DA SIDEBAR */}
             {activeTab === 'global' && (
                 <>
@@ -114,8 +156,10 @@ export default function MatchSidebar({ match, activeTab }) {
                         predictions={match.h2h?.trends || []}
                     />
                     <PreviousGames
-                        teamName={home.name}
-                        games={match.history?.home || []}
+                        homeTeam={{ name: home.name, logo: home.logo, id: home.id }}
+                        awayTeam={{ name: away.name, logo: away.logo, id: away.id }}
+                        homeGames={home.detailedHistory || match.history?.home || []}
+                        awayGames={away.detailedHistory || match.history?.away || []}
                     />
                 </>
             )}

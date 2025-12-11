@@ -1,3 +1,5 @@
+/* CornersAnalysis.module.css - Premium UI/UX Polish */
+
 .container {
     width: 100%;
     color: #e0e0e0;
@@ -5,127 +7,152 @@
 
 .sectionTitle {
     font-size: 1rem;
-    margin-bottom: 1rem;
-    font-weight: 500;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .topGrid {
     display: grid;
-    grid-template-columns: 40% 59%;
-    gap: 1%;
-    margin-bottom: 1.5rem;
+    grid-template-columns: 40% 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
 .card {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 1rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
 
 .cardTitle {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
     color: #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 /* Header Tabs */
 .tabsHeader {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .tabTitle {
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 .tabBtns {
     display: flex;
-    gap: 5px;
+    gap: 8px;
 }
 
 .btn {
     background: none;
     border: none;
-    color: #888;
+    color: #777;
     font-size: 0.8rem;
     cursor: pointer;
     border-bottom: 2px solid transparent;
+    padding: 4px 8px;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    color: #aaa;
 }
 
 .btn.active {
-    color: #0091ea;
-    border-color: #0091ea;
+    color: #00d4ff;
+    border-color: #00d4ff;
 }
 
 .teamsRow {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     align-items: center;
 }
 
 .team {
     display: flex;
     align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
 }
 
 .team img {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
 }
 
 /* Stats Table */
 .statsTable {
-    margin-bottom: 15px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 12px;
 }
 
 .statRow {
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
-    padding: 4px 0;
+    font-size: 0.85rem;
+    padding: 6px 0;
 }
 
 .statLabel {
-    color: #ccc;
+    color: #888;
 }
 
 /* Calculadora */
 .calcArea {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 .calcArea h4 {
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-bottom: 5px;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
 .sliderRow {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-size: 0.8rem;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .slider {
     flex: 1;
-    height: 4px;
-    background: #444;
-    border-radius: 2px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
     position: relative;
 }
 
@@ -133,68 +160,81 @@
     content: '';
     position: absolute;
     left: 0;
-    width: 10px;
-    height: 10px;
-    background: #0091ea;
+    width: 14px;
+    height: 14px;
+    background: #00d4ff;
     border-radius: 50%;
-    top: -3px;
+    top: -4px;
+    box-shadow: 0 2px 6px rgba(0, 212, 255, 0.4);
 }
 
 .calcResult {
     display: flex;
-    gap: 10px;
-    margin-top: 5px;
+    gap: 12px;
+    margin-top: 8px;
 }
 
 .blueBadge {
-    background: #0081cb;
-    padding: 2px 8px;
-    border-radius: 10px;
+    background: linear-gradient(135deg, #0091ea, #0077c2);
+    padding: 4px 12px;
+    border-radius: 16px;
     font-size: 0.75rem;
     color: #fff;
+    font-weight: 600;
 }
 
 /* Totals Table */
 .totalHeader {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
-    color: #aaa;
-    margin-bottom: 5px;
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .dualHead {
     display: flex;
-    gap: 5px;
-    width: 70px;
-    font-size: 0.7rem;
+    gap: 8px;
+    width: 110px;
+    /* Increased from 80px to fit "MARCADOS SOFRIDOS" */
+    font-size: 0.65rem;
     justify-content: space-between;
+    white-space: nowrap;
 }
 
 .totalRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.totalRow:last-child {
+    border-bottom: none;
 }
 
 .rowLabel {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    color: #ccc;
 }
 
 .dualVal {
     display: flex;
-    gap: 5px;
-    width: 80px;
+    gap: 8px;
+    width: 90px;
     justify-content: space-between;
 }
 
 /* Badges */
 .badge {
-    padding: 1px 0;
-    width: 38px;
+    padding: 3px 0;
+    width: 42px;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 700;
     color: #fff;
@@ -202,39 +242,65 @@
 }
 
 .high {
-    background: #00c853;
+    background: linear-gradient(135deg, #00c853, #00a045);
 }
 
 .med {
-    background: #ffb300;
+    background: linear-gradient(135deg, #ffb300, #ff9500);
     color: #000;
 }
 
 .low {
-    background: #ff5252;
+    background: linear-gradient(135deg, #ff5252, #e04444);
 }
 
 /* Interval Table */
 .cardHeaderSmall {
-    font-size: 0.95rem;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #e0e0e0;
 }
 
 .teamsSmall {
     display: flex;
-    font-size: 0.85rem;
-    margin-bottom: 10px;
+    font-size: 0.8rem;
+    margin-bottom: 12px;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+    color: #888;
 }
 
+/* Scroll container for interval table */
 .intervalScroll {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    border-radius: 8px;
+}
+
+.intervalScroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.intervalScroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.intervalScroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.intervalScroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .intervalTable {
     width: 100%;
+    min-width: 400px;
     border-collapse: collapse;
     font-size: 0.75rem;
     text-align: center;
@@ -242,92 +308,122 @@
 }
 
 .intervalTable th {
-    background: #2b2b2b;
-    padding: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 8px 6px;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
 }
 
 .intervalTable td {
-    padding: 4px;
-    border-bottom: 1px solid #2f2f2f;
+    padding: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    font-variant-numeric: tabular-nums;
+}
+
+.intervalTable tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .period {
-    background: #333;
+    background: rgba(255, 255, 255, 0.06);
     color: #fff;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .moreBtn {
     width: 100%;
-    background: #0081cb;
+    background: linear-gradient(135deg, #0091ea, #0077c2);
     color: #fff;
     border: none;
-    padding: 6px;
-    border-radius: 4px;
-    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 12px;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.moreBtn:hover {
+    background: linear-gradient(135deg, #00a4ff, #0088dd);
+    transform: translateY(-1px);
 }
 
 /* Handicap */
 .handicapHeader {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
-    color: #aaa;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 5px;
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .handicapRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    padding: 4px 0;
 }
 
 /* Races */
 .racesTitle {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .racesHeader {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
-    color: #aaa;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 5px;
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .raceList {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .raceRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #2f2f2f;
-    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 8px 0;
+}
+
+.raceRow:last-child {
+    border-bottom: none;
 }
 
 .raceLabel {
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ccc;
 }
 
 .raceBar {
-    width: 60px;
-    height: 16px;
-    background: #333;
-    border-radius: 4px;
+    width: 70px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -340,20 +436,138 @@
     left: 0;
     top: 0;
     height: 100%;
-    opacity: 0.3;
+    opacity: 0.4;
+    border-radius: 6px;
 }
 
 .raceVal {
     position: relative;
     z-index: 1;
-    font-size: 0.7rem;
-    font-weight: bold;
+    font-size: 0.75rem;
+    font-weight: 700;
     color: #fff;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Laptop */
+@media (max-width: 1200px) {
+    .topGrid {
+        gap: 1.5rem;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
     .topGrid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .card {
+        padding: 1.125rem;
+        border-radius: 12px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .topGrid {
+        margin-bottom: 1.25rem;
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+    }
+
+    .cardTitle {
+        font-size: 0.85rem;
+        margin-bottom: 0.875rem;
+    }
+
+    .team img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .team {
+        font-size: 0.8rem;
+    }
+
+    .statRow {
+        font-size: 0.8rem;
+    }
+
+    .intervalTable {
+        font-size: 0.7rem;
+    }
+
+    .intervalTable th {
+        padding: 6px 4px;
+        font-size: 0.65rem;
+    }
+
+    .intervalTable td {
+        padding: 5px 4px;
+    }
+
+    .badge {
+        width: 38px;
+        font-size: 0.7rem;
+    }
+
+    .raceBar {
+        width: 60px;
+        height: 18px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .card {
+        padding: 0.875rem;
+        border-radius: 8px;
+    }
+
+    .cardTitle {
+        font-size: 0.8rem;
+    }
+
+    .tabsHeader {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .tabBtns {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .btn {
+        font-size: 0.75rem;
+        padding: 4px 6px;
+    }
+
+    .team {
+        font-size: 0.75rem;
+    }
+
+    .team img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .dualVal {
+        width: 80px;
+    }
+
+    .dualHead {
+        width: 70px;
     }
 }

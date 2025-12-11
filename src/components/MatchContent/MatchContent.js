@@ -95,25 +95,42 @@ export default function MatchContent({ activeTab, match, filterCondition = 'ALL'
                                 homeTeam={match.homeTeam}
                                 awayTeam={match.awayTeam}
                                 statsData={match.analysis?.detailedStats}
+                                charts={match.chartsAnalysis}
+                                events={match.events}
                             />
                         )}
 
                         {/* 2. ABAS ESPECÍFICAS (Sempre disponíveis se tiver dados) */}
                         {activeTab === 'goals' && (
-                            <GoalsAnalysis homeTeam={match.homeTeam?.name} awayTeam={match.awayTeam?.name} data={match.goalAnalysis} />
+                            <GoalsAnalysis
+                                homeTeam={match.homeTeam?.name}
+                                awayTeam={match.awayTeam?.name}
+                                homeLogo={match.homeTeam?.logo}
+                                awayLogo={match.awayTeam?.logo}
+                                data={match.goalAnalysis}
+                            />
                         )}
 
                         {activeTab === 'corners' && (
                             <CornersAnalysis
                                 homeTeam={match.homeTeam?.name}
                                 awayTeam={match.awayTeam?.name}
+                                homeLogo={match.homeTeam?.logo}
+                                awayLogo={match.awayTeam?.logo}
                                 data={match.cornerAnalysis}
                                 odds={match.odds}
                             />
                         )}
 
                         {activeTab === 'cards' && (
-                            <CardsAnalysis data={match.cardAnalysis} referee={matchInfo?.referee} />
+                            <CardsAnalysis
+                                homeTeam={match.homeTeam?.name}
+                                awayTeam={match.awayTeam?.name}
+                                homeLogo={match.homeTeam?.logo}
+                                awayLogo={match.awayTeam?.logo}
+                                data={match.cardAnalysis}
+                                referee={matchInfo?.referee}
+                            />
                         )}
 
                         {/* ... Mantenha as outras abas (Charts, Squad, etc) igual ao anterior ... */}
@@ -122,7 +139,14 @@ export default function MatchContent({ activeTab, match, filterCondition = 'ALL'
                         )}
 
                         {(activeTab === 'players' || activeTab === 'squad') && (
-                            <SquadAnalysis homeSquad={match.homeTeam?.squad} awaySquad={match.awayTeam?.squad} homeTeamName={match.homeTeam?.name} awayTeamName={match.awayTeam?.name} />
+                            <SquadAnalysis
+                                homeSquad={match.homeTeam?.squad}
+                                awaySquad={match.awayTeam?.squad}
+                                homeTeamName={match.homeTeam?.name}
+                                awayTeamName={match.awayTeam?.name}
+                                homeTeamLogo={match.homeTeam?.logo || match.homeTeam?.image_path}
+                                awayTeamLogo={match.awayTeam?.logo || match.awayTeam?.image_path}
+                            />
                         )}
 
                         {activeTab === 'odds' && <PlaceholderTab icon={FaMoneyBillWave} title="Comparador de Odds" message="Em breve" />}
@@ -137,80 +161,7 @@ export default function MatchContent({ activeTab, match, filterCondition = 'ALL'
                 </AnimatePresence>
             </div>
 
-            {/* COLUNA LATERAL (Mantida igual ao anterior, sempre visível) */}
-            <div className={styles.sideColumn}>
-                {/* ... (Mesmo código da sidebar direita de Detalhes, Odds e Probabilidades) ... */}
-                {/* Copie o conteúdo da sideColumn do MatchContent anterior aqui */}
-                <div className={styles.card}>
-                    <h3 className={styles.cardTitle}><FaMapMarkerAlt /> Detalhes</h3>
-
-                    {league && (
-                        <div className={styles.leagueInfoRow}>
-                            {league.logo && <img src={league.logo} alt="L" className={styles.miniLeagueLogo} />}
-                            <span className={styles.leagueNameSide}>{league.name}</span>
-                        </div>
-                    )}
-
-                    <p className={styles.infoText}>{venue?.name || "Estádio não informado"}</p>
-                    {weather && <div className={styles.weatherBox}><FaCloudSun className={styles.weatherIcon} /> <span>{weather.condition || '-'}</span></div>}
-                </div>
-
-                {/* Widget: Odds Principais 1x2 */}
-                {odds && (
-                    <div className={styles.card}>
-                        <h3 className={styles.cardTitle}>
-                            <FaMoneyBillWave style={{ color: 'var(--color-primary)' }} />
-                            Odds Principais
-                        </h3>
-                        <div className={styles.oddsContainer}>
-                            <div className={styles.oddBox}>
-                                <span className={styles.oddLabel}>1</span>
-                                <span className={styles.oddValue}>{odds.find(o => o.label === '1')?.value || '-'}</span>
-                            </div>
-                            <div className={styles.oddBox}>
-                                <span className={styles.oddLabel}>X</span>
-                                <span className={styles.oddValue}>{odds.find(o => o.label === 'X')?.value || '-'}</span>
-                            </div>
-                            <div className={styles.oddBox}>
-                                <span className={styles.oddLabel}>2</span>
-                                <span className={styles.oddValue}>{odds.find(o => o.label === '2')?.value || '-'}</span>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* Widget: Probabilidade IA (Esconde na Global p/ não duplicar) */}
-                {predictions && activeTab !== 'global' && (
-                    <div className={styles.card}>
-                        <h3 className={styles.cardTitle}>
-                            <FaChartPie /> Probabilidade
-                        </h3>
-                        <div className={styles.miniPred}>
-                            <div className={styles.miniHeader}>
-                                <span>Casa</span>
-                                <span className={styles.miniVal}>{predictions.fulltime?.home || 0}%</span>
-                            </div>
-                            <div className={styles.miniTrack}>
-                                <div
-                                    className={styles.miniBar}
-                                    style={{ width: `${predictions.fulltime?.home || 0}%`, background: '#00ff88' }}
-                                ></div>
-                            </div>
-
-                            <div className={styles.miniHeader} style={{ marginTop: '10px' }}>
-                                <span>Fora</span>
-                                <span className={styles.miniVal}>{predictions.fulltime?.away || 0}%</span>
-                            </div>
-                            <div className={styles.miniTrack}>
-                                <div
-                                    className={styles.miniBar}
-                                    style={{ width: `${predictions.fulltime?.away || 0}%`, background: '#00d4ff' }}
-                                ></div>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
+            {/* REMOVED sideColumn - Detalhes, Odds, and Probabilidade now in MatchSidebar */}
         </div>
     );
 }

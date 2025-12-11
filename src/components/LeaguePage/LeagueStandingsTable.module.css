@@ -1,0 +1,243 @@
+.container {
+    background: #0f1419;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: #1a2332;
+    border-bottom: 1px solid #2a3441;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.filters {
+    display: flex;
+    gap: 4px;
+}
+
+.filterBtn {
+    padding: 6px 14px;
+    border: 1px solid #2a3441;
+    border-radius: 4px;
+    background: transparent;
+    color: #9ca3af;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filterBtn:hover {
+    border-color: #00d4ff;
+    color: #00d4ff;
+}
+
+.filterBtn.active {
+    background: #00d4ff;
+    color: #0f1419;
+    border-color: #00d4ff;
+}
+
+/* Table */
+.tableWrapper {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+}
+
+.table th {
+    padding: 10px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    text-align: center;
+    background: rgba(42, 52, 65, 0.3);
+    border-bottom: 1px solid #2a3441;
+}
+
+.thPos {
+    width: 40px;
+}
+
+.thTeam {
+    text-align: left !important;
+    min-width: 150px;
+}
+
+.thForm {
+    min-width: 100px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(42, 52, 65, 0.5);
+    transition: background 0.2s;
+}
+
+.table tbody tr:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.table td {
+    padding: 10px 8px;
+    font-size: 13px;
+    color: #e5e7eb;
+    text-align: center;
+}
+
+.tdPos {
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+.tdTeam {
+    text-align: left !important;
+}
+
+.teamLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #e5e7eb;
+}
+
+.teamLink:hover {
+    color: #00d4ff;
+}
+
+.teamLogo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.tdPoints {
+    font-weight: 700;
+    color: #00d4ff;
+}
+
+.tdWin {
+    color: #10b981;
+}
+
+.tdLoss {
+    color: #ef4444;
+}
+
+.positive {
+    color: #10b981;
+}
+
+.negative {
+    color: #ef4444;
+}
+
+/* Form Badges */
+.tdForm {
+    text-align: center;
+}
+
+.formList {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+}
+
+.formBadge {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.win {
+    background: #10b981;
+}
+
+.draw {
+    background: #f59e0b;
+}
+
+.loss {
+    background: #ef4444;
+}
+
+/* Zone Colors */
+.zoneChampions {
+    border-left: 3px solid #10b981;
+}
+
+.zoneEuropa {
+    border-left: 3px solid #3b82f6;
+}
+
+.zoneConference {
+    border-left: 3px solid #8b5cf6;
+}
+
+.zoneRelegation {
+    border-left: 3px solid #ef4444;
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    gap: 20px;
+    padding: 12px 20px;
+    background: rgba(42, 52, 65, 0.2);
+    border-top: 1px solid #2a3441;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.legendDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+}
+
+.legendDot.zoneChampions {
+    background: #10b981;
+}
+
+.legendDot.zoneEuropa {
+    background: #3b82f6;
+}
+
+.legendDot.zoneRelegation {
+    background: #ef4444;
+}
+
+.empty {
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
+}

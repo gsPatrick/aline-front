@@ -1,0 +1,181 @@
+.card {
+    background: #1a1f26;
+    border: 1px solid #2a3441;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e5e7eb;
+    margin: 0 0 16px 0;
+}
+
+/* Dropdown */
+.dropdownWrapper {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 14px;
+    background: #0f1419;
+    border: 1px solid #2a3441;
+    border-radius: 8px;
+    color: #e5e7eb;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.dropdown:hover {
+    border-color: #00d4ff;
+}
+
+.dropdown svg {
+    font-size: 12px;
+    color: #6b7280;
+    transition: transform 0.2s;
+}
+
+.rotated {
+    transform: rotate(180deg);
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #1a1f26;
+    border: 1px solid #2a3441;
+    border-radius: 8px;
+    margin-top: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.dropdownItem {
+    width: 100%;
+    padding: 10px 14px;
+    background: none;
+    border: none;
+    color: #e5e7eb;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dropdownItem:hover {
+    background: rgba(0, 212, 255, 0.1);
+}
+
+/* Stats Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.statCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    background: rgba(42, 52, 65, 0.3);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.statCard:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.statLabel {
+    font-size: 11px;
+    color: #9ca3af;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.statValue {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e5e7eb;
+}
+
+/* Progress Bar */
+.progressBar {
+    width: 100%;
+    height: 4px;
+    background: rgba(42, 52, 65, 0.5);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* Color Variants */
+.colorcyan {
+    border-top: 2px solid #00d4ff;
+}
+
+.colorcyan .statLabel {
+    color: #00d4ff;
+}
+
+.colorcyan .progress {
+    background: #00d4ff;
+}
+
+.colorgreen {
+    border-top: 2px solid #10b981;
+}
+
+.colorgreen .statLabel {
+    color: #10b981;
+}
+
+.colorgreen .progress {
+    background: #10b981;
+}
+
+.colororange {
+    border-top: 2px solid #f59e0b;
+}
+
+.colororange .statLabel {
+    color: #f59e0b;
+}
+
+.colororange .progress {
+    background: #f59e0b;
+}
+
+.colordefault .statLabel {
+    color: #9ca3af;
+}
+
+.colordefault .progress {
+    background: #6b7280;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
