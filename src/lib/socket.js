@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
 // URL Base do servidor (sem o /api)
-const SOCKET_URL = 'http://localhost:3333';
+const SOCKET_URL = 'https://10stats-dezstatsapi.qc6ju4.easypanel.host';
 
 let socket;
 
