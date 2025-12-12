@@ -1,58 +1,22 @@
 {
   "pages": {
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
     "/leagues/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/leagues/[id]/page.css",
       "static/chunks/app/leagues/[id]/page.js"
-    ],
-    "/match/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/match/[id]/page.css",
-      "static/chunks/app/match/[id]/page.js"
-    ],
-    "/team/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/team/[id]/page.css",
-      "static/chunks/app/team/[id]/page.js"
-    ],
-    "/estatisticas/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/estatisticas/page.css",
-      "static/chunks/app/estatisticas/page.js"
-    ],
-    "/ao-vivo/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/ao-vivo/page.css",
-      "static/chunks/app/ao-vivo/page.js"
-    ],
-    "/bots/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/bots/page.css",
-      "static/chunks/app/bots/page.js"
-    ],
-    "/search/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/search/page.css",
-      "static/chunks/app/search/page.js"
     ],
     "/not-found": [
       "static/chunks/webpack.js",

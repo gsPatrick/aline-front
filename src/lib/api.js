@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // URL Hardcoded conforme solicitado
-const BASE_URL = 'http://localhost:3333/api';
+const BASE_URL = 'https://10stats-dezstatsapi.qc6ju4.easypanel.host/api';
 
 const api = axios.create({
   baseURL: BASE_URL,
