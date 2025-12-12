@@ -6,7 +6,7 @@ import { FaSearch, FaFutbol, FaTrophy, FaUser, FaTimes, FaSpinner } from 'react-
 import Header from '@/components/Header/Header';
 import styles from './search.module.css';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3333';
+const API_URL = 'https://10stats-dezstatsapi.qc6ju4.easypanel.host';
 
 // Separate component for the search logic that uses useSearchParams
 function SearchContent() {
