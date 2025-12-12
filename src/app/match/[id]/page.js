@@ -185,10 +185,10 @@ export default function MatchPage() {
 
                 // Fetch predictions, match facts, and xG
                 Promise.all([
-                    fetch(`http://localhost:3333/api/predictions/fixture/${id}`).then(r => r.json()).catch(() => null),
-                    fetch(`http://localhost:3333/api/match-facts/fixture/${id}`).then(r => r.json()).catch(() => null),
+                    fetch(`https://10stats-dezstatsapi.qc6ju4.easypanel.host/api/predictions/fixture/${id}`).then(r => r.json()).catch(() => null),
+                    fetch(`https://10stats-dezstatsapi.qc6ju4.easypanel.host/api/match-facts/fixture/${id}`).then(r => r.json()).catch(() => null),
                     homeTeamId && awayTeamId
-                        ? fetch(`http://localhost:3333/api/expected/match/${homeTeamId}/${awayTeamId}`).then(r => r.json()).catch(() => null)
+                        ? fetch(`https://10stats-dezstatsapi.qc6ju4.easypanel.host/api/expected/match/${homeTeamId}/${awayTeamId}`).then(r => r.json()).catch(() => null)
                         : Promise.resolve(null)
                 ]).then(([predData, factsData, xgResult]) => {
                     if (predData?.predictions) setPredictions(predData.predictions);
