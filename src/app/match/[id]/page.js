@@ -4,9 +4,11 @@ import { useParams } from 'next/navigation';
 import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import MatchSidebar from "@/components/Match/MatchSidebar/MatchSidebar";
-import MatchContent from "../../../components/MatchContent/MatchContent"; // Ajuste o caminho se necessário
+import MatchContent from "../../../components/MatchContent/MatchContent";
 import { FaSpinner, FaExclamationTriangle } from 'react-icons/fa';
 import styles from "./page.module.css";
+
+// Imports removed (unavailable features)
 
 // DADOS MOCKADOS COMPLETOS - SINGLE SOURCE OF TRUTH
 const mockMatch = {
@@ -133,9 +135,15 @@ export default function MatchPage() {
     const [error, setError] = useState(null);
     const [activeTab, setActiveTab] = useState('global');
 
+    // NEW: Advanced features state
+    const [predictions, setPredictions] = useState(null);
+    const [matchFacts, setMatchFacts] = useState([]);
+    const [xgData, setXgData] = useState(null);
+
     useEffect(() => {
         const fetchMatchData = async () => {
             try {
+                // Fetch main match data
                 const response = await fetch(`http://localhost:3333/api/matches/${id}/analysis`);
                 if (!response.ok) throw new Error('Falha ao carregar dados do jogo');
 
@@ -146,46 +154,48 @@ export default function MatchPage() {
                     matchInfo: data.matchInfo,
                     homeTeam: data.homeTeam,
                     awayTeam: data.awayTeam,
-                    league: data.matchInfo.league, // Frontend expects league at root
+                    league: data.matchInfo.league,
 
-                    // Analysis
                     analysis: {
                         standings: data.analysis?.standings || [],
                         detailedStats: data.analysis?.detailedStats || null
                     },
 
-                    // Stats & Analysis
                     history: data.history,
-                    odds: data.odds, // Need to verify if backend returns odds object or array
+                    odds: data.odds,
                     goalAnalysis: data.goalAnalysis,
                     cornerAnalysis: data.cornerAnalysis,
                     cardAnalysis: data.cardAnalysis,
                     predictions: data.predictions,
                     lineups: data.lineups,
-
-                    // Pass through other data
                     ...data
                 };
 
                 setMatch(adaptedMatch);
 
-                // Auto-select 'finished' tab if match is ended and we are on default 'global'
-                // Or maybe just ensure 'finished' is available.
-                // Actually, 'Global' shows OverviewTab for finished, so maybe we don't need to switch?
-                // The user request: "O TAB DE TERMINADO VOLTA APARECER POIS ALI MOSTRA OS DADOS DA PARTIDA FINALIZADA"
-                // It means they specifically want the 'finished' tab to be visible. 
-                // In LEVEL_1_TABS it is always visible.
-                // But perhaps they want it to be *selected*?
+                // Auto-select 'finished' tab if match is ended
                 const state = adaptedMatch.matchInfo?.state;
                 if (['FT', 'AET', 'FT_PEN'].includes(state) && activeTab === 'global') {
-                    // If we want to force 'finished' tab:
                     setActiveTab('finished');
-                    // IMPORTANT: 'Global' (OverviewTab) and 'Finished' (MatchStatsView) might be redundant or different views.
-                    // The user says "Global tab shows finished data".
-                    // OverviewTab shows general summary. MatchStatsView (on 'finished' tab) shows detailed stats.
-                    // Let's force switch to 'finished' if we want detailed stats, or just ensure 'finished' is clickable.
-                    // It seems they want the user to know it's finished.
                 }
+
+                // NEW: Fetch advanced features data in parallel
+                const homeTeamId = adaptedMatch.homeTeam?.id;
+                const awayTeamId = adaptedMatch.awayTeam?.id;
+
+                // Fetch predictions, match facts, and xG
+                Promise.all([
+                    fetch(`http://localhost:3333/api/predictions/fixture/${id}`).then(r => r.json()).catch(() => null),
+                    fetch(`http://localhost:3333/api/match-facts/fixture/${id}`).then(r => r.json()).catch(() => null),
+                    homeTeamId && awayTeamId
+                        ? fetch(`http://localhost:3333/api/expected/match/${homeTeamId}/${awayTeamId}`).then(r => r.json()).catch(() => null)
+                        : Promise.resolve(null)
+                ]).then(([predData, factsData, xgResult]) => {
+                    if (predData?.predictions) setPredictions(predData.predictions);
+                    if (factsData?.all) setMatchFacts(factsData.all);
+                    if (xgResult) setXgData(xgResult);
+                });
+
             } catch (err) {
                 console.error(err);
                 setError(err.message);

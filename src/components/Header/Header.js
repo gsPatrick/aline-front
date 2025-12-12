@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { FaRegFutbol, FaBolt, FaChartLine, FaRobot, FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
+import { FaRegFutbol, FaBolt, FaChartLine, FaRobot, FaUserCircle, FaSignOutAlt, FaSearch } from 'react-icons/fa';
 import styles from './Header.module.css';
 import { useAuth } from '@/context/AuthContext'; // Importar Auth
 
@@ -13,6 +13,7 @@ export default function Header() {
   const navItems = [
     { name: 'Ao Vivo', href: '/ao-vivo', icon: <FaBolt /> },
     { name: 'Jogos', href: '/', icon: <FaRegFutbol /> },
+    { name: 'Buscar', href: '/search', icon: <FaSearch /> },
     { name: 'Estatísticas', href: '/estatisticas', icon: <FaChartLine /> },
     { name: 'Bots & Alertas', href: '/bots', icon: <FaRobot /> },
   ];

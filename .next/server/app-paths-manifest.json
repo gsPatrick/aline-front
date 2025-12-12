@@ -1,7 +1,9 @@
 {
   "/leagues/[id]/page": "app/leagues/[id]/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js",
   "/match/[id]/page": "app/match/[id]/page.js",
+  "/search/page": "app/search/page.js",
+  "/ao-vivo/page": "app/ao-vivo/page.js",
+  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/team/[id]/page": "app/team/[id]/page.js"
 }

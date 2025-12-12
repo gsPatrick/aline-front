@@ -343,3 +343,70 @@
     border-radius: 10px;
   }
 }
+
+/* ========================================
+   NEW: Advanced Features Styles
+   ======================================== */
+
+/* Predictions Section - W/D/L Bar */
+.predictionsSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 2rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.05));
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.predictionsLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #60a5fa;
+  white-space: nowrap;
+}
+
+/* Match Facts Section in Sidebar */
+.matchFactsSection {
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* xG Section */
+.xgSection {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+/* Responsive adjustments for new sections */
+@media (max-width: 768px) {
+  .predictionsSection {
+    padding: 10px 1rem;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .predictionsLabel {
+    font-size: 12px;
+  }
+
+  .xgSection {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .predictionsSection {
+    padding: 8px 0.75rem;
+    gap: 8px;
+  }
+
+  .predictionsLabel {
+    font-size: 11px;
+  }
+}

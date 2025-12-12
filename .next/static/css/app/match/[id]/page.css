@@ -8245,3 +8245,70 @@
     border-radius: 10px;
   }
 }
+
+/* ========================================
+   NEW: Advanced Features Styles
+   ======================================== */
+
+/* Predictions Section - W/D/L Bar */
+.page_predictionsSection__n6umx {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 2rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.05));
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.page_predictionsLabel__CwHfo {
+  font-size: 14px;
+  font-weight: 600;
+  color: #60a5fa;
+  white-space: nowrap;
+}
+
+/* Match Facts Section in Sidebar */
+.page_matchFactsSection__UBmXT {
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* xG Section */
+.page_xgSection__I4F77 {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+/* Responsive adjustments for new sections */
+@media (max-width: 768px) {
+  .page_predictionsSection__n6umx {
+    padding: 10px 1rem;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .page_predictionsLabel__CwHfo {
+    font-size: 12px;
+  }
+
+  .page_xgSection__I4F77 {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page_predictionsSection__n6umx {
+    padding: 8px 0.75rem;
+    gap: 8px;
+  }
+
+  .page_predictionsLabel__CwHfo {
+    font-size: 11px;
+  }
+}
