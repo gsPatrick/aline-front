@@ -144,7 +144,7 @@ export default function MatchPage() {
         const fetchMatchData = async () => {
             try {
                 // Fetch main match data
-                const response = await fetch(`https://10stats-dezstatsapi.qc6ju4.easypanel.host/api/matches/${id}/analysis`);
+                const response = await fetch(`https://10stats-api-10stats.ebl0ff.easypanel.host/api/matches/${id}/analysis`);
                 if (!response.ok) throw new Error('Falha ao carregar dados do jogo');
 
                 const data = await response.json();
