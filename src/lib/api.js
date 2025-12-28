@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // URL Hardcoded conforme solicitado
-const BASE_URL = 'https://10stats-dezstatsapi.qc6ju4.easypanel.host/api';
+const BASE_URL = 'https://10stats-api-10stats.ebl0ff.easypanel.host/api';
 
 const api = axios.create({
   baseURL: BASE_URL,
